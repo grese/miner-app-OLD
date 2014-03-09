@@ -4,6 +4,56 @@ module.exports = function(server) {
   // have to be repeated for each end point.
 	server.namespace('/api', function() {
 
+        server.get('/miners', function(req, res){
+            var miners = {
+                "miners": [
+                    {
+                        "id": 1,
+                        "name": "Jalapeno 1",
+                        "description": "Butterfly Labs 5GH Jalapeno",
+                        "expectedSpeed": 5000
+                    },
+                    {
+                        "id": 2,
+                        "name": "Jalapeno 2",
+                        "description": "Butterfly Labs 10GH Jalapeno",
+                        "expectedSpeed": 10000
+                    }
+                ]
+            };
+            res.send(miners);
+        });
+
+        server.get('/miners/:id', function(req, res){
+            var miners = {
+                "miners": [
+                    {
+                        "id": 1,
+                        "name": "Jalapeno 1",
+                        "description": "Butterfly Labs 5GH Jalapeno",
+                        "expectedSpeed": 5000
+                    },
+                    {
+                        "id": 2,
+                        "name": "Jalapeno 2",
+                        "description": "Butterfly Labs 10GH Jalapeno",
+                        "expectedSpeed": 10000
+                    }
+                ]
+            };
+
+            var miner = {
+                "miner":{
+                    "id": 1,
+                    "name": "Jalapeno 1",
+                    "description": "Butterfly Labs 5GH Jalapeno",
+                    "expectedSpeed": 5000
+                }
+            }
+
+            res.send(miner);
+        });
+
 		// Return fixture data for '/api/posts/:id'
 		server.get('/posts/:id', function(req, res) {
 			var post = {
