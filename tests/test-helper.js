@@ -2,8 +2,8 @@ document.write('<div id="ember-testing-container"><div id="ember-testing"></div>
 
 Ember.testing = true;
 
-window.startApp          = require('appkit/tests/helpers/start-app')['default'];
-window.isolatedContainer = require('appkit/tests/helpers/isolated-container')['default'];
+window.startApp          = require('minerapp/tests/helpers/start-app')['default'];
+window.isolatedContainer = require('minerapp/tests/helpers/isolated-container')['default'];
 
 function exists(selector) {
   return !!find(selector).length;

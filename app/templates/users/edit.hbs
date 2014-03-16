@@ -1,0 +1,48 @@
+<div class="row">
+    <hr/>
+    <div class="col-md-12">
+        <h3>Edit User: <span class="italic">{{model.username}}</h3>
+        <div class="col-md-6">
+                <div class="row">
+                <form id="edit-user-form" {{action 'save' on='submit'}}>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Username:</label>
+                            {{input class='form-control' value=model.username name='username'}}
+                            <label>Email:</label>
+                            {{input class='form-control' value=model.email name='email'}}
+                        </div>
+                        <div class="col-md-6">
+                            <label>Password:</label><label class="error"></label>
+                            {{input type='password' class='form-control' value=model.password name='password'}}
+                            <label>Confirm Password:</label>
+                            {{input type='password' class='form-control password-conf' name='passwordConf'}}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-save fa-lg save-icon"></i>&nbsp;&nbsp;Save
+                    </button>
+                </div>
+                </form>
+                </div>
+        </div>
+
+            <div class="col-md-6">
+                <div class="well">
+                    <div class="edit-user-delete-container">
+                        <h4>Delete User: <span class="italic">{{model.username}}</span></h4>
+                        <p><span class="text-danger">WARNING!</span>&nbsp;&nbsp;Clicking the delete button below will
+                            permanently delete <span class='italic'>{{model.username}}</span> from the database.
+                            If you are sure that you want to continue, click the delete button below.
+                        </p>
+                        <button class="btn btn-danger btn-sm center-align" {{action 'delete'}}>
+                            <i class="fa fa-trash-o fa-lg delete-icon"></i>&nbsp;
+                            Delete <span class='italic'>{{model.username}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>

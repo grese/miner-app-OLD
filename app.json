@@ -1,0 +1,32 @@
+{
+    "alpha" : {
+        "jalapenoPiHost" : "http://localhost:4080",
+        "sapphirePiHost" : "http://localhost:4080",
+        "sapphirePi2Host" : "http://localhost:4080",
+        "portalHost" : "http://localhost:8000"
+    },
+    "development" : {
+        "jalapenoPiHost" : "http://localhost:4080",
+        "sapphirePiHost" : "http://localhost:4080",
+        "sapphirePi2Host" : "http://localhost:4080",
+        "portalHost" : "http://localhost:8000"
+    },
+    "test" : {
+        "jalapenoPiHost" : "http://localhost:4080",
+        "sapphirePiHost" : "http://localhost:4080",
+        "sapphirePi2Host" : "http://localhost:4080",
+        "portalHost" : "http://localhost:8000"
+    },
+    "staging" : {
+        "jalapenoPiHost" : "http://server.johngrese.com:4080",
+        "sapphirePiHost" : "http://server.johngrese.com:4080",
+        "sapphirePi2Host" : "http://server.johngrese.com:4080",
+        "portalHost" : "http://server.johngrese.com:8000"
+    },
+    "production" : {
+        "jalapenoPiHost" : "http://jalapenopi.johngrese.com:4080",
+        "sapphirePiHost" : "http://sapphirepi.johngrese.com:4080",
+        "sapphirePi2Host" : "http://sapphirepitwo.johngrese.com:4080",
+        "portalHost" : "http://server.johngrese.com:8000"
+    }
+}

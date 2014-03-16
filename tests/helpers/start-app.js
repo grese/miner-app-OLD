@@ -1,5 +1,5 @@
-import Application from 'appkit/app';
-import Router from 'appkit/router';
+import Application from 'minerapp/app';
+import Router from 'minerapp/router';
 
 function startApp(attrs) {
   var App;

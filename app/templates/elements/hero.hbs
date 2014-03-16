@@ -1,0 +1,6 @@
+<div {{bind-attr class=':alert :alert-dismissable getAlertType'}}>
+    <button type="button" class="close" data-dismiss="alert">x</button>
+    <i {{bind-attr class=':fa :hero-icon getIconClass'}}>&nbsp;</i>
+    <h3 class="hero-title">{{getTitle}}</h3>
+    <p>{{message}}</p>
+</div>

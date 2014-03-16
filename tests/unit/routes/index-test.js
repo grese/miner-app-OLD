@@ -1,6 +1,6 @@
-import { test , moduleFor } from 'appkit/tests/helpers/module-for';
+import { test , moduleFor } from 'minerapp/tests/helpers/module-for';
 
-import Index from 'appkit/routes/index';
+import Index from 'minerapp/routes/index';
 
 moduleFor('route:index', "Unit - IndexRoute");
 

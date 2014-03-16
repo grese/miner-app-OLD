@@ -1,0 +1,25 @@
+<div class="row">
+    <hr/>
+        <div class="col-md-12">
+            <h3>Create New User:</h3>
+            <form id="new-user-form" {{action 'create' this on='submit'}}>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Username:</label>
+                    {{input class='form-control' value=model.username name='username'}}
+                    <label>Email:</label>
+                    {{input class='form-control' value=model.email name='email'}}
+                </div>
+                <div class="col-md-6">
+                    <label>Password:</label><label class="error"></label>
+                    {{input type='password' class='form-control' value=model.password name='password'}}
+                    <label>Confirm Password:</label>
+                    {{input type='password' class='form-control' name='passwordConf'}}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">
+                <i class="fa fa-save fa-lg save-icon"></i>&nbsp;&nbsp;Save
+            </button>
+            </form>
+        </div>
+</div>

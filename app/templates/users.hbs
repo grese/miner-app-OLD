@@ -1,0 +1,9 @@
+<h1>Users</h1>
+
+{{#link-to 'users.new' class='new-user-btn btn btn-success btn-xs'}}
+    <i class="fa fa-plus"></i>&nbsp;&nbsp;New User
+{{/link-to}}
+
+{{render 'users.list' model}}
+
+{{outlet}}
