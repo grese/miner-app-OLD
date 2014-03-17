@@ -1,0 +1,18 @@
+<div id="login-form-container">
+    <h1>Login</h1>
+    <form id="login-form" {{action 'login' on='submit'}}>
+        <div class="form-field">
+            <label>Username</label>
+            {{input type='text' value=model.username name='username' class='form-control'}}
+        </div>
+        <div class="form-field">
+            <label>Password</label>
+            {{input type='password' value=model.password name='password' class='form-control'}}
+        </div>
+        <div class="form-submit">
+            <button type="submit" class="btn btn-primary btn-sm">
+                <i class="fa fa-sign-in"></i>&nbsp;&nbsp;Login
+            </button>
+        </div>
+    </form>
+</div>

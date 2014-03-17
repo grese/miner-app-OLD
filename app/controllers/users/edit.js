@@ -5,7 +5,9 @@ export default Em.Controller.extend({
 
             if($(this.get('formSelector')).valid()){
                 var user = this.get('model');
-
+                user.set('username', user.get('username'));
+                user.set('password', user.get('password'));
+                user.set('email', user.get('email'));
                 if(user.save()){
                     this.transitionToRoute('users');
                     this.send('showHero', {

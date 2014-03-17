@@ -7,19 +7,19 @@ module.exports = function(server) {
         server.get('/users', function(req, res){
             var users = [
                     {
-                        "id": 1,
+                        "_id": 1,
                         "username": "grese",
                         "password": "schmiles",
                         "email": "johngrese@me.com"
                     },
                     {
-                        "id": 2,
+                        "_id": 2,
                         "username": "schroeder",
                         "password": "schmiles",
                         "email": "schroeder@johngrese.com"
                     },
                     {
-                        "id": 3,
+                        "_id": 3,
                         "username": "katie",
                         "password": "schmiles",
                         "email": "katie@johngrese.com"
@@ -31,7 +31,7 @@ module.exports = function(server) {
         server.get('/machines/:id', function(req, res){
             var machine = {
                 "machine": {
-                    "id": 1,
+                    "_id": 1,
                     "name": "Jalapeno Pi",
                     "miners": [1, 2],
                     "numExpectedMiners": 2,
@@ -39,13 +39,13 @@ module.exports = function(server) {
                 },
                 "miners": [
                     {
-                        "id": 1,
+                        "_id": 1,
                         "name": "Jalapeno 1",
                         "description": "Butterfly Labs 5GH Jalapeno",
                         "expectedSpeed": 5000
                     },
                     {
-                        "id": 2,
+                        "_id": 2,
                         "name": "Jalapeno 2",
                         "description": "Butterfly Labs 10GH Jalapeno",
                         "expectedSpeed": 10000
@@ -59,21 +59,21 @@ module.exports = function(server) {
             var machines = {
                 "machines": [
                     {
-                        "id": 1,
+                        "_id": 1,
                         "name": "Jalapeno Pi",
                         "miners": [],
                         "numExpectedMiners": 3,
                         "totalExpectedSpeed": 15000
                     },
                     {
-                        "id": 2,
+                        "_id": 2,
                         "name": "Sapphire Pi",
                         "miners": [],
                         "numExpectedMiners": 2,
                         "totalExpectedSpeed": 660
                     },
                     {
-                        "id": 3,
+                        "_id": 3,
                         "name": "Sapphire Pi Two",
                         "miners": [],
                         "numExpectedMiners": 3,
@@ -88,13 +88,13 @@ module.exports = function(server) {
             var miners = {
                 "miners": [
                     {
-                        "id": 1,
+                        "_id": 1,
                         "name": "Jalapeno 1",
                         "description": "Butterfly Labs 5GH Jalapeno",
                         "expectedSpeed": 5000
                     },
                     {
-                        "id": 2,
+                        "_id": 2,
                         "name": "Jalapeno 2",
                         "description": "Butterfly Labs 10GH Jalapeno",
                         "expectedSpeed": 10000
@@ -108,13 +108,13 @@ module.exports = function(server) {
             var miners = {
                 "miners": [
                     {
-                        "id": 1,
+                        "_id": 1,
                         "name": "Jalapeno 1",
                         "description": "Butterfly Labs 5GH Jalapeno",
                         "expectedSpeed": 5000
                     },
                     {
-                        "id": 2,
+                        "_id": 2,
                         "name": "Jalapeno 2",
                         "description": "Butterfly Labs 10GH Jalapeno",
                         "expectedSpeed": 10000
@@ -124,7 +124,7 @@ module.exports = function(server) {
 
             var miner = {
                 "miner":{
-                    "id": 1,
+                    "_id": 1,
                     "name": "Jalapeno 1",
                     "description": "Butterfly Labs 5GH Jalapeno",
                     "expectedSpeed": 5000
@@ -134,21 +134,21 @@ module.exports = function(server) {
             res.send(miner);
         });
 
-		// Return fixture data for '/api/posts/:id'
+		// Return fixture data for '/api/posts/:_id'
 		server.get('/posts/:id', function(req, res) {
 			var post = {
 					  "post": {
-					    "id": 1,
+					    "_id": 1,
 					    "title": "Rails is omakase",
 					    "comments": ["1", "2"],
 					    "user" : "dhh"
 					  },
 
 					  "comments": [{
-					    "id": "1",
+					    "_id": "1",
 					    "body": "Rails is unagi"
 					  }, {
-					    "id": "2",
+					    "_id": "2",
 					    "body": "Omakase O_o"
 					  }]
 					};
