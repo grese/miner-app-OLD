@@ -9,6 +9,12 @@ export default Em.ArrayController.extend({
             textAlign: 'text-align-left',
             canAutoResize: true
         });
+        var emailCol = Em.Table.ColumnDefinition.create({
+            headerCellName: 'Email',
+            contentPath: 'email',
+            textAlign: 'text-align-left',
+            canAutoResize: true
+        });
         var editCol = Em.Table.ColumnDefinition.create({
             headerCellName: '',
             tableCellViewClass: EditCellView,
@@ -18,7 +24,7 @@ export default Em.ArrayController.extend({
             canAutoResize: false
 
         });
-        return [nameCol,  editCol];
+        return [nameCol, emailCol, editCol];
     }),
     rows: Em.computed(function(){
         return this.get('model.content');

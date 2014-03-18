@@ -3,20 +3,25 @@ export default Em.ArrayController.extend({
         var idCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'ID',
             contentPath: 'id',
-            defaultColumnWidth: 10,
-            textAlign: 'text-align-center'
+            defaultColumnWidth: 180,
+            textAlign: 'text-align-center',
+            canAutoResize: false
         });
         var nameCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Name',
-            contentPath: 'name'
+            contentPath: 'name',
+            canAutoResize: true
         });
         var descrCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Description',
-            contentPath: 'description'
+            contentPath: 'description',
+            canAutoResize: true
         });
         var expSpeedCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Expected Speed (MH/s)',
-            contentPath: 'expectedSpeed'
+            contentPath: 'expectedSpeed',
+            defaultColumnWidth: 20,
+            canAutoResize: true
         });
         return [idCol, nameCol, descrCol, expSpeedCol];
     }),
