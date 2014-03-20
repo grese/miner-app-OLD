@@ -4,8 +4,11 @@ export default Em.Controller.extend({
             var model = this.get('model'),
                 username = model.get("username"),
                 password = model.get('password');
-            Em.Logger.debug('Attempting to login with credentials: ');
-            Em.Logger.debug('username: '+username+'; password: '+password);
+            var user = this.store.adapterFor('application').loginUser('grese', 'schmiles');
+            user.then(function(data){
+                console.log(data);
+            });
+
         }
     }
 });

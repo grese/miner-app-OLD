@@ -1,0 +1,15 @@
+<h3>Alerts</h3>
+<div class="email-settings">
+    <label>Email:</label>
+    {{input class='form-control' value=model.email.toAddress name='toAddress'}}
+    <label>SMTP Server</label>
+    {{input class='form-control' value=model.email.smtpServer name='smtpServer'}}
+    <label>SMTP Auth</label>
+    {{input type='checkbox' class='form-control' selected=model.email.smtpAuth name='smtpAuth'}}
+    <label>SMTP Auth Username</label>
+    {{input class='form-control' value=model.email.smtpAuthUsername name='smtpAuthUsername'}}
+    <label>SMTP Auth Password</label>
+    {{input class='form-control' value=model.email.smtpAuthPassword name='smtpAuthPassword'}}
+    <label>SMTP Auth Port</label>
+    {{input class='form-control' value=model.email.smtpAuthPort name='smtpAuthPort'}}
+</div>
