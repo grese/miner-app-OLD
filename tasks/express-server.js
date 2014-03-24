@@ -6,6 +6,7 @@ module.exports = function(grunt) {
       path = require('path'),
       request = require('request');
 
+
   /**
   Task for serving the static files.
 
@@ -36,6 +37,7 @@ module.exports = function(grunt) {
 
       // Use API proxy
       app.all(proxyPath + '/*', passThrough(proxyURL));
+      app.all('/auth/*', passThrough(proxyURL));
     }
 
     if (target === 'debug') {
