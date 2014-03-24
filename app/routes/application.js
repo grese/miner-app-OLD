@@ -1,11 +1,9 @@
 export default Em.Route.extend({
-    enter: function(){
-        console.log('entered application route!');
-        var token = sessionStorage.getItem('apitoken');
-        if(!token || token.length <= 0)
-            this.transitionTo('/login');
-    },
     actions: {
+        logout: function(){
+            this.store.adapterFor('application').logoutUser();
+            this.transitionTo('/login');
+        },
         showHero: function(params){
             this.controllerFor('elements.hero').setProperties({
                 type: params.type,
@@ -21,10 +19,6 @@ export default Em.Route.extend({
         },
         loading: function(){
             Em.Logger.debug('IN LOADING');
-        },
-        logout: function(){
-            var x = this.store.adapterFor('application').logoutUser();
-            console.log(x);
         }
     }
 });

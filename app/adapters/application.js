@@ -15,8 +15,7 @@ export default DS.RESTAdapter.extend({
     },
     logoutUser: function(){
         sessionStorage.removeItem('apitoken');
-        this.ajax('/auth/logout');
-        this.transitionTo('/login');
+        return this.ajax('/auth/logout');
     },
     headers: {
         apitoken: null
