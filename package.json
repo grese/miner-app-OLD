@@ -54,6 +54,8 @@
     "grunt-es6-import-validate": "0.0.6",
     "grunt-contrib-less": "~0.10.0",
     "passport": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "querystring": "*",
+     "http-post": "*"
   }
 }

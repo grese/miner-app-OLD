@@ -10,8 +10,9 @@ export default DS.RESTAdapter.extend({
     },
     namespace: 'api',
     loginUser: function(username, password){
-        var x = this.ajax('/auth/login', 'POST', {data: {username: username, password: password}});
-        return x;
+        return $.post('/auth/login', {username: username, password: password}).then(function(data){
+            return data;
+        });
     },
     logoutUser: function(){
         sessionStorage.removeItem('apitoken');

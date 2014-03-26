@@ -25,7 +25,6 @@ export default Em.Controller.extend({
                         title: 'Login error'
                     });
                 });
-
         }
     }
 });

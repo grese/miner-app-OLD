@@ -1,4 +1,5 @@
 export default Em.Route.extend({
+
     actions: {
         logout: function(){
             this.store.adapterFor('application').logoutUser();
