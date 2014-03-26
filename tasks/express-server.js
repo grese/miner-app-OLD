@@ -51,7 +51,7 @@ module.exports = function(grunt) {
 
             // Use API proxy
             app.all(proxyPath + '/*', passThrough(proxyURL));
-            app.all('/auth/logout', passThrough(proxyURL));
+            app.all('/auth/logout', auth.logoutUser);
             // Login session for express server.
             app.post('/auth/login', passport.authenticate('local'), auth.sendLoginResponse);
             app.all('/*', verifyUserAuth);

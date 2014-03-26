@@ -28,6 +28,10 @@ passport.deserializeUser(function(obj, done) {
     done(null, obj);
 });
 
+var logoutUser = function(req, res){
+    req.logout();
+    res.send(200);
+};
 
 var sendLoginResponse = function(req, res, next){
     var user = JSON.parse(req.user);
@@ -40,3 +44,4 @@ var sendLoginResponse = function(req, res, next){
 exports.passport = passport;
 exports.secret = secret;
 exports.sendLoginResponse = sendLoginResponse;
+exports.logoutUser = logoutUser;
