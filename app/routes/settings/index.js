@@ -14,5 +14,6 @@ export default Em.Route.extend({
         Em.Logger.debug('The Alerts: ', model.alerts);
         Em.Logger.debug('The Users: ', model.user);
         Em.Logger.debug('The Settings: ', model.settings);
+        this.controllerFor('settings.pools').set('model', model.pools);
     }
 });

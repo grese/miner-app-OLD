@@ -11,7 +11,8 @@ export default Em.Controller.extend({
                 if(data.result === 'SUCCESS'){
                     Em.Logger.debug('Login success');
                     RESTAdapter.set('headers.apitoken', data.token);
-                    sessionStorage.setItem('apitoken', data.token);
+                    var cookie = JSON.stringify({userid: data.user.id, token: data.token});
+                    sessionStorage.setItem('user', cookie);
                     self.transitionToRoute('/');
                 }else{
                     Em.Logger.error('Login error', data);

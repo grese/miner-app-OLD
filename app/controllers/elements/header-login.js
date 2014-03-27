@@ -1,6 +1,6 @@
 export default Em.Controller.extend({
     isLoggedIn: function(){
-        var token = sessionStorage.getItem('apitoken');
-        return token && token.length > 0;
+        var user = sessionStorage.getItem('user');
+        return user && user.userid && user.token;
     }.property()
 });

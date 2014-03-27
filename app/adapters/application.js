@@ -1,8 +1,9 @@
 export default DS.RESTAdapter.extend({
     init: function(){
         this._super();
-        var token = sessionStorage.getItem('apitoken');
-        if(token){
+        var user = sessionStorage.getItem('user');
+        if(user){
+            var token = JSON.parse(user).token;
             this.set('headers.apitoken', token);
         }else{
             Em.Logger.error('No API-token available. User must login.');
@@ -15,7 +16,7 @@ export default DS.RESTAdapter.extend({
         });
     },
     logoutUser: function(){
-        sessionStorage.removeItem('apitoken');
+        sessionStorage.removeItem('user');
         return this.ajax('/auth/logout');
     },
     headers: {

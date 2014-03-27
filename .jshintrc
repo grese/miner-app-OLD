@@ -4,6 +4,7 @@
     "window": true,
     "location": true,
     "setTimeout": true,
+    "sessionStorage": true,
     "Ember": true,
     "Em": true,
     "DS": true,

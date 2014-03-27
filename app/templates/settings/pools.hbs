@@ -1,4 +1,6 @@
 <h3>Pools</h3>
-{{#each pool in model.pools}}
-    {{pool.name}}<br/>
-{{/each}}
+<div class="list-group">
+    {{#each pool in model}}
+        {{render 'settings.pool-config' pool}}
+    {{/each}}
+</div>

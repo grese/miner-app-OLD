@@ -35,10 +35,13 @@ var logoutUser = function(req, res){
 
 var sendLoginResponse = function(req, res, next){
     var user = JSON.parse(req.user);
-    if(user && user.token)
-        res.send(user);
-    else
+    if(user && user.token){
+        req.login(user, function(){
+            res.send(user);
+        });
+    }else{
         res.send({message: 'Token not present from auth api'});
+    }
 };
 
 exports.passport = passport;

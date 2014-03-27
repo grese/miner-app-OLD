@@ -3,7 +3,7 @@ export default Em.Controller.extend({
         if(!this.isLoggedIn()) this.transitionToRoute('/login');
     }.observes('currentPath'),
     isLoggedIn: function(){
-        var token = sessionStorage.getItem('apitoken');
-        return token && token.length > 0;
+        var user = JSON.parse(sessionStorage.getItem('user'));
+        return user && user.userid && user.token;
     }
 });
