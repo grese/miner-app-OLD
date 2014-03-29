@@ -8,13 +8,35 @@ export default Em.Controller.extend({
     },
     actions: {
         newPool: function(){
-            this.store.createRecord('pool', {});
+            var pool = this.store.createRecord('pool', {});
+            pool.save();
         },
         savePools: function(){
             var self = this;
+            var errs = false;
             $.each(this.get('model.content'), function(idx, itm){
-                itm.save().catch(self.savePoolsFailure);
+                if(itm && itm.get('isDirty')) itm.save().catch(function(){
+                    errs = true;
+                });
             });
+            if(errs){
+                self.send('showHero', {
+                    type: 'danger',
+                    title: 'Error saving changes',
+                    message: 'An error occurred on the server while trying to save your changes'
+                });
+            }else{
+                self.send('showHero', {
+                    type: 'success',
+                    title: 'Pools updated',
+                    message: 'Your changes have been saved.'
+                });
+            }
+        },
+        deletePool: function(pool){
+            var self = this;
+            pool.deleteRecord();
+            pool.save();
         }
     }
 });

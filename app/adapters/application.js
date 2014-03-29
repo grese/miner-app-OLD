@@ -1,4 +1,8 @@
 export default DS.RESTAdapter.extend({
+    namespace: 'api',
+    headers: {
+        apitoken: null
+    },
     init: function(){
         this._super();
         var user = sessionStorage.getItem('user');
@@ -9,7 +13,6 @@ export default DS.RESTAdapter.extend({
             Em.Logger.error('No API-token available. User must login.');
         }
     },
-    namespace: 'api',
     loginUser: function(username, password){
         return $.post('/auth/login', {username: username, password: password}).then(function(data){
             return data;
@@ -18,8 +21,5 @@ export default DS.RESTAdapter.extend({
     logoutUser: function(){
         sessionStorage.removeItem('user');
         return this.ajax('/auth/logout');
-    },
-    headers: {
-        apitoken: null
     }
 });

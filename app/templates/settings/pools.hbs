@@ -1,10 +1,18 @@
 
-<h3 class="pools-title">Pools</h3><button class="pools-new btn btn-success btn-xs" {{action 'newPool'}}><i class="fa fa-plus-square"></i>&nbsp;Add Pool</button>
+<div class="clearfix">
+    <h3 class="pools-title">Pools</h3>
+    <button class="pools-new btn btn-success btn-xs" {{action 'newPool'}}>
+        <i class="fa fa-plus-square fa-lg"></i>&nbsp;&nbsp;Add Pool
+    </button>
+</div>
+
 <div class="list-group">
     {{#each pool in model}}
         {{render 'settings.pool-config' pool}}
     {{/each}}
 </div>
-<div class="row">
-    <button class="pools-save btn btn-primary btn-sm pull-right" {{action 'savePools'}}><i class="fa fa-save fa-lg save-icon"></i>&nbsp;Save Pools</button>
+<div class="clearfix">
+    <button class="pools-save btn btn-primary btn-sm pull-right" {{action 'savePools'}}>
+        <i class="fa fa-save fa-lg save-icon"></i>&nbsp;&nbsp;Save Pools
+    </button>
 </div>
