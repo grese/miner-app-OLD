@@ -1,9 +1,18 @@
+
 // Site-wide & general styles:
 html, body{
   width: 100%;
   height: 100%;
 }
-
+.site-navbar.navbar ul.nav li a:hover{
+  background: #151515;
+}
+.success{
+  color: #43ac6a;
+}
+.danger, .error{
+  color: #f04124;
+}
 .italic{
   font-style: italic;
 }
@@ -22,7 +31,19 @@ label.error{
   padding-right: 0;
   width: 90%;
 }
-
+ul.dropdown-menu li button{
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: right;
+  padding: 11px;
+}
+ul.dropdown-menu li button:hover{
+  background: #ccc;
+}
+ul.dropdown-menu li .menu-button-icon{
+  float: left;
+}
 
 // Footer styles:
 #footer {

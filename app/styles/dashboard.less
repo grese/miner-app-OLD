@@ -1,1 +1,85 @@
+@import "./colors.less";
 
+// Summary:
+.mhsAv{
+  background-color: @mhsAv;
+}
+.totalMhs{
+  background-color: @totalMhs;
+}
+.elapsedTime{
+  background-color: @elapsedTime;
+}
+#dashboard-summary-container{
+  margin-bottom: 15px;
+}
+#dashboard-summary-container .dashboard-summary-item .summary-item-title,
+#dashboard-summary-container .dashboard-summary-item .summary-item-value{
+  display: block;
+}
+#dashboard-summary-container .dashboard-summary-item .summary-item-value{
+  font-size: 24px;
+  color: #fff;
+  font-weight: 100;
+}
+.miners-header{ margin-bottom: 5px; }
+.miners-header .table-title,
+.miners-header .miner-list-controls{
+  display: inline;
+}
+.miners-header .menu-button-icon{
+  visibility: hidden;
+}
+.miners-header .filter-enabled .menu-button-icon{
+  visibility: visible;
+}
+#dashboard-summary-container .dashboard-summary-item{
+  display: inline-block;
+  border: 5px solid #999;
+  padding: 10px 40px 10px 57px;
+  margin: 0 -45px 0 0;
+  border-radius: 0 45px 45px 0;
+  position: relative;
+}
+#dashboard-summary-container .dashboard-summary-item:nth-of-type(1){
+  z-index: 9;
+  padding-left: 30px;
+}
+#dashboard-summary-container .dashboard-summary-item:nth-of-type(2){
+  z-index: 8;
+}
+#dashboard-summary-container .dashboard-summary-item:nth-of-type(3){
+  z-index: 7;
+}
+#dashboard-summary-container .dashboard-summary-item:nth-of-type(4){
+  z-index: 6;
+}
+#dashboard-summary-container .dashboard-summary-item:nth-of-type(5){
+  z-index: 5;
+}
+#dashboard-summary-container .dashboard-summary-item:nth-of-type(6){
+  z-index: 4;
+}
+#dashboard-summary-container .dashboard-summary-item:nth-of-type(7){
+  z-index: 3;
+}
+#dashboard-summary-container .dashboard-summary-item:nth-of-type(8){
+  z-index: 2;
+}
+#dashboard-summary-container .dashboard-summary-item:nth-of-type(9){
+  z-index: 1;
+}
+#dashboard-summary-container .dashboard-summary-item:nth-of-type(10){
+  z-index: 0;
+}
+
+#dashboard-header h1.dashboard-title,
+#dashboard-header div.dashboard-speed-metric-container{
+  display: inline-block;
+}
+#dashboard-header div.dashboard-speed-metric-container{
+  padding-top: 15px;
+}
+#dashboard-header .dashboard-title-container{
+  padding-top: 10px;
+}

@@ -13,6 +13,9 @@ export default DS.RESTAdapter.extend({
             Em.Logger.error('No API-token available. User must login.');
         }
     },
+    getJSON: function(path){
+        return this.ajax('/'+this.get('namespace')+'/'+path);
+    },
     loginUser: function(username, password){
         return $.post('/auth/login', {username: username, password: password}).then(function(data){
             return data;
