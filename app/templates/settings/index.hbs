@@ -1,7 +1,9 @@
 <h1>Settings</h1>
 
-{{render 'settings.pools' model=model.pools controller='settings.pools'}}
+{{render 'pools.pools' model=model.pools controller='pools.pools'}}
 
-{{render 'settings.alerts' model=model.alerts}}
+{{render 'alerts.alerts' model=model.alerts controller='alerts.alerts'}}
+
+{{render 'settings.notification' model=model.notification controller='settings.notification'}}
 
 {{render 'settings.user' model=model.user}}

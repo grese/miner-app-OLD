@@ -4,17 +4,20 @@ export default Em.Route.extend({
         var self = this;
         return Em.RSVP.hash({
             pools: self.store.find('pool'),
-            alerts: self.store.find('alert'),
+            perfExp: self.store.find('alert', {type: 'PERFORMANCE_EXPECTATION'})
+                .then(function(result){return result.objectAt(0)}),
             user: self.store.find('user'),
-            settings: self.store.find('setting')
+            notification: self.store.find('setting', {type: 'EMAIL_NOTIFICATION'})
+                .then(function(result){return result.objectAt(0);})
+
         });
     },
     afterModel: function(model){
-        Em.Logger.debug('The Pools: ', model.pools);
-        Em.Logger.debug('The Alerts: ', model.alerts);
-        Em.Logger.debug('The Users: ', model.user);
-        Em.Logger.debug('The Settings: ', model.settings);
-        this.controllerFor('settings.pools').set('model', model.pools);
-
+        var self = this;
+        Em.Logger.debug(model.notification);
+        Em.Logger.debug(model.perfExp);
+        this.controllerFor('pools.pools').set('model', model.pools);
+        this.controllerFor('alerts.alerts').set('perfExpSetting', model.perfExp);
+        this.controllerFor('settings.notification').set('model', model.notification);
     }
 });

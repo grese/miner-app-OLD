@@ -1,15 +1,38 @@
-<h3>Alerts</h3>
-<div class="email-settings">
-    <label>Email:</label>
-    {{input class='form-control' value=model.email.toAddress name='toAddress'}}
-    <label>SMTP Server</label>
-    {{input class='form-control' value=model.email.smtpServer name='smtpServer'}}
-    <label>SMTP Auth</label>
-    {{input type='checkbox' class='form-control' selected=model.email.smtpAuth name='smtpAuth'}}
-    <label>SMTP Auth Username</label>
-    {{input class='form-control' value=model.email.smtpAuthUsername name='smtpAuthUsername'}}
-    <label>SMTP Auth Password</label>
-    {{input class='form-control' value=model.email.smtpAuthPassword name='smtpAuthPassword'}}
-    <label>SMTP Auth Port</label>
-    {{input class='form-control' value=model.email.smtpAuthPort name='smtpAuthPort'}}
+<h3>Notification Settings</h3>
+<div class="notification-settings well">
+    <div class="basic-settings row">
+        <h6>SMTP Settings:</h6>
+        <div class="col-md-3 secure-smtp-enabled">
+            <label>Email:</label>
+            {{input placeholder='username@example.com' class='form-control' value=model.value.toAddress name='toAddress'}}
+        </div>
+        <div class="col-md-3">
+            <label>SMTP Server</label>
+            {{input placeholder='smtp.mail.example.com' class='form-control' value=model.value.smtpServer name='smtpServer'}}
+        </div>
+    </div>
+    <div class="secure-settings row">
+        <h6>Secure SMTP:</h6>
+        <div class="col-md-1">
+            <label>SMTP Auth</label>
+            {{view 'elements.switch' checked=model.value.smtpAuth name='smtpAuth'}}
+        </div>
+        <div class="col-md-3">
+            <label>SMTP Username</label>
+            {{input placeholder='username@example.com' class='form-control' value=model.value.smtpAuthUsername name='smtpAuthUsername'}}
+        </div>
+        <div class="col-md-3">
+            <label>SMTP Password</label>
+            {{input type='password' class='form-control' value=model.value.smtpAuthPassword name='smtpAuthPassword'}}
+        </div>
+        <div class="col-md-1">
+            <label>SMTP Port</label>
+            {{input placeholder='587' type='number' class='form-control' value=model.value.smtpAuthPort name='smtpAuthPort'}}
+        </div>
+    </div>
+    <div class="save-notification row">
+        <button {{action 'saveNotification' model}} class="pull-right btn btn-sm btn-primary">
+            <i class="fa fa-save fa-lg"></i>&nbsp;Save Email
+        </button>
+    </div>
 </div>

@@ -1,0 +1,20 @@
+<h3>Alerts</h3>
+<div class="well">
+    <h4>Performance Expectations:</h4>
+    <div class="row perf-expectations-container">
+        <div class="col-md-1 perf-alert-on-container">
+            {{view 'elements.switch' checked=perfExpSetting.value.enabled}}
+        </div>
+        <div class="col-md-2 num-devices-container">
+            <label># of Devices:</label>
+            {{input class='form-control' type='number' step='1' min=0 max=256 value=perfExpSetting.value.numDevices}}
+        </div>
+        <div class="col-md-2 num-mhs-container">
+            <label>Total Mh/s:</label>
+            {{input class='form-control' type='number' step='1' min=0 value=perfExpSetting.value.numMhs}}
+        </div>
+    </div>
+    <div class="row save-alerts">
+        <button class="pull-right btn btn-primary btn-sm"><i class="fa fa-save fa-lg"></i>&nbsp;Save</button>
+    </div>
+</div>
