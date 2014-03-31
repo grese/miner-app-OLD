@@ -4,8 +4,14 @@
             <h1 class="dashboard-title">Dashboard</h1>
             <div class="pull-right dashboard-speed-metric-container btn-group">
                 <label>Show Speed As:</label><br/>
-                <button {{action 'setDashToMH'}} type="button" class="btn btn-default btn-xs active">Mh/s</button>
-                <button {{action 'setDashToGH'}} type="button" class="btn btn-default btn-xs">Gh/s</button>
+                <button {{action 'changeSpeedMetric' 'MH'}}
+                        id="dashboard-speed-mh" type="button" class="btn btn-default btn-xs active">
+                    Mh/s
+                </button>
+                <button {{action 'changeSpeedMetric' 'GH'}}
+                        id="dashboard-speed-gh" type="button" class="btn btn-default btn-xs">
+                    Gh/s
+                </button>
             </div>
         </div>
     </header>
@@ -19,16 +25,32 @@
                 <label class="summary-item-title">Elapsed Time</label>
             </div>
             <div class="mhsAv dashboard-summary-item">
-                <div class="summary-item-value">
-                    {{format-decimal model.summary.getMHsAv}}
-                </div>
-                <label class="summary-item-title">Avg Mh/s</label>
+                {{#if speedIsGh}}
+                    <div class="summary-item-value">
+                        {{format-decimal-ghs model.summary.getMHsAv 4}}
+                    </div>
+                    <label class="summary-item-title">Avg Gh/s</label>
+                {{else}}
+                    <div class="summary-item-value">
+                        {{format-decimal model.summary.getMHsAv 2}}
+                    </div>
+                    <label class="summary-item-title">Avg Mh/s</label>
+                {{/if}}
+
+
             </div>
             <div class="totalMhs dashboard-summary-item">
-                <div class="summary-item-value">
-                    {{format-decimal model.summary.getTotalMH}}
-                </div>
-                <label class="summary-item-title">Total Mh</label>
+                {{#if speedIsGh}}
+                    <div class="summary-item-value">
+                        {{format-decimal-ghs model.summary.getTotalMH 4}}
+                    </div>
+                    <label class="summary-item-title">Total Gh</label>
+                {{else}}
+                    <div class="summary-item-value">
+                        {{format-decimal model.summary.getTotalMH 2}}
+                    </div>
+                    <label class="summary-item-title">Total Mh</label>
+                {{/if}}
             </div>
         </div>
     </section>
@@ -36,6 +58,6 @@
         {{line-graph}}
     </section>
     <section class="dashboard-miners-table-container">
-        {{render 'miners.list' model.miners}}
+        {{render 'miners.list' model.miners }}
     </section>
 </article>

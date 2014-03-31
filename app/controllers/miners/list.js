@@ -35,7 +35,8 @@ export default Em.ArrayController.extend({
         });
         var errCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Errors',
-            contentPath: 'Hardware Errors'
+            contentPath: 'Hardware Errors',
+            defaultColumnWidth: 100
         });
         var avgMhsCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Avg. Mh/s',
@@ -60,6 +61,7 @@ export default Em.ArrayController.extend({
         });
         return filteredRows;
     },
+
     filterTypes: {
         DISABLED: {
             filterEnabled: true,

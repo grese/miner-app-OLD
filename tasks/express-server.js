@@ -37,6 +37,9 @@ module.exports = function(grunt) {
 
             // Use API proxy
             app.all(proxyPath + '/*', passThrough(proxyURL));
+
+            // Auth Routes proxy to API also...
+            app.all('/auth/*', passThrough(proxyURL));
         }
 
         if (target === 'debug') {
