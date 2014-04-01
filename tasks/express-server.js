@@ -5,7 +5,11 @@ module.exports = function(grunt) {
         Helpers = require('./helpers'),
         fs = require('fs'),
         path = require('path'),
-        request = require('request');
+        request = require('request'),
+        http = require('http'),
+        auth = require('./auth'),
+        passport = auth.passport,
+        secret = auth.secret;
 
     /**
      Task for serving the static files.
@@ -23,6 +27,14 @@ module.exports = function(grunt) {
         app.use(lock);
         app.use(express.compress());
 
+        // Setup authentication with passportjs
+        app.use(express.cookieParser());
+        app.use(express.bodyParser());
+        app.use(express.session({ secret: secret }));
+        app.use(passport.initialize());
+        app.use(passport.session());
+        app.use(app.router);
+
         if (proxyMethod === 'stub') {
             grunt.log.writeln('Using API Stub');
 
@@ -36,10 +48,11 @@ module.exports = function(grunt) {
             grunt.log.writeln('Proxying API requests matching ' + proxyPath + '/* to: ' + proxyURL);
 
             // Use API proxy
+            app.all('/*', verifyUserAuth);
             app.all(proxyPath + '/*', passThrough(proxyURL));
-
-            // Auth Routes proxy to API also...
-            app.all('/auth/*', passThrough(proxyURL));
+            app.all('/auth/logout', auth.logoutUser);
+            // Login session for express server.
+            app.post('/auth/login', passport.authenticate('local'), auth.sendLoginResponse);
         }
 
         if (target === 'debug') {
@@ -123,6 +136,24 @@ module.exports = function(grunt) {
                 });
             });
         };
+    }
+
+    function verifyUserAuth(req, res, next){
+        var url = req.url;
+        //
+        if((url.indexOf('/api') > -1) ||
+            (url.indexOf('/auth') > -1) ||
+            (url.indexOf('/login') > -1) ||
+            (url.indexOf('/config') > -1) ||
+            (url.indexOf('/tests') > -1) ||
+            (url.indexOf('/vendor') > -1) ||
+            (url.indexOf('/assets' > -1))){
+            return next();
+        }else{
+            if(!req.isAuthenticated()){
+                return res.redirect('/login');
+            }
+        }
     }
 
     function passThrough(target) {

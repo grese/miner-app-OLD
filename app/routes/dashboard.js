@@ -7,7 +7,7 @@ export default Em.Route.extend({
         });
     },
     afterModel: function(model){
-        Em.Logger.debug('THE MODEL: ', model.summary);
+        Em.Logger.debug('THE MODEL: ', model.miners);
     },
     actions: {
         refreshMiners: function(){

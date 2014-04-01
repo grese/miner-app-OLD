@@ -1,5 +1,6 @@
 var attr = DS.attr;
 var Miner = DS.Model.extend({
+    "ID": attr('number'),
     "PGA": attr('number'),
     "Name": attr('string'),
     "Enabled": attr('string'),

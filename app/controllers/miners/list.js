@@ -4,7 +4,7 @@ export default Em.ArrayController.extend({
             headerCellName: 'Name',
             defaultColumnWidth: 100,
             getCellContent: function(row){
-                return row.get('Name')+' '+row.get('id');
+                return row.get('Name')+' '+row.get('ID');
             }
         });
         var driverCol = Em.Table.ColumnDefinition.create({
@@ -15,7 +15,7 @@ export default Em.ArrayController.extend({
         var enabledCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Enabled',
             getCellContent: function(row){
-                return row.get('Enabled') === 'Y';
+                return (row.get('Enabled') === 'Y') ? 'Yes' : 'No';
             },
             defaultColumnWidth: 75
         });
