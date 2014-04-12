@@ -1,20 +1,22 @@
 <h3>User Settings</h3>
 <div class="user-settings-container well">
-    <div class="row">
-        <div class="username-field col-md-3">
-            <label>Username:</label>
-            {{input class='form-control' placeholder='username' value=model.user.username name='username'}}
+    <form {{action 'save' on='submit'}} id="edit-user-form">
+        <div class="row">
+            <div class="username-field col-md-3">
+                <label>Username:</label>
+                {{input class='form-control' placeholder='username' value=model.username name='username'}}
+            </div>
+            <div class="password-field col-md-3">
+                <label>Password:</label><label class="error"></label>
+                {{input type='password' class='form-control' value=model.password name='password'}}
+                <label>Confirm Password:</label>
+                {{input type='password' class='form-control password-conf' name='passwordConf'}}
+            </div>
         </div>
-        <div class="password-field col-md-3">
-            <label>Password:</label><label class="error"></label>
-            {{input type='password' class='form-control' value=model.user.password name='password'}}
-            <label>Confirm Password:</label>
-            {{input type='password' class='form-control password-conf' name='passwordConf'}}
+        <div class="row save-user">
+            <button type="submit" class="pull-right btn btn-primary btn-sm">
+                <i class="fa fa-save fa-lg save-icon"></i>&nbsp;&nbsp;Save User
+            </button>
         </div>
-    </div>
-    <div class="row save-user">
-        <button type="submit" class="pull-right btn btn-primary btn-sm">
-            <i class="fa fa-save fa-lg save-icon"></i>&nbsp;&nbsp;Save
-        </button>
-    </div>
+    </form>
 </div>

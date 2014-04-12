@@ -50,6 +50,7 @@ module.exports = function(grunt) {
             // Use API proxy
             app.all('/*', verifyUserAuth);
             app.all(proxyPath + '/*', passThrough(proxyURL));
+            app.put('/api/users/*', passThrough(proxyURL));
             app.all('/auth/logout', auth.logoutUser);
             // Login session for express server.
             app.post('/auth/login', passport.authenticate('local'), auth.sendLoginResponse);
@@ -140,7 +141,7 @@ module.exports = function(grunt) {
 
     function verifyUserAuth(req, res, next){
         var url = req.url;
-        //
+
         if((url.indexOf('/api') > -1) ||
             (url.indexOf('/auth') > -1) ||
             (url.indexOf('/login') > -1) ||
@@ -148,9 +149,12 @@ module.exports = function(grunt) {
             (url.indexOf('/tests') > -1) ||
             (url.indexOf('/vendor') > -1) ||
             (url.indexOf('/assets' > -1))){
+
             return next();
         }else{
+
             if(!req.isAuthenticated()){
+
                 return res.redirect('/login');
             }
         }

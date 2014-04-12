@@ -1,4 +1,9 @@
 export default Ember.Handlebars.makeBoundHelper(function(number, decimals) {
-    return number.toFixed(decimals);
+    var dec = ((decimals != null) && (typeof decimals !== 'undefined')) ? decimals : 2,
+        output = '';
+    if((number != null) && (typeof number !== 'undefined')){
+        output = number.toFixed(dec);
+    }
+    return output;
 });
 

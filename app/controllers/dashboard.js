@@ -3,6 +3,10 @@ export default Em.Controller.extend({
     speedIsGh: function(){
         return this.get('speedMetric') === 'GH';
     }.property('speedMetric'),
+    dateRangeChanged: function(){
+        this.send('updateModel', {startDate: this.get('startDate'), endDate: this.get('endDate')});
+    }.observes('endDate'),
+    minerChartInterval: 0.1,
     actions: {
         changeSpeedMetric: function(metric){
             var $ghBtn = $('#dashboard-speed-gh'),

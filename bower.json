@@ -17,9 +17,12 @@
     "d3": "~3.4.3",
     "jquery-validation": "~1.11.2",
     "jquery-cookie": "*",
-    "jquery-number": "*"
+    "jquery-number": "*",
+    "highcharts.com": "*",
+    "momentjs": "~2.5.1"
   },
   "resolutions": {
-    "ember": "~1.4.0"
+    "ember": "~1.4.0",
+    "jquery": "~1.9.1"
   }
 }

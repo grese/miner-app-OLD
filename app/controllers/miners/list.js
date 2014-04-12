@@ -50,7 +50,7 @@ export default Em.ArrayController.extend({
         return [nameCol, driverCol, enabledCol, statusCol, PGACol, accCol, errCol, avgMhsCol, totalMhsCol];
     }),
     rows: Em.computed(function(){
-        return this.filterRows(this.get('model.content'));
+        return this.get('model.content');
     }).property('model.content.@each'),
     filterRows: function(rows){
         var self = this,

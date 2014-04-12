@@ -3,7 +3,8 @@
   then return it fixed to `decimals` decimal places.
  */
 export default Ember.Handlebars.makeBoundHelper(function(number, decimals) {
-    var num = number / 1000;
-    return num.toFixed(decimals);
+    var dec = ((decimals != null) && (typeof decimals !== 'undefined')) ? decimals : 2;
+    var num = ((number != null) && (typeof number !== 'undefined')) ? number / 1000 : 0;
+    return num.toFixed(dec);
 });
 
