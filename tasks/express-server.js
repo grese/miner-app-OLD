@@ -52,7 +52,9 @@ module.exports = function(grunt) {
             app.all(proxyPath + '/*', passThrough(proxyURL));
             app.put('/api/users/*', passThrough(proxyURL));
             app.all('/auth/logout', auth.logoutUser);
-            // Login session for express server.
+            // Login session for express server.  express.bodyParser() is needed because the login form wasn't working without it.
+            // The bodyParser needed to be added to only this route because it was breaking post/put/delete requests from all
+            // other routes.
             app.post('/auth/login', express.bodyParser(), passport.authenticate('local'), auth.sendLoginResponse);
         }
 
