@@ -2,10 +2,11 @@ export default Em.ArrayController.extend({
     columns: Em.computed(function(){
         var nameCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Name',
-            defaultColumnWidth: 100,
+            defaultColumnWidth: 125,
             getCellContent: function(row){
                 return row.get('Name')+' '+row.get('ID');
-            }
+            },
+            canAutoResize: false
         });
         var driverCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Driver',

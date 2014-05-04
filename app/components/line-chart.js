@@ -48,6 +48,13 @@ var LineGraphBaseConfig = Em.Object.extend({
                 symbol: 'circle'
             }
         }
+    },
+    tooltip: {
+        useHTML: true,
+        backgroundColor: 'rgba(128,128,128, 0.85)',
+        borderColor: '#888',
+        borderRadius: 1,
+        crosshairs: true
     }
 });
 
@@ -105,6 +112,7 @@ export default Em.Component.extend({
         var chartParams = {
             title: self.get('baseConfig.title'),
             chart: self.get('baseConfig.chart'),
+            tooltip: self.get('baseConfig.tooltip'),
             credits: self.get('baseConfig.credits'),
             xAxis: self.get('baseConfig.xAxis'),
             yAxis: self.get('baseConfig.yAxis'),

@@ -17,7 +17,7 @@ export default Em.Route.extend({
         });
     },
     afterModel: function(model){
-
+        Em.Logger.debug('MODEL FOR DASHBOARD: ', model);
     },
     actions: {
         updateModel: function(params){
