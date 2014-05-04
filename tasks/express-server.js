@@ -1,6 +1,7 @@
 
 module.exports = function(grunt) {
     var express = require('express'),
+        connect = require('connect'),
         lockFile = require('lockfile'),
         Helpers = require('./helpers'),
         fs = require('fs'),
@@ -29,7 +30,6 @@ module.exports = function(grunt) {
 
         // Setup authentication with passportjs
         app.use(express.cookieParser());
-        app.use(express.bodyParser());
         app.use(express.session({ secret: secret }));
         app.use(passport.initialize());
         app.use(passport.session());
@@ -53,7 +53,7 @@ module.exports = function(grunt) {
             app.put('/api/users/*', passThrough(proxyURL));
             app.all('/auth/logout', auth.logoutUser);
             // Login session for express server.
-            app.post('/auth/login', passport.authenticate('local'), auth.sendLoginResponse);
+            app.post('/auth/login', express.bodyParser(), passport.authenticate('local'), auth.sendLoginResponse);
         }
 
         if (target === 'debug') {

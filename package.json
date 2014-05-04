@@ -25,6 +25,7 @@
   "devDependencies": {
     "express": "~3.4.8",
     "lockfile": "~0.4.2",
+    "connect": "~2.14.5",
     "bower": "~1.2.7",
     "grunt": "~0.4.2",
     "grunt-cli": "~0.1.9",
