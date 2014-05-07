@@ -25,10 +25,10 @@
     <section id="dashboard-analytics-container">
         <div class="row">
             <div class="col-md-6">
-                {{line-chart model=model.summaryTrend colorKey='SUMMARY'}}
+                {{line-chart model=model.summaryTrend key='SUMMARY'}}
             </div>
             <div class="col-md-6">
-                {{line-chart model=model.minerTrend colorKey='MINER' tickInterval=minerChartInterval}}
+                {{line-chart model=model.minerTrend key='MINER' tickInterval=minerChartInterval}}
             </div>
         </div>
     </section>

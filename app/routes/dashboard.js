@@ -16,9 +16,6 @@ export default Em.Route.extend({
             minerTrend: self.store.find('trend', {type: 'MINER', startDate: startDate, endDate: endDate})
         });
     },
-    afterModel: function(model){
-        Em.Logger.debug('MODEL FOR DASHBOARD: ', model);
-    },
     actions: {
         updateModel: function(params){
             var self = this;
