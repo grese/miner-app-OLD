@@ -71,9 +71,6 @@ export default Em.Component.extend(ChartDataFormatMixin, {
         this.set('baseConfig', LineGraphBaseConfig.create());
     },
     modelChanged: function(){
-
-        Em.Logger.debug(this.get('chart').highcharts().series.length);
-
         while(this.get('chart').highcharts().series.length > 0)
             this.get('chart').highcharts().series[0].remove(true);
 

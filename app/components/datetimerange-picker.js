@@ -18,7 +18,6 @@ export default Em.Component.extend({
     dateRange: null,
     dateRangeDidChange: function(){
         var dates = this.get('dateRange').split(' - ');
-        Em.Logger.debug('THE DATES: ', dates);
         this.setProperties({
             startDate: moment(dates[0], this.get('format')),
             endDate: moment(dates[1], this.get('format'))
