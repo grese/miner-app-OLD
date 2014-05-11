@@ -6,6 +6,9 @@ export default Em.Controller.extend({
     dateRangeChanged: function(){
         this.send('updateModel', {startDate: this.get('startDate'), endDate: this.get('endDate')});
     }.observes('endDate'),
+    dateRange: function(){
+        return moment(this.get('startDate')).format('MM/DD/YYYY hh:mm a') + ' - ' + moment(this.get('endDate')).format('MM/DD/YYYY hh:mm a');
+    }.property('startDate', 'endDate'),
     minerChartInterval: 0.1,
     actions: {
         changeSpeedMetric: function(metric){

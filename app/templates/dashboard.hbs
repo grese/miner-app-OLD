@@ -20,14 +20,20 @@
         </div>
     </header>
     <section id="dashboard-summary-container">
-        {{render 'dashboard.summary'}}
+        {{render 'dashboard.summary' model.summary}}
     </section>
     <section id="dashboard-analytics-container">
         <div class="row">
             <div class="col-md-6">
+                <p class="dashboard-chart-info muted-text">Overall Performance for:&nbsp;&nbsp;
+                    <span class="dashboard-chart-daterange">{{dateRange}}</span>
+                </p>
                 {{line-chart model=model.summaryTrend key='SUMMARY'}}
             </div>
             <div class="col-md-6">
+                <p class="dashboard-chart-info muted-text">Performance by Device for:&nbsp;&nbsp;
+                    <span class="dashboard-chart-daterange">{{dateRange}}</span>
+                </p>
                 {{line-chart model=model.minerTrend key='MINER' tickInterval=minerChartInterval}}
             </div>
         </div>
@@ -36,4 +42,12 @@
     <section class="dashboard-miners-table-container">
         {{render 'miners.list' model.miners}}
     </section>
+
+    <section class="dashboard-restart-miner-container">
+        <h3>Restart/Reboot</h3>
+        <div class="well">
+            {{render 'elements.restart-reboot' controller='elements.restart-reboot'}}
+        </div>
+    </section>
+
 </article>

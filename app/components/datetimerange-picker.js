@@ -18,6 +18,7 @@ export default Em.Component.extend({
     dateRange: null,
     dateRangeDidChange: function(){
         var dates = this.get('dateRange').split(' - ');
+        Em.Logger.debug('THE DATES: ', dates);
         this.setProperties({
             startDate: moment(dates[0], this.get('format')),
             endDate: moment(dates[1], this.get('format'))
@@ -28,6 +29,10 @@ export default Em.Component.extend({
     }.property(),
     didInsertElement: function(){
         var self = this;
+        self.setProperties({
+            startDate: this.get('defaultStartDate'),
+            endDate: this.get('defaultEndDate')
+        });
         var picker =  $('#'+this.get('elementId')+' input.dtrp-input').datetimerangepicker(
             {
                 format: self.get('format'),
@@ -41,6 +46,12 @@ export default Em.Component.extend({
             }
         );
         self.set('picker', picker);
+        self.updateInputValue();
+    },
+    updateInputValue: function(){
+        var sd = this.get('startDate').format(this.get('format')),
+            ed = this.get('endDate').format(this.get('format'));
+        this.set('dateRange', sd + ' - ' + ed);
     },
     icons: {
         time: "fa fa-clock-o",

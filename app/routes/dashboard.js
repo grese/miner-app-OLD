@@ -6,15 +6,20 @@ export default Em.Route.extend({
             startDate = params.startDate.format(),
             endDate = params.endDate.format();
         }else{
-            startDate = moment().subtract('months', 1).format();
+            startDate = moment().subtract('hours', 1).format();
             endDate = moment().format();
         }
         return Em.RSVP.hash({
-            //summary: self.store.find('summary', 0),
+            startDate: startDate,
+            endDate: endDate,
+            summary: self.store.find('summary', 0),
             miners: self.store.find('miner'),
             summaryTrend: self.store.find('trend', {type: 'SUMMARY', startDate: startDate, endDate: endDate}),
             minerTrend: self.store.find('trend', {type: 'MINER', startDate: startDate, endDate: endDate})
         });
+    },
+    afterModel: function(model){
+        Em.Logger.debug('AFTER MODEL: ', model.summary);
     },
     actions: {
         updateModel: function(params){
