@@ -1,4 +1,11 @@
 export default Em.Controller.extend({
+    isPerfExpEnabled: function(){
+        if(!this.get('perfExpSetting.value.enabled')){
+            return 'disabled';
+        }else{
+            return false;
+        }
+    }.property('perfExpSetting.value.enabled'),
     perfExpSetting: null,
     actions: {
         savePerfExp: function(){

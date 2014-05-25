@@ -1,22 +1,35 @@
 export default Em.Controller.extend({
+    restartModalVisible: false,
+    rebootModalVisible: false,
     actions: {
-        restart: function(){
-            Em.Logger.debug('Restarting miner...');
-            var valid = true;
-            if(valid){
-                this.showSuccess('HI!', 'Restarting Miner...');
-            }else{
-                this.showFailure('Oh No!', 'I am having trouble restarting your miner...');
-            }
+        restartClicked: function(){
+            this.set('restartModalVisible', true);
         },
-        reboot: function(){
+        rebootClicked: function(){
+            this.set('rebootModalVisible', true);
+        },
+        doRestart: function(){
+            Em.Logger.debug('Restarting miner...');
+            this.store.adapterFor('application').getJSON('/restart').then(function(){
+                Em.Logger.debug('Miner restart complete!');
+            }).catch(function(err){
+                Em.Logger.error('<ERROR> While trying to restart miner.', err);
+            });
+
+        },
+        doReboot: function(){
             Em.Logger.debug('Rebooting machine...');
-            var valid = true;
-            if(valid){
-                this.showSuccess('Hello.', 'Rebooting Machine...');
-            }else{
-                this.showFailure('Aw Shit!', 'I am having trouble rebooting your machine...');
-            }
+            this.store.adapterFor('application').getJSON('/restart').then(function(){
+                Em.Logger.debug('Machine reboot complete!');
+            }).catch(function(err){
+                Em.Logger.error('<ERROR> While trying to reboot machine.', err);
+            });
+        },
+        cancelRestart: function(){
+            Em.Logger.debug('Cancelling restart...');
+        },
+        cancelReboot: function(){
+            Em.Logger.debug('Cancelling reboot...');
         }
     },
     showSuccess: function(title, message){

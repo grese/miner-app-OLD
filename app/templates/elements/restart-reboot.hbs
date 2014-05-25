@@ -1,16 +1,45 @@
 <div class="restart-reboot-container row">
     <div class="col-sm-6">
         <p class="restart-reboot-info"><i class="fa fa-info-circle fa-md"></i>&nbsp;Restarts CGMiner software</p>
-        <button class="restart-btn restart-reboot-btn btn btn-primary btn-sm" {{action 'restart'}}>
+        <button class="restart-btn restart-reboot-btn btn btn-primary btn-sm" {{action 'restartClicked'}}>
             <i class="fa fa-repeat fa-lg"></i>
             &nbsp;Restart Miner
         </button>
     </div>
     <div class="col-sm-6">
         <p class="restart-reboot-info"><i class="fa fa-info-circle fa-md"></i>&nbsp;Reboots the Raspberry Pi</p>
-        <button class="reboot-btn restart-reboot-btn btn btn-primary btn-sm" {{action 'reboot'}}>
+        <button class="reboot-btn restart-reboot-btn btn btn-primary btn-sm" {{action 'rebootClicked'}}>
             <i class="fa fa-power-off fa-lg"></i>
             &nbsp;Reboot Machine
         </button>
     </div>
+    <a href="#" class="btn btn-xs"
+       data-toggle="modal"
+       data-target="#basicModal">Open</a>
 </div>
+{{confirm-modal
+visibleBinding='restartModalVisible'
+cancelButtonText='Cancel'
+okButtonText='Restart Now'
+cancelAction='cancelRestart'
+okAction='doRestart'
+titleUseHTML=false
+title='Restart Miner?'
+messageUseHTML=true
+message='<p>You are about to restart the machine\'s mining software.  The miner will be offline for about 30 seconds
+while the miners restart... Are you sure you want to do this?</p><p>Click \'Cancel\' to cancel, or \'Restart Now\'
+to continue.</p>'
+}}
+
+{{confirm-modal
+visibleBinding='rebootModalVisible'
+cancelButtonText='Cancel'
+okButtonText='Reboot Now'
+cancelAction='cancelReboot'
+okAction='doReboot'
+titleUseHTML=false
+title='Reboot Machine?'
+messageUseHTML=true
+message='<p>You are about to reboot the machine.  The machine will be offline for about 30 seconds while it reboots...
+Are you sure you want to do this?</p><p>Click \'Cancel\' to cancel, or \'Restart Now\' to continue.</p>'
+}}

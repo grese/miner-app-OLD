@@ -9,6 +9,8 @@ export default Em.Route.extend({
                 .then(function(result){ return result.objectAt(0); }),
             user: self.store.find('user', userid),
             notification: self.store.find('setting', {type: 'EMAIL_NOTIFICATION'})
+                .then(function(result){ return result.objectAt(0); }),
+            analytics: self.store.find('setting', {type: 'ANALYTICS_CONFIG'})
                 .then(function(result){ return result.objectAt(0); })
 
         });
@@ -18,5 +20,6 @@ export default Em.Route.extend({
         this.controllerFor('alerts.alerts').set('perfExpSetting', model.perfExp);
         this.controllerFor('settings.notification').set('model', model.notification);
         this.controllerFor('settings.user').set('model', model.user);
+        this.controllerFor('settings.analytics').set('model', model.analytics);
     }
 });

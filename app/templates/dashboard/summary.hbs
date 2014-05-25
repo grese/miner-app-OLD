@@ -9,7 +9,7 @@
     <div class="mhsAv dashboard-summary-item">
         {{#if speedIsGh}}
             <div class="summary-item-value">
-                {{format-decimal-ghs model.getMHsAv 4}}
+                {{format-decimal-ghs model.getMHsAv 2}}
             </div>
             <label class="summary-item-title">Avg Gh/s</label>
         {{else}}
@@ -24,7 +24,7 @@
     <div class="totalMhs dashboard-summary-item">
         {{#if speedIsGh}}
             <div class="summary-item-value">
-                {{format-decimal-ghs model.getTotalMH 4}}
+                {{format-decimal-ghs model.getTotalMH 2}}
             </div>
             <label class="summary-item-title">Total Gh</label>
         {{else}}

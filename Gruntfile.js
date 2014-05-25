@@ -108,6 +108,7 @@ module.exports = function(grunt) {
     grunt.task.run(['clean:debug',
                     'build:debug',
                     expressServerTask,
+                    //'shell:startApi',
                     'watch'
                     ]);
   });
@@ -116,7 +117,6 @@ module.exports = function(grunt) {
                      'dist',
                      'expressServer:dist:keepalive'
                      ]);
-
 
   // Testing
   // -------

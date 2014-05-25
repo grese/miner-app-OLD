@@ -43,6 +43,7 @@
     "grunt-concurrent": "~0.4.3",
     "grunt-usemin": "~0.1.13",
     "grunt-rev": "~0.1.0",
+    "grunt-shell": "~0.7.0",
     "grunt-ember-templates": "~0.4.18",
     "connect-flash": "*",
     "grunt-contrib-testem": "~0.5.14",

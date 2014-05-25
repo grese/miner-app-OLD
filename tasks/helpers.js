@@ -19,7 +19,8 @@ var taskRequirements = {
   fancySprites: ['grunt-fancy-sprites'],
   autoprefixer: ['grunt-autoprefixer'],
   rev: ['grunt-rev'],
-  'validate-imports': ['grunt-es6-import-validate']
+  'validate-imports': ['grunt-es6-import-validate'],
+  shell: ['grunt-shell']
 };
 
 // Task fallbacks

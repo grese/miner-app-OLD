@@ -21,7 +21,6 @@ export default Em.Route.extend({
     setupController: function(controller, model){
         var self = this;
         controller.set('model', model);
-        Em.Logger.debug(model.summary);
 
         this.store.find('alert', {type: 'PERFORMANCE_EXPECTATION'}).then(function(result){
             if(result){

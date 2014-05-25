@@ -5,7 +5,7 @@ var LineGraphBaseConfig = Em.Object.extend({
     colors: ['#D97F89', '#04668E', '#059AC4', '#F2642C', '#A44025'],
     chart: {
         marginTop: 20,
-        marginLeft: 60,
+        marginLeft: 90,
         marginBottom: 30,
         marginRight: 10,
         spacingTop: 0,
@@ -23,7 +23,12 @@ var LineGraphBaseConfig = Em.Object.extend({
         lineColor: 'transparent',
         gridLineWidth: 0,
         gridLineColor: '#fff',
-        tickLength: 0
+        tickLength: 0,
+        labels: {
+            style: {
+                color: '#9f9f9f'
+            }
+        }
     },
     yAxis: {
         title: {
@@ -32,11 +37,17 @@ var LineGraphBaseConfig = Em.Object.extend({
                 fontFamily: "Helvetica",
                 fontWeight: 100,
                 color: '#777'
-            }
+            },
+            useHTML: true
         },
         labels: {
             style: {
-                color: '#999'
+                color: '#9f9f9f',
+                paddingLeft: '5px'
+            },
+            useHTML: true,
+            formatter: function(){
+                return $.number(this.value, 2);
             }
         },
         showFirstLabel: false,

@@ -1,0 +1,30 @@
+<h3>Analytics Settings</h3>
+<div class="analytics-settings-container well">
+    <form {{action 'save' on='submit'}} id="edit-analytics-form">
+        <div {{bind-attr class=':basic-settings :row model.value.dataCollectionEnabled::data-collection-disabled'}} class="basic-settings row">
+            <h4>Data Collection:</h4>
+            <div class="col-md-1 data-collection-enabled">
+                <label>Enabled</label>
+                {{view 'elements.switch' checked=model.value.dataCollectionEnabled
+                valueBinding='model.value.dataCollectionEnabled' name='enabled'}}
+            </div>
+            <div class="col-md-9 data-collection-interval">
+                <div class="col-xs-3">
+                    <div class="data-interval-input-container">
+                        <label>Collect data every:</label>
+                        {{input disabled=isDataCollectionEnabled class='form-control data-interval-input' placeholder='# of seconds' type='number'
+                        min=1 value=model.value.dataInterval size=5 name='dataInterval'}}
+                    </div>
+                    <div class="data-interval-input-postfix">
+                        <span >(seconds)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <button type="submit" class="pull-right btn btn-primary btn-sm">
+                    <i class="fa fa-save fa-lg save-icon"></i>&nbsp;&nbsp;Save Analytics
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
