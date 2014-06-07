@@ -30,7 +30,10 @@ module.exports = function(grunt) {
 
         // Setup authentication with passportjs
         app.use(express.cookieParser());
-        app.use(express.session({ secret: secret }));
+        app.use(express.session({
+            secret: secret,
+            cookie: { maxAge : 3600000 * 24 } //1 Hour
+        }));
         app.use(passport.initialize());
         app.use(passport.session());
         app.use(app.router);
@@ -153,7 +156,6 @@ module.exports = function(grunt) {
             return next();
         }else{
             if(!req.isAuthenticated()){
-                console.log('User NOT Authenticated.');
                 return res.redirect('/login');
             }else{
                 return next();

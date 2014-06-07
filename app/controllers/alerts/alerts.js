@@ -8,7 +8,7 @@ export default Em.Controller.extend({
     }.property('perfExpSetting.value.enabled'),
     perfExpSetting: null,
     actions: {
-        savePerfExp: function(){
+        save: function(){
             var self = this;
             this.get('perfExpSetting').save().then(function(){
                 self.send('showHero', {

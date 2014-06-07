@@ -26,7 +26,7 @@ export default Em.Controller.extend({
             var pool = this.store.createRecord('pool', {});
             pool.save();
         },
-        savePools: function(){
+        save: function(){
             var self = this;
             $.each(this.get('model.content'), function(idx, itm){
                 if(itm && itm.get('isDirty')){

@@ -35,7 +35,9 @@ var logoutUser = function(req, res){
 
 var sendLoginResponse = function(req, res, next){
     var user = JSON.parse(req.user);
+
     if(user && user.token){
+        console.log('USER AND TOKEN FOUND');
         req.login(user, function(){
             res.send(user);
         });

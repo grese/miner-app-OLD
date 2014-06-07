@@ -21,5 +21,15 @@ export default Em.Route.extend({
         this.controllerFor('settings.notification').set('model', model.notification);
         this.controllerFor('settings.user').set('model', model.user);
         this.controllerFor('settings.analytics').set('model', model.analytics);
+    },
+    actions: {
+        saveSettings: function(){
+            Em.Logger.debug('Saving settings...');
+            this.controllerFor('pools.pools').send('save');
+            this.controllerFor('alerts.alerts').send('save');
+            this.controllerFor('settings.notification').send('save');
+            this.controllerFor('settings.user').send('save');
+            this.controllerFor('settings.analytics').send('save');
+        }
     }
 });

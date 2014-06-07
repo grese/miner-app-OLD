@@ -12,7 +12,8 @@ export default Em.Route.extend({
         return Em.RSVP.hash({
             startDate: startDate,
             endDate: endDate,
-            summary: self.store.find('summary', 0),
+            //summary: self.store.find('summary', 0),
+            summary: Em.Object.create(),
             miners: self.store.find('miner'),
             summaryTrend: self.store.find('trend', {type: 'SUMMARY', startDate: startDate, endDate: endDate}),
             minerTrend: self.store.find('trend', {type: 'MINER', startDate: startDate, endDate: endDate})

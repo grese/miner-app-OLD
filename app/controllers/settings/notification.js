@@ -1,6 +1,6 @@
 export default Em.ObjectController.extend({
     actions: {
-        saveNotification: function(){
+        save: function(){
             var self = this;
             this.get('model').save().then(function(){
                 self.showResponse(false);
