@@ -1,5 +1,6 @@
 <h3>User Settings</h3>
 <div class="user-settings-container well">
+    {{outlet alert}}
     <form {{action 'save' on='submit'}} id="edit-user-form">
         <div class="row">
             <div class="username-field col-md-3">

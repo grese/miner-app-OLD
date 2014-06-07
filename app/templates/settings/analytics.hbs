@@ -1,5 +1,6 @@
 <h3>Analytics Settings</h3>
 <div class="analytics-settings-container well">
+    {{outlet alert}}
     <form {{action 'save' on='submit'}} id="edit-analytics-form">
         <div {{bind-attr class=':basic-settings :row model.value.dataCollectionEnabled::data-collection-disabled'}} class="basic-settings row">
             <h4>Data Collection:</h4>

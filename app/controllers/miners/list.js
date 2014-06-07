@@ -2,11 +2,10 @@ export default Em.ArrayController.extend({
     columns: Em.computed(function(){
         var nameCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Name',
-            defaultColumnWidth: 125,
             getCellContent: function(row){
                 return row.get('Name')+' '+row.get('ID');
             },
-            canAutoResize: false
+            columnWidth: 125
         });
         var driverCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Driver',
@@ -32,7 +31,8 @@ export default Em.ArrayController.extend({
         });
         var accCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Accepted',
-            contentPath: 'Accepted'
+            contentPath: 'Accepted',
+            defaultColumnWidth: 75
         });
         var errCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Errors',
@@ -41,12 +41,14 @@ export default Em.ArrayController.extend({
         });
         var avgMhsCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Avg. Mh/s',
-            contentPath: 'MHS av'
+            contentPath: 'MHS av',
+            defaultColumnWidth: 100
         });
 
         var totalMhsCol = Em.Table.ColumnDefinition.create({
             headerCellName: 'Total Mh',
-            contentPath: 'Total MH'
+            contentPath: 'Total MH',
+            defaultColumnWidth: 150
         });
         return [nameCol, driverCol, enabledCol, statusCol, PGACol, accCol, errCol, avgMhsCol, totalMhsCol];
     }),
