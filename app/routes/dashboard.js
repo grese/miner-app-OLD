@@ -12,23 +12,27 @@ export default Em.Route.extend({
         return Em.RSVP.hash({
             startDate: startDate,
             endDate: endDate,
-            summary: self.store.find('summary', 0),
+            summary: self.store.find('summary').then(function(result){
+                return result.objectAt(0);
+            }),
             //summary: Em.Object.create(),
-            miners: self.store.find('miner'),
+            miners: this.store.find('miner'),
             summaryTrend: self.store.find('trend', {type: 'SUMMARY', startDate: startDate, endDate: endDate}),
             minerTrend: self.store.find('trend', {type: 'MINER', startDate: startDate, endDate: endDate})
         });
     },
     setupController: function(controller, model){
+
         var self = this;
         controller.set('model', model);
 
+        Em.Logger.debug('summary: ', model.summary);
         this.store.find('alert', {type: 'PERFORMANCE_EXPECTATION'}).then(function(result){
             if(result){
                 var perfExp = result.objectAt(0);
                 Em.Logger.debug(perfExp.get('value'));
                 if(perfExp && perfExp.get('value.enabled')){
-                    var actualNumDevices = model.miners.get('content').length,
+                    var actualNumDevices = model.miners.length,
                         expectedDevices = perfExp.get('value.numDevices'),
                         actualAvgSpeed = model.summary.get('MHS av'),
                         actualSpeed = model.summary.get('MHS 5s'),

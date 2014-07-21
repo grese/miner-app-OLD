@@ -2,7 +2,7 @@ export default Em.Mixin.create({
     formatLineChartSingleSeries: function(){
         var ctr = 0,
             self = this,
-            model = this.get('model.content');
+            model = this.get('model');
         return model.map(function(item){
             var date = moment(item.get('date')),
                 dateExists = false;
@@ -29,7 +29,7 @@ export default Em.Mixin.create({
     },
     formatLineChartMinerMultiSeries: function(){
         var self = this,
-            model = this.get('model.content');
+            model = this.get('model');
         var miners = {};
         model.map(function(item){
             if(!miners['miner-'+item.get('ID')]){

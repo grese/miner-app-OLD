@@ -82,26 +82,8 @@ export default Em.Component.extend(ChartDataFormatMixin, {
         this.set('baseConfig', LineGraphBaseConfig.create());
     },
     modelChanged: function(){
-        while(this.get('chart').highcharts().series.length > 0)
-            this.get('chart').highcharts().series[0].remove(true);
-
-        if(this.get('key') === 'MINER'){
-            var miners = this.prepareChartData();
-            for(var m in miners){
-                var id = m.replace('miner-', '');
-                this.get('chart').highcharts().addSeries({
-                    name: 'Miner '+id,
-                    data: miners[m]
-                });
-            }
-        }else{
-            this.get('chart').highcharts().addSeries({
-                data: this.prepareChartData(),
-                color: this.get('chartColor')
-            });
-        }
-
-    }.observes('model.content'),
+        this.renderChart();
+    }.observes('model'),
     classNames: ['line-graph-component'],
     chartSelector: function(){
         return '#'+this.get('elementId')+' .line-chart';
@@ -119,6 +101,16 @@ export default Em.Component.extend(ChartDataFormatMixin, {
         var self = this;
         self.set('baseConfig.chart.renderTo', self.get('chartSelector'));
         self.set('baseConfig.plotOptions.line.marker.lineColor', self.get('chartColor'));
+        //this.renderChart();
+    },
+    renderChart: function(){
+        var self = this;
+        self.set('chart', null);
+
+        var metric = this.get('metric') ? this.get('metric') : 'MH',
+            yAxisLbl = 'Speed ('+metric+')';
+
+        self.set('baseConfig.yAxis.title.text', yAxisLbl);
         var chartParams = {
             colors: self.get('baseConfig.colors'),
             title: self.get('baseConfig.title'),
@@ -151,7 +143,6 @@ export default Em.Component.extend(ChartDataFormatMixin, {
         if(this.get('yAxisInterval') != null){ chartParams.set('yAxis.tickInterval', this.get('yAxisTickInterval')); }
         var chart = $(this.get('chartSelector')).highcharts(chartParams);
         this.set('chart', chart);
-
     },
     chartColor: function(){
         return this.get('colors.'+this.get('key'));

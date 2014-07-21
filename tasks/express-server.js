@@ -30,6 +30,7 @@ module.exports = function(grunt) {
 
         // Setup authentication with passportjs
         app.use(express.cookieParser());
+        app.use(express.bodyParser());
         app.use(express.session({
             secret: secret,
             cookie: { maxAge : 3600000 * 24 } //1 Hour
@@ -52,13 +53,14 @@ module.exports = function(grunt) {
 
             // Use API proxy
             app.all('/*', verifyUserAuth);
-            app.all(proxyPath + '/*',  passThrough(proxyURL));
+            require('../api/routes')(app, proxyPath);
             app.put('/api/users/*', passThrough(proxyURL));
             app.all('/auth/logout', auth.logoutUser);
             // Login session for express server.  express.bodyParser() is needed because the login form wasn't working without it.
             // The bodyParser needed to be added to only this route because it was breaking post/put/delete requests from all
             // other routes.
-            app.post('/auth/login', express.bodyParser(), passport.authenticate('local'), auth.sendLoginResponse);
+
+            app.post('/auth/login', passport.authenticate('local'), auth.sendLoginResponse);
         }
 
         if (target === 'debug') {

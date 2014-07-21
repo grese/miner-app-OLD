@@ -4,23 +4,38 @@
 
             <h1 class="dashboard-title">Dashboard</h1>
             <div id="dashboard-controls-container" class="pull-right">
-                {{datetimerange-picker startDateBinding='startDate' endDateBinding='endDate'}}
-                {{!--<div class="dashboard-speed-metric-container btn-group">
-                    <label>Show Speed As:</label><br/>
-                    <button {{action 'changeSpeedMetric' 'MH'}}
-                            id="dashboard-speed-mh" type="button" class="btn btn-default btn-xs active">
-                        Mh/s
-                    </button>
-                    <button {{action 'changeSpeedMetric' 'GH'}}
-                            id="dashboard-speed-gh" type="button" class="btn btn-default btn-xs">
-                        Gh/s
-                    </button>
-                </div>--}}
+
+                <div class="dashboard-controls-buttons-container clearfix">
+                    <div class="pull-right">
+                        <div class="dashboard-speed-metric-container">
+                            <div class="btn-group">
+                                <button {{action 'changeSpeedMetric' 'MH'}}
+                                        id="dashboard-speed-mh" type="button" class="btn btn-default btn-xs active">
+                                    Mh/s
+                                </button>
+                                <button {{action 'changeSpeedMetric' 'GH'}}
+                                        id="dashboard-speed-gh" type="button" class="btn btn-default btn-xs">
+                                    Gh/s
+                                </button>
+                            </div>
+                        </div>
+                        <div class="dashboard-refresh">
+                            <div class="btn-group">
+                                <button type="button" {{action 'refreshDashboard'}} class="btn btn-default btn-xs pull-right">
+                                    <i class="fa fa-refresh fa-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-datetimerange-picker-container">
+                    {{datetimerange-picker startDateBinding='startDate' endDateBinding='endDate'}}
+                </div>
             </div>
         </div>
     </header>
     <section id="dashboard-summary-container">
-        {{render 'dashboard.summary' model.summary}}
+        {{render 'dashboard.summary' summary controller='dashboard' }}
     </section>
     <section id="dashboard-analytics-container">
         <div class="row">
@@ -28,13 +43,13 @@
                 <p class="dashboard-chart-info muted-text">Overall Performance for:&nbsp;&nbsp;
                     <span class="dashboard-chart-daterange">{{dateRange}}</span>
                 </p>
-                {{line-chart model=model.summaryTrend key='SUMMARY'}}
+                {{line-chart model=summaryTrend metric=speedMetric key='SUMMARY'}}
             </div>
             <div class="col-md-6">
                 <p class="dashboard-chart-info muted-text">Performance by Device for:&nbsp;&nbsp;
                     <span class="dashboard-chart-daterange">{{dateRange}}</span>
                 </p>
-                {{line-chart model=model.minerTrend key='MINER' tickInterval=minerChartInterval}}
+                {{line-chart model=minerTrend key='MINER' metric=speedMetric tickInterval=minerChartInterval}}
             </div>
         </div>
     </section>

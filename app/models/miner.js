@@ -16,7 +16,6 @@ var Miner = DS.Model.extend({
     "Last Share Time": attr('number'),
     "Total MH": attr('number'),
     "Frequency": attr('number'),
-    "Driver": attr('string'),
     "Diff1 Work": attr('number'),
     "Difficulty Accepted": attr('number'),
     "Difficulty Rejected": attr('number'),

@@ -28,7 +28,6 @@ export default Em.Route.extend({
         saveSettings: function(){
             Em.Logger.debug('Saving settings...');
             var self = this;
-            //this.store.adapterFor('application').set('namespace', 'apx');
             var errors = {
                 pools: null,
                 alerts: null,
