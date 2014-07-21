@@ -19,7 +19,7 @@ export default Em.Controller.extend({
         },
         doReboot: function(){
             Em.Logger.debug('Rebooting machine...');
-            this.store.adapterFor('application').getJSON('/restart').then(function(){
+            this.store.adapterFor('application').getJSON('/reboot').then(function(){
                 Em.Logger.debug('Machine reboot complete!');
             }).catch(function(err){
                 Em.Logger.error('<ERROR> While trying to reboot machine.', err);
