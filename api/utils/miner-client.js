@@ -31,6 +31,17 @@ exports.summary = function(req, res){
     });
 };
 
+exports.restart = function(req, res){
+    return client.get('restart', function(err, restart){
+        if(!err){
+            return res.send(restart);
+        }else{
+            console.log('<ERROR>: restarting miner');
+            return res.send(500);
+        }
+    });
+};
+
 /*
     Returns the devices from cgminer's /devs API, and combines them on primary key, ID with the results from
     cgminer's /devdetails API.

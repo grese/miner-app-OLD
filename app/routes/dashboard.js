@@ -15,14 +15,13 @@ export default Em.Route.extend({
             summary: self.store.find('summary').then(function(result){
                 return result.objectAt(0);
             }),
-            //summary: Em.Object.create(),
             miners: this.store.find('miner'),
             summaryTrend: self.store.find('trend', {type: 'SUMMARY', startDate: startDate, endDate: endDate}),
             minerTrend: self.store.find('trend', {type: 'MINER', startDate: startDate, endDate: endDate})
         });
     },
     setupController: function(controller, model){
-
+        Em.Logger.debug('trends: ', model.summaryTrend);
         var self = this;
         controller.set('model', model);
 
@@ -30,32 +29,25 @@ export default Em.Route.extend({
         this.store.find('alert', {type: 'PERFORMANCE_EXPECTATION'}).then(function(result){
             if(result){
                 var perfExp = result.objectAt(0);
-                Em.Logger.debug(perfExp.get('value'));
                 if(perfExp && perfExp.get('value.enabled')){
                     var actualNumDevices = model.miners.length,
                         expectedDevices = perfExp.get('value.numDevices'),
                         actualAvgSpeed = model.summary.get('MHS av'),
-                        actualSpeed = model.summary.get('MHS 5s'),
                         expectedSpeed = perfExp.get('value.numMhs');
-                    if(expectedSpeed > actualSpeed){
-                        self.send('showHero', {
-                            type: 'warning',
-                            title: 'Performance Warning',
-                            message: 'The current collective speed of your miners is currently less than your expected speed setting.'
-                        });
-                    }else if(expectedSpeed > actualAvgSpeed){
-                        self.send('showHero', {
-                            type: 'warning',
-                            title: 'Performance Warning',
-                            message: 'The average speed of your miners is currently less than your expected speed setting.'
-                        });
-                    }else if(expectedDevices > actualNumDevices){
-                        self.send('showHero', {
-                            type: 'warning',
-                            title: 'Performance Warning',
-                            message: 'The number of devices currently running on your machine is less than your expected number of devices.'
-                        });
+
+                    var messages = [];
+                    if(expectedSpeed > actualAvgSpeed){
+                        messages.push('The average speed of your miners is currently less than your expected speed setting.');
                     }
+                    if(expectedDevices > actualNumDevices){
+                        messages.push('The number of devices currently running on your machine is less than your expected number of devices.');
+                    }
+
+                    self.send('showHero', {
+                        type: 'warning',
+                        title: 'Performance Warning',
+                        message: messages.join('<br/>')
+                    });
                 }
 
             }

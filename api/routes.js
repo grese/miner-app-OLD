@@ -14,7 +14,8 @@ var User = require('./db/models/user'),
     analytics = require('./analytics/batch');
 
 mongooseDB.SetupDB();
-analytics.collectMinerData();
+analytics.clearPreviousTrendData();
+analytics.startAnalyticsCollection();
 
 
 module.exports = function(server, proxyPath) {
@@ -34,8 +35,6 @@ module.exports = function(server, proxyPath) {
             });
         });
     });
-
-    server.get('/analytics/collect', analytics.triggerTrendCollection);
 
     // Create an API namespace, so that the root does not
     // have to be repeated for each end point.
@@ -71,7 +70,7 @@ module.exports = function(server, proxyPath) {
         server.put('/pools/:id', Pool.updatePool);
         server.delete('/pools/:id', Pool.deletePool);
 
-        server.get('/restart', shellCmds.restart);
+        server.get('/restart', MinerAPI.restart);
         server.get('/reboot', shellCmds.reboot);
     });
 

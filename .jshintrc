@@ -9,7 +9,9 @@
     "Em": true,
     "DS": true,
     "$": true,
-    "moment": true
+    "moment": true,
+    "setInterval": true,
+    "clearInterval": true
   },
   "node" : false,
   "browser" : false,

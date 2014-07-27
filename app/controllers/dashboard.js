@@ -4,6 +4,7 @@ export default Em.Controller.extend({
         return this.get('speedMetric') === 'GH';
     }.property('speedMetric'),
     dateRangeChanged: function(){
+        Em.Logger.debug('RANGE CHANGE!');
         this.send('updateModel', {startDate: this.get('startDate'), endDate: this.get('endDate')});
     }.observes('endDate'),
     dateRange: function(){
@@ -17,30 +18,37 @@ export default Em.Controller.extend({
                 return this.get('model.summaryTrend.content');
         }
     }.property('speedMetric', 'model.summaryTrend.content'),
+    summaryTrendAvailable: function(){
+        return (this.get('model.summaryTrend.content') && (this.get('model.summaryTrend.content').length > 0));
+    }.property('model.summaryTrend.content'),
+    minerTrendAvailable: function(){
+        return (this.get('model.minerTrend.content') && (this.get('model.minerTrend.content').length > 0));
+    }.property('model.minerTrend.content'),
     summary: function(){
         switch(this.get('speedMetric')){
             case 'GH':
-                return this.convertSummaryToGH(this.get('model.summary'));
+                return this.summaryToGH(this.get('model.summary'));
             default:
-                return this.get('model.summary');
+                return this.summaryToMH(this.get('model.summary'));
         }
     }.property('speedMetric', 'model.summary'),
-    summaryAvgHeading: function(){
-        return this.get('speedMetric') === 'GH' ? 'Avg Gh/s' : 'Avg Mh/s';
-    }.property('speedMetric', 'model.summary'),
-    summaryTotalHeading: function(){
-        return this.get('speedMetric') === 'GH' ? 'Total Gh' : 'Total Mh';
-    }.property('speedMetric', 'model.summary'),
-    convertSummaryToGH: function(model){
-        var s = {},
-            mhVal = model.get('MHS av'),
-            tMHVal = model.get('Total MH');
-        mhVal = mhVal / 1000;
-        tMHVal = tMHVal / 1000;
-        s.getMHsAv = mhVal;
-        s.getTotalMH = tMHVal;
-        s.Elapsed = model.get('Elapsed');
-        return Em.Object.create(s);
+    summaryToMH: function(model){
+        var MHModel = Em.Object.create({
+            speedMetric: 'MH',
+            avg: model.get('MHS av'),
+            total: model.get('Total MH'),
+            elapsed: model.get('Elapsed')
+        });
+        return MHModel;
+    },
+    summaryToGH: function(model){
+        var GHModel = Em.Object.create({
+            avg: model.get('MHS av') / 1000,
+            total: model.get('Total MH') / 1000,
+            speedMetric: 'GH',
+            elapsed: model.get('Elapsed')
+        });
+        return GHModel;
     },
     minerTrend: function(){
         switch(this.get('speedMetric')){

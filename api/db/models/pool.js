@@ -110,7 +110,7 @@ var savePoolConfigToFlatFile = function(){
 
                 for(var i=0; i<pools.length; i++){
                     if(pools[i].enabled){
-                        poolConfig+= ('URL=>'+pools[i].url+'USER=>'+pools[i].username+'PASS=>'+pools[i].password+'\n');
+                        poolConfig+= ('-o '+pools[i].url+' -u '+pools[i].username+' -p '+pools[i].password+' \n');
                     }
                 }
                 writePoolConfigToFile(poolConfig);

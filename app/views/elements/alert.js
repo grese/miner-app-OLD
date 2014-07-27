@@ -1,4 +1,5 @@
 export default Em.View.extend({
+    templateName: 'elements/alert',
     didInsertElement: function(){
         var self = this;
         $('#'+self.get('elementId .alert')).on('closed.bs.alert', function(){

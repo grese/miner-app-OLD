@@ -1,5 +1,4 @@
 export default Em.Route.extend({
-
     actions: {
         logout: function(){
             this.store.adapterFor('application').logoutUser();
@@ -33,6 +32,24 @@ export default Em.Route.extend({
         },
         loading: function(){
             Em.Logger.debug('IN LOADING');
+        },
+        reloadPage: function(){
+            Em.Logger.debug('RELOADING PAGE');
+            var currentLoc = window.location.href;
+            window.location = currentLoc;
+        },
+        showWaitScreen: function(config){
+            var method = config.get('method'),
+                duration = config.get('duration');
+            this.controllerFor('elements.please-wait').setProperties({
+                method: method,
+                duration: duration // milliseconds
+            });
+            this.render('elements.please-wait', {
+                into: 'application',
+                controller: 'elements.please-wait'
+            });
+
         }
     }
 });

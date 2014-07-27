@@ -1,1 +1,1 @@
-URL=>http://stratum.bitcoin.cz:3333USER=>grese.piminerPASS=>sha1$5223bb8a$1$1962aade245bf08ef25b4f72077b18933a964012
+-o http://stratum.bitcoin.cz:3333 -u grese.piminer -p schmiles 

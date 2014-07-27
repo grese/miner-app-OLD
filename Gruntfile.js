@@ -105,10 +105,10 @@ module.exports = function(grunt) {
       expressServerTask += ':' + proxyMethod;
     }
 
-    grunt.task.run(['clean:debug',
+    grunt.task.run(['shell:startDb',
+                    'clean:debug',
                     'build:debug',
                     expressServerTask,
-                    //'shell:startApi',
                     'watch'
                     ]);
   });

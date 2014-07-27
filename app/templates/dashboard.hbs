@@ -35,7 +35,7 @@
         </div>
     </header>
     <section id="dashboard-summary-container">
-        {{render 'dashboard.summary' summary controller='dashboard' }}
+        {{render 'dashboard.summary' summary}}
     </section>
     <section id="dashboard-analytics-container">
         <div class="row">
@@ -43,13 +43,33 @@
                 <p class="dashboard-chart-info muted-text">Overall Performance for:&nbsp;&nbsp;
                     <span class="dashboard-chart-daterange">{{dateRange}}</span>
                 </p>
-                {{line-chart model=summaryTrend metric=speedMetric key='SUMMARY'}}
+                {{#if summaryTrendAvailable}}
+                    {{line-chart model=summaryTrend metric=speedMetric key='SUMMARY'}}
+                {{else}}
+                    <div class="dashboard-no-chart-data-msg">
+                        <div class="alert alert-info">
+                            <span class="alert-icon fa fa-info-circle fa-lg"></span>
+                            <span class="alert-title"></span>&nbsp;&nbsp;
+                            <span class="alert-message">No data available yet for summary chart.. Refresh in a few moments.</span>
+                        </div>
+                    </div>
+                {{/if}}
             </div>
             <div class="col-md-6">
                 <p class="dashboard-chart-info muted-text">Performance by Device for:&nbsp;&nbsp;
                     <span class="dashboard-chart-daterange">{{dateRange}}</span>
                 </p>
-                {{line-chart model=minerTrend key='MINER' metric=speedMetric tickInterval=minerChartInterval}}
+                {{#if minerTrendAvailable}}
+                    {{line-chart model=minerTrend key='MINER' metric=speedMetric tickInterval=minerChartInterval}}
+                {{else}}
+                    <div class="dashboard-no-chart-data-msg">
+                        <div class="alert alert-info">
+                            <span class="alert-icon fa fa-info-circle fa-lg"></span>
+                            <span class="alert-title"></span>&nbsp;&nbsp;
+                            <span class="alert-message">No data available yet for device chart.. Refresh in a few moments.</span>
+                        </div>
+                    </div>
+                {{/if}}
             </div>
         </div>
     </section>

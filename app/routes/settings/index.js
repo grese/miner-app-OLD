@@ -6,6 +6,8 @@ export default Em.Route.extend({
 
         var userid = this.controllerFor('application').get('user.userid');
         return Em.RSVP.hash({
+            info: self.store.find('setting', {type: 'DEVICE_INFO'})
+                .then(function(result){ return result.objectAt(0); }),
             pools: self.store.find('pool'),
             perfExp: self.store.find('alert', {type: 'PERFORMANCE_EXPECTATION'})
                 .then(function(result){ return result.objectAt(0); }),
@@ -18,6 +20,7 @@ export default Em.Route.extend({
         });
     },
     setupController: function(controller, model){
+        this.controllerFor('settings.info').set('model', model.info);
         this.controllerFor('pools.pools').set('model', model.pools);
         this.controllerFor('alerts.alerts').set('perfExpSetting', model.perfExp);
         this.controllerFor('settings.notification').set('model', model.notification);
@@ -29,6 +32,7 @@ export default Em.Route.extend({
             Em.Logger.debug('Saving settings...');
             var self = this;
             var errors = {
+                info: null,
                 pools: null,
                 alerts: null,
                 notifications: null,
@@ -36,6 +40,7 @@ export default Em.Route.extend({
                 analytics: null
             };
             Em.RSVP.hash({
+                info: this.controllerFor('settings.info').save().catch( function(){ errors.info = true; } ),
                 pools: this.controllerFor('pools.pools').save().catch( function(){ errors.pools = true; } ),
                 alerts: this.controllerFor('alerts.alerts').save().catch( function(){ errors.alerts = true; } ),
                 notifications: this.controllerFor('settings.notification').save().catch( function(){ errors.notifications = true; } ),

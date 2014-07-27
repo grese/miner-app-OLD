@@ -4,6 +4,7 @@ var rpc = require('miner-rpc'),
     Miner = require('../db/models/miner'),
     MinerModel = Miner.Miner,
     TrendModel = require('../db/models/trend'),
+    SettingModel = require('../db/models/setting'),
     collectionInterval = 15000,
     collecting = true,
     collectionTimer = null;
@@ -65,24 +66,30 @@ var collectTrends = function(){
     });
 };
 
-var collectMinerData = function(){
+var collectMinerData = function(interval){
     collectionTimer = setInterval(function(){
         if(collecting){
             collectTrends();
-        }else{
-            clearInterval(collectionTimer);
         }
-    }, collectionInterval);
+    }, interval);
 };
-exports.updateCollectionInterval = function(newInterval){
-    collecting = false;
-    clearInterval(collectionTimer);
-    collectionInterval = newInterval;
-    collectMinerData();
+var setCollectionSettings = function(enabled, newInterval){
+    console.log('IN CALLBACK: ', enabled, newInterval);
+    if(collectionTimer !== null){
+        clearInterval(collectionTimer);
+    }
+    if(enabled){
+        collectMinerData(newInterval);
+    }
 };
-exports.collectMinerData = collectMinerData;
 
-exports.triggerTrendCollection = function(req, res){
-    collectTrends();
-    res.send(200);
+var startAnalyticsCollection = function(){
+    SettingModel.getAnalyticsConfig(setCollectionSettings);
 };
+
+var clearPreviousTrendData = function(){
+    TrendModel.clearAllTrends();
+};
+
+exports.clearPreviousTrendData = clearPreviousTrendData;
+exports.startAnalyticsCollection = startAnalyticsCollection;

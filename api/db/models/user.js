@@ -74,6 +74,7 @@ exports.updateUser = function(req, res){
         return user.save(function(err){
             if(!err){
                 console.log('Updated user!');
+                user.password = null;
                 return db.sendAjaxResponse(res, user);
             }else{
                 return console.log(err);
@@ -91,6 +92,7 @@ exports.createUser = function(req, res){
     user.save(function(err){
         if(!err){
             console.log('User created!');
+            user.password = null;
             return db.sendAjaxResponse(res, user);
         }else{
             return console.log(err);

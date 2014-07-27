@@ -24,7 +24,10 @@ var Miner = DS.Model.extend({
     "Last Valid Work": attr('number'),
     "Device Hardware%": attr('number'),
     "Device Rejected%": attr('number'),
-    "Device Elapsed": attr('number'),
+    "Device Elapsed": attr('number')
+});
+
+Miner.reopen({
     getMHsAv: function(){
         return this.get('MHS av');
     }.property('MHS av'),
@@ -71,4 +74,5 @@ var Miner = DS.Model.extend({
         return this.get('Device Elapsed');
     }.property('Device Elapsed')
 });
+
 export default Miner;

@@ -4,5 +4,7 @@
             <i class="fa fa-times-circle-o"></i>
         </button>
     {{/if}}
-    <span class="alert-title">{{title}}</span>&nbsp;&nbsp;<span class="alert-message">{{message}}</span>
+    <span {{bind-attr class=':alert-icon alertIcon'}}></span>&nbsp;
+    <span class="alert-title">{{title}}</span>&nbsp;&nbsp;
+    <span class="alert-message">{{message}}</span>
 </div>

@@ -10,19 +10,22 @@ export default Em.Controller.extend({
         },
         doRestart: function(){
             Em.Logger.debug('Restarting miner...');
-            this.store.adapterFor('application').getJSON('/restart').then(function(){
-                Em.Logger.debug('Miner restart complete!');
-            }).catch(function(err){
-                Em.Logger.error('<ERROR> While trying to restart miner.', err);
+            this.send('showWaitScreen', Em.Object.create({
+                method: 'RESTART',
+                duration: 30
+            }));
+            Em.$.get('/api/restart').then(function(result){
+                Em.Logger.debug('got result: ', result);
             });
-
         },
         doReboot: function(){
             Em.Logger.debug('Rebooting machine...');
-            this.store.adapterFor('application').getJSON('/reboot').then(function(){
-                Em.Logger.debug('Machine reboot complete!');
-            }).catch(function(err){
-                Em.Logger.error('<ERROR> While trying to reboot machine.', err);
+            this.send('showWaitScreen', Em.Object.create({
+                method: 'REBOOT',
+                duration: 30
+            }));
+            Em.$.get('/api/reboot').then(function(result){
+                Em.Logger.debug('got result: ', result);
             });
         },
         cancelRestart: function(){

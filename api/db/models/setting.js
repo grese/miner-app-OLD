@@ -2,7 +2,8 @@ var mongoose = require('mongoose'),
     db = require('../db'),
     async = require('async'),
     Pool = require('./pool'),
-    fs = require('fs');
+    fs = require('fs'),
+    analytics = require('../../analytics/batch');
 
 var SETTING_TYPES = {
     EMAIL_NOTIFICATION: 'EMAIL_NOTIFICATION',
@@ -88,8 +89,9 @@ exports.findById = function(req, res){
 };
 
 exports.updateSetting = function(req, res){
-    var s = req.body.setting;
-    return Setting.findById(req.params.id, function(err, setting){
+    var s = req.body.setting,
+        id = req.params.id;
+    return Setting.findById(id, function(err, setting){
         setting.type = s.type;
         setting.value = s.value;
         return setting.save(function(err){
@@ -97,6 +99,10 @@ exports.updateSetting = function(req, res){
                 console.log('Updated setting!');
                 if(setting.type === SETTING_TYPES.EMAIL_NOTIFICATION){
                     setting.value.smtpAuthPassword = null;
+                }else if(setting.type === SETTING_TYPES.MINER_CONFIG){
+                    saveConfigToFlatFile(SETTING_TYPES.MINER_CONFIG, id);
+                }else if(setting.type === SETTING_TYPES.ANALYTICS_CONFIG){
+                    analytics.startAnalyticsCollection();
                 }
                 return db.sendAjaxResponse(res, setting);
             }else{
@@ -116,6 +122,9 @@ exports.createSetting = function(req, res){
     setting.save(function(err){
         if(!err){
             console.log('Setting created!');
+            if(setting.type === SETTING_TYPES.MINER_CONFIG){
+                saveConfigToFlatFile(SETTING_TYPES.MINER_CONFIG, setting.id);
+            }
             return db.sendAjaxResponse(res, setting);
         }else{
             return console.log(err);
@@ -135,3 +144,46 @@ exports.deleteSetting = function(req, res){
         });
     });
 };
+
+var saveConfigToFlatFile = function(type, id){
+    if(type === SETTING_TYPES.MINER_CONFIG){
+        Setting.findById(id, function(err, config){
+            if(!err){
+                if(config && config.value){
+                    if(config.value.enabled && config.value.config){
+                        writeMinerConfigToFile(config.value.config);
+                    }else{
+                        writeMinerConfigToFile("");
+                    }
+                }
+            }else{
+                return console.log(err);
+            }
+        });
+    }
+};
+
+var writeMinerConfigToFile = function(config){
+    var configFile = 'cgminer/config.txt';
+    fs.writeFile(configFile, config, function(err){
+        if(err){
+            return console.log(err);
+        }
+    });
+};
+
+exports.getAnalyticsConfig = function(callback){
+    Setting.find({type: SETTING_TYPES.ANALYTICS_CONFIG}, function(err, config){
+        if(!err){
+            var configObj = config[0];
+            if(configObj && configObj.value){
+                return callback(configObj.value.dataCollectionEnabled, configObj.value.dataInterval * 1000);
+            }else{
+                return callback(false, 15000);
+            }
+        }else{
+            return console.log('<ERROR>: While fetching the analytics configuration.');
+        }
+    });
+};
+

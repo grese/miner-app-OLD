@@ -1,9 +1,9 @@
 module.exports = {
-    startApi: {                      // Target
+    startDb: {                      // Target
         options: {                      // Options
             stderr: true,
             stdout: true
         },
-        command: '../miner-api/startup.sh'
+        command: 'mongod &'
     }
 };

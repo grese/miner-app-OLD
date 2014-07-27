@@ -1,5 +1,5 @@
 var attr = DS.attr;
-export default DS.Model.extend({
+var SummaryModel = DS.Model.extend({
     "Elapsed": attr('number'),
     "MHS av": attr('number'),
     "MHS 5s": attr('number'),
@@ -32,7 +32,10 @@ export default DS.Model.extend({
         "Code": attr('number'),
         "Msg": attr('string'),
         "Description": attr('string')
-    },
+    }
+});
+
+SummaryModel.reopen({
     getMHsAv: function(){
         return this.get('MHS av');
     }.property('MHS av'),
@@ -94,3 +97,5 @@ export default DS.Model.extend({
         return this.get('_status');
     }.property('_status')
 });
+
+export default SummaryModel;

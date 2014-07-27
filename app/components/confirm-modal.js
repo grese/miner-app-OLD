@@ -86,13 +86,17 @@ export default Em.Component.extend({
             Em.Logger.debug('Cancel Clicked!');
             if(self.get('cancelAction') != null){
                 self.sendAction('cancelAction');
+                $('#'+self.get('modalId')).modal('hide');
             }
         });
         $('#'+this.get('okButtonId')).on('click', function(){
-            Em.Logger.debug('Ok Clicked!');
-            if(self.get('okAction') != null){
-                self.sendAction('okAction');
-            }
+            self.hideModal();
+            Em.run.later(function(){
+                Em.Logger.debug('Ok Clicked!');
+                if(self.get('okAction') != null){
+                    self.sendAction('okAction');
+                }
+            }, 500);
         });
     }
 });

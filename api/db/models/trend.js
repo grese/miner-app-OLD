@@ -145,3 +145,7 @@ exports.deleteTrend = function(req, res){
         });
     });
 };
+
+exports.clearAllTrends = function(){
+    Trend.collection.drop();
+};
