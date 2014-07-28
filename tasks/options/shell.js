@@ -4,6 +4,6 @@ module.exports = {
             stderr: true,
             stdout: true
         },
-        command: 'mongod &'
+        command: 'nohup mongod &> ../logs/mongod.log'
     }
 };
