@@ -15,7 +15,7 @@
     "jquery-ui": "~1.10.4",
     "antiscroll": "*",
     "d3": "~3.4.3",
-    "jquery-validation": "~1.11.2",
+    "jquery-validation": "~1.13.0",
     "jquery-cookie": "*",
     "jquery-number": "*",
     "highcharts.com": "*",

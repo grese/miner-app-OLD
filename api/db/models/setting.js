@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
     async = require('async'),
     Pool = require('./pool'),
     fs = require('fs'),
-    analytics = require('../../analytics/batch');
+    analytics = require('../../analytics/batch'),
+    minerDir = "../cgminer";
 
 var SETTING_TYPES = {
     EMAIL_NOTIFICATION: 'EMAIL_NOTIFICATION',
@@ -164,7 +165,7 @@ var saveConfigToFlatFile = function(type, id){
 };
 
 var writeMinerConfigToFile = function(config){
-    var configFile = 'cgminer/config.txt';
+    var configFile = minerDir+'/config.txt';
     fs.writeFile(configFile, config, function(err){
         if(err){
             return console.log(err);

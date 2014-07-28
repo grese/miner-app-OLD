@@ -1,6 +1,7 @@
 var mongoose = require("mongoose"),
     db = require('../db'),
-    fs = require('fs');
+    fs = require('fs'),
+    minerDir = '../cgminer';
 
 var PoolSchema = new mongoose.Schema({
     name: String,
@@ -127,7 +128,7 @@ var savePoolConfigToFlatFile = function(){
     });
 };
 var writePoolConfigToFile = function(config){
-    var configFile = 'cgminer/pools.txt';
+    var configFile = minerDir+'/pools.txt';
     fs.writeFile(configFile, config, function(err) {
         if(err) {
             console.log(err);
@@ -138,7 +139,7 @@ var writePoolConfigToFile = function(config){
 };
 
 var writeConfigFile = function(pools){
-    var configFile = 'cgminer/miner.conf',
+    var configFile = minerDir+'/miner.conf',
         minerConfig = {
         pools: pools,
         "api-listen" : true,
