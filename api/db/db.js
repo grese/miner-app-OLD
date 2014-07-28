@@ -156,10 +156,12 @@ var sampleData = {
 
 var populateDB = function(collectionName) {
     var samples = sampleData[collectionName];
-    if(samples){ console.log('Creating sample records for: '+collectionName) }
-    mongoose.connection.db.collection(collectionName, function(err, collection) {
-        collection.insert(samples, {safe:true}, function(err, result) {});
-    });
+    if(samples){
+        console.log('Creating sample records for: '+collectionName)
+        mongoose.connection.db.collection(collectionName, function(err, collection) {
+            collection.insert(samples, {safe:true}, function(err, result) {});
+        });
+    }
 };
 
 exports.mongoizeObjID = mongoizeObjID;

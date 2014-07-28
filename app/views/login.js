@@ -1,6 +1,6 @@
 export default Em.View.extend({
     didInsertElement: function(){
-        var elmID = this.get('elementId'),
+        /*var elmID = this.get('elementId'),
             formSelector = '#'+elmID+' form#login-form';
         this.get('controller').set('formSelector', formSelector);
         $(formSelector).validate({
@@ -14,6 +14,6 @@ export default Em.View.extend({
                     maxlength: 40
                 }
             }
-        });
+        });*/
     }
 });

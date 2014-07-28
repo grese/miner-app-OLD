@@ -1,7 +1,7 @@
 export default Em.View.extend({
 
     didInsertElement: function(){
-        var self = this,
+        /*var self = this,
             elmID = self.get('elementId'),
             passId = $('#'+elmID+" input[name='password']").attr('id');
         self.get('controller').set('formSelector', '#'+elmID+' form#edit-user-form');
@@ -22,6 +22,6 @@ export default Em.View.extend({
                     equalTo: '#'+passId
                 }
             }
-        });
+        });*/
     }
 });
