@@ -4,29 +4,21 @@
 miner_log="./logs/cgminer.log"
 
 # Read the config file first...
-config_file="./config.txt"
-miner_config=""
-read -r $miner_config<$config_file
+custom_file="./custom.conf"
+custom_config=""
+read -r $custom_config<$custom_file
 
-if [ -n "$miner_config" ]; then
+if [ -n "$custom_config" ]; then
     # If the miner config is not empty... Use it instead of default.
 
     # Start the miner...
-    eval `nohup $miner_config &> $miner_log`
+    eval `nohup $custom_config &> $miner_log`
 else
     # The miner_config file is empty so we will use the default config...
 
-    # Read the pools config file...
-    pools_file="./pools.txt"
-    pool_args=""
-    while read -r pool
-    do
-        $pool_args="$pool_args $pool"
-    done < $pools_file
-
-    # Add the api arguments...
-    api_args="--api-listen --api-allow W:127.0.0.1"
+    # Read the default config file...
+    conf_file="./miner.conf"
 
     # Start the miner...
-    nohup cgminer $pool_args $api_args &> $miner_log
+    nohup ../../cgminer-4.4.1/cgminer --config ./miner.conf >$miner_log 2>&1&
 fi

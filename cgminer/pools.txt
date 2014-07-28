@@ -1,1 +1,0 @@
--o http://stratum.bitcoin.cz:3333 -u grese.piminer -p schmiles 

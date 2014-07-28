@@ -11,6 +11,7 @@
         "test": "test"
     },
     "scripts": {
+        "prod": "node index",
         "start": "grunt server",
         "build": "grunt build:debug",
         "test": "grunt test:ci",
@@ -68,6 +69,7 @@
         "password-hash": "*",
         "miner-rpc": "*",
         "batch": "*",
-        "time": "*"
+        "time": "*",
+        "reboot": "*"
     }
 }

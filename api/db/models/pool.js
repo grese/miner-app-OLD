@@ -105,15 +105,19 @@ exports.deletePool = function(req, res){
 var savePoolConfigToFlatFile = function(){
     Pool.find(function(err, pools){
         if(!err){
+            var pool_list = [];
             if(pools && pools.length > 0){
-                var poolConfig = '';
-
                 for(var i=0; i<pools.length; i++){
                     if(pools[i].enabled){
-                        poolConfig+= ('-o '+pools[i].url+' -u '+pools[i].username+' -p '+pools[i].password+' \n');
+                        pool_list.push({
+                            url: pools[i].url,
+                            user: pools[i].username,
+                            pass: pools[i].password
+                        });
+                        //poolConfig+= ('-o '+pools[i].url+' -u '+pools[i].username+' -p '+pools[i].password+' \n');
                     }
                 }
-                writePoolConfigToFile(poolConfig);
+                writeConfigFile(pool_list);
             }else{
                 console.log('No Pools in DB...');
             }
@@ -125,6 +129,32 @@ var savePoolConfigToFlatFile = function(){
 var writePoolConfigToFile = function(config){
     var configFile = 'cgminer/pools.txt';
     fs.writeFile(configFile, config, function(err) {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log("Saved miner config to: "+configFile);
+        }
+    });
+};
+
+var writeConfigFile = function(pools){
+    var configFile = 'cgminer/miner.conf',
+        minerConfig = {
+        pools: pools,
+        "api-listen" : true,
+        "api-port" : "4028",
+        "expiry" : "120",
+        "failover-only" : true,
+        "log" : "5",
+        "queue" : "2",
+        "scan-time" : "60",
+        "worktime" : true,
+        "shares" : "0",
+        "kernel-path" : "/usr/local/bin",
+        "api-allow" : "W:127.0.0.1"
+        };
+    var configStr = JSON.stringify(minerConfig);
+    fs.writeFile(configFile, configStr, function(err) {
         if(err) {
             console.log(err);
         } else {

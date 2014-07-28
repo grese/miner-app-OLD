@@ -1,5 +1,6 @@
 export default Em.Controller.extend({
     speedMetric: 'MH',
+    showInactiveMiners: true,
     speedIsGh: function(){
         return this.get('speedMetric') === 'GH';
     }.property('speedMetric'),
@@ -50,6 +51,36 @@ export default Em.Controller.extend({
         });
         return GHModel;
     },
+    allMiners: function(){
+        return this.get('model.miners.content');
+    }.property('model.miners', 'speedMetric'),
+    activeMiners: function(){
+        return Em.A(this.get('model.miners').filterBy('Enabled', 'Y'));
+    }.property('speedMetric', 'model.miners'),
+    activeMinerIDs: function(){
+        return this.get('activeMiners').map(function(item){
+            return item.get('ID');
+        });
+    }.property('model.miners'),
+    activeMinersTrend: function(){
+        var activeIDs = this.get('activeMinerIDs');
+        switch(this.get('speedMetric')){
+            case 'GH':
+                return this.convertTrendToGH(
+                    this.get('model.minerTrend').filter(function(item, idx){
+                        if($.inArray(item.get('ID'), activeIDs) > -1){
+                            return item;
+                        }
+                    })
+                );
+            default:
+                return this.get('model.minerTrend').filter(function(item, idx){
+                    if($.inArray(item.get('ID'), activeIDs) > -1){
+                        return item;
+                    }
+                });
+        }
+    }.property('speedMetric', 'model.miners'),
     minerTrend: function(){
         switch(this.get('speedMetric')){
             case 'GH':
@@ -96,17 +127,7 @@ export default Em.Controller.extend({
     minerChartInterval: 0.1,
     actions: {
         changeSpeedMetric: function(metric){
-            var $ghBtn = $('#dashboard-speed-gh'),
-                $mhBtn = $('#dashboard-speed-mh');
-            if(metric === 'GH'){
-                if(!$ghBtn.hasClass('active')){ $ghBtn.addClass('active'); }
-                this.set('speedMetric', 'GH');
-                $mhBtn.removeClass('active');
-            }else{
-                if(!$mhBtn.hasClass('active')){ $mhBtn.addClass('active'); }
-                this.set('speedMetric', 'MH');
-                $ghBtn.removeClass('active');
-            }
+            this.set('speedMetric', metric);
         },
         refreshDashboard: function(){
             this.send('updateModel', {startDate: this.get('startDate'), endDate: this.get('endDate')});

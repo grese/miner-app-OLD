@@ -10,11 +10,13 @@
                         <div class="dashboard-speed-metric-container">
                             <div class="btn-group">
                                 <button {{action 'changeSpeedMetric' 'MH'}}
-                                        id="dashboard-speed-mh" type="button" class="btn btn-default btn-xs active">
+                                        {{bind-attr class=':btn :btn-default :btn-xs speedIsGh::active'}}
+                                        id="dashboard-speed-mh" type="button">
                                     Mh/s
                                 </button>
                                 <button {{action 'changeSpeedMetric' 'GH'}}
-                                        id="dashboard-speed-gh" type="button" class="btn btn-default btn-xs">
+                                        {{bind-attr class=':btn :btn-default :btn-xs speedIsGh:active'}}
+                                        id="dashboard-speed-gh" type="button">
                                     Gh/s
                                 </button>
                             </div>
@@ -60,7 +62,11 @@
                     <span class="dashboard-chart-daterange">{{dateRange}}</span>
                 </p>
                 {{#if minerTrendAvailable}}
-                    {{line-chart model=minerTrend key='MINER' metric=speedMetric tickInterval=minerChartInterval}}
+                    {{#if showInactiveMiners}}
+                        {{line-chart model=minerTrend key='MINER' metric=speedMetric tickInterval=minerChartInterval}}
+                    {{else}}
+                        {{line-chart model=activeMinersTrend key='MINER' metric=speedMetric tickInterval=minerChartInterval}}
+                    {{/if}}
                 {{else}}
                     <div class="dashboard-no-chart-data-msg">
                         <div class="alert alert-info">
@@ -74,8 +80,15 @@
         </div>
     </section>
 
+    <hr/>
+
     <section class="dashboard-miners-table-container">
-        {{render 'miners.list' model.miners}}
+        {{#if showInactiveMiners}}
+            {{render 'miners.list' allMiners speedMetric=speedMetric}}
+        {{else}}
+            {{render 'miners.list' activeMiners speedMetric=speedMetric}}
+        {{/if}}
+
     </section>
 
     <section class="dashboard-restart-miner-container">

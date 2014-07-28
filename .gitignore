@@ -9,6 +9,7 @@
 /vendor/*
 !/vendor/*.js
 !/vendor/*.css
+!/public/assets/fonts
 
 # misc
 /.sass-cache

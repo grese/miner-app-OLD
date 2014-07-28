@@ -1,5 +1,11 @@
 export default Em.ArrayController.extend({
-    columns: Em.computed(function(){
+    needs: ['dashboard'],
+    isShowInactiveActive: function(){
+        return this.get('controllers.dashboard.showInactiveMiners');
+    }.property('controllers.dashboard.showInactiveMiners'),
+    columns: function(){
+        var self = this,
+            speedMetric = self.get('controllers.dashboard.speedMetric');
         var idCol = Em.Object.create({
             headerCellText: 'ID',
             contentPath: 'ID',
@@ -82,20 +88,39 @@ export default Em.ArrayController.extend({
             }
         });
 
-        var mh5sCol = Em.Object.create({
-            headerCellText: 'Mh/s (5sec)',
-            contentPath: 'MHS 5s'
+        var mhsHeader = speedMetric === 'GH' ? 'Gh/s (5sec)' : 'Mh/s (5sec)',
+        mh5sCol = Em.Object.create({
+            headerCellText: mhsHeader,
+            getCellContent: function(row){
+                var avg = row.get('MHS 5s');
+                if(speedMetric === 'GH'){
+                    avg = avg / 1000;
+                }
+                return parseFloat(avg).toFixed(2);
+            }
         });
 
-        var avgMhsCol = Em.Object.create({
-            headerCellText: 'Avg. Mh/s',
-            contentPath: 'MHS av',
+        var avgHeader = speedMetric === 'GH' ? 'Avg. Gh/s' : 'Avg. Mh/s',
+        avgMhsCol = Em.Object.create({
+            headerCellText: avgHeader,
+            getCellContent: function(row){
+                var avg = row.get('MHS av');
+                if(speedMetric === 'GH'){
+                    avg = avg / 1000;
+                }
+                return parseFloat(avg).toFixed(2);
+            },
             getFooterCellContent: function(rows){
-                var total = 0;
+                var total = 0,
+                    rowCt = 0;
                 $.each(rows, function(idx, row){
+                    rowCt++;
                     total += row.get('MHS av');
                 });
-                return total;
+                if(speedMetric === 'GH'){
+                    total = total / rowCt / 1000;
+                }
+                return parseFloat(total).toFixed(2);
             }
         });
 
@@ -110,17 +135,26 @@ export default Em.ArrayController.extend({
                 return total;
             }
         });
-        var totalMhsCol = Em.Object.create({
-            headerCellText: 'Total MH',
+
+        var totalHeader = speedMetric === 'GH' ? 'Total Gh' : 'Total Mh',
+        totalMhsCol = Em.Object.create({
+            headerCellText: totalHeader,
             getCellContent: function(row){
-                return $.number(row.get('Total MH'), 4);
+                var total = row.get('Total MH');
+                if(speedMetric === 'GH'){
+                    total = total / 1000;
+                }
+                return $.number(total, 2);
             },
             getFooterCellContent: function(rows){
                 var total = 0;
                 $.each(rows, function(idx, row){
                     total += row.get('Total MH');
                 });
-                return $.number(total, 4);
+                if(speedMetric === 'GH'){
+                    total = total / 1000;
+                }
+                return $.number(total, 2);
             }
         });
         var lastShareCol = Em.Object.create({
@@ -131,20 +165,10 @@ export default Em.ArrayController.extend({
         });
         return [idCol, nameCol, enabledCol, statusCol, tempCol, deviceElapsed, accCol,
             rejCol, errCol, mh5sCol, avgMhsCol, utilityCol, totalMhsCol, lastShareCol];
-    }),
+    }.property('controllers.dashboard.speedMetric'),
     rows: Em.computed(function(){
-        Em.Logger.debug('THE CONTENT: ', this.get('model'));
-        return this.get('model.content');
+        return this.get('model');
     }).property('model.@each'),
-    filterRows: function(rows){
-        var self = this,
-            filteredRows = [];
-        $.each(rows, function(idx, itm){
-            if(self.filterTypes.DISABLED.filterEnabled && itm.get('Enabled') !== 'Y'){ return true; }
-            filteredRows.push(itm);
-        });
-        return filteredRows;
-    },
 
     filterTypes: {
         DISABLED: {
@@ -163,6 +187,13 @@ export default Em.ArrayController.extend({
                 if(!btn.hasClass('filter-enabled')){ btn.addClass('filter-enabled'); }
             }
             this.transitionTo('/dashboard');
+        },
+        toggleShowInactive: function(){
+            if(this.get('controllers.dashboard.showInactiveMiners')){
+                this.set('controllers.dashboard.showInactiveMiners', false);
+            }else{
+                this.set('controllers.dashboard.showInactiveMiners', true);
+            }
         }
     }
 });

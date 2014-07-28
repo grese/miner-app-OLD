@@ -74,7 +74,6 @@ var collectMinerData = function(interval){
     }, interval);
 };
 var setCollectionSettings = function(enabled, newInterval){
-    console.log('IN CALLBACK: ', enabled, newInterval);
     if(collectionTimer !== null){
         clearInterval(collectionTimer);
     }
