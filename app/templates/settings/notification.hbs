@@ -14,7 +14,7 @@
     </div>
     <div class="secure-settings row">
         <h6>Secure SMTP:</h6>
-        <div class="col-md-1">
+        <div class="col-md-1 no-padding">
             <label>SMTP Auth</label>
             {{view 'elements.switch' checked=model.value.smtpAuth name='smtpAuth'}}
         </div>
@@ -26,7 +26,7 @@
             <label>SMTP Password</label>
             {{input type='password' class='form-control' value=model.value.smtpAuthPassword name='smtpAuthPassword' placeholder='password'}}
         </div>
-        <div class="col-md-1">
+        <div class="col-md-1 no-padding">
             <label>SMTP Port</label>
             {{input placeholder='587' type='number' class='form-control' value=model.value.smtpAuthPort name='smtpAuthPort'}}
         </div>

@@ -5,14 +5,15 @@ export default Em.Route.extend({
             this.transitionTo('/login');
         },
         showAlert: function(params){
-            var outlet = params.outlet ? params.outlet : 'alert';
+            var outlet = params.outlet ? params.outlet : 'alert',
+                targetView = params.targetView ? params.targetView : 'application';
             this.controllerFor('elements.alert').setProperties({
                 type: params.type,
                 message: params.message,
                 title: params.title
             });
             this.render('elements.alert', {
-                into:  params.targetView,
+                into:  targetView,
                 outlet: outlet,
                 controller: 'elements.alert'
             });

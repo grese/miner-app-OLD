@@ -69,4 +69,12 @@ module.exports = {
       dest: 'dist/'
     }]
   },
+  distToPiMiner: {
+      files: [{
+          expand: true,
+          cwd: 'dist',
+          src: ['**'],
+          dest: '../pi-miner/'
+      }]
+  }
 };

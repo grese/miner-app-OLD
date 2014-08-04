@@ -1,5 +1,11 @@
+
 var attr = DS.attr;
-export default DS.Model.extend({
+
+var SettingModel = DS.Model.extend({
     type: attr('string'),
     value: attr()
 });
+
+
+export default SettingModel;
+

@@ -21,12 +21,9 @@ export default Em.Route.extend({
         });
     },
     setupController: function(controller, model){
-        Em.Logger.debug('trends: ', model.summaryTrend);
         var self = this;
         controller.set('model', model);
-
-        Em.Logger.debug('summary: ', model.summary);
-        this.store.find('alert', {type: 'PERFORMANCE_EXPECTATION'}).then(function(result){
+        this.store.find('setting', {type: 'PERFORMANCE_ALERT'}).then(function(result){
             if(result){
                 var perfExp = result.objectAt(0);
                 if(perfExp && perfExp.get('value.enabled')){

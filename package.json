@@ -2,7 +2,7 @@
     "name": "miner-app",
     "namespace": "minerapp",
     "APIMethod": "proxy",
-    "proxyURL": "http://localhost:8000",
+    "proxyURL": "http://piminer.local",
     "proxyPath": "/api",
     "version": "0.0.1",
     "private": true,

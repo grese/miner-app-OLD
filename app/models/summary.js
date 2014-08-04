@@ -25,14 +25,7 @@ var SummaryModel = DS.Model.extend({
     "Device Rejected%": attr('number'),
     "Pool Rejected%": attr('number'),
     "Pool Stale%": attr('number'),
-    "Last getwork": attr('number'),
-    "_status":{
-        "STATUS": attr('string'),
-        "When": attr('number'),
-        "Code": attr('number'),
-        "Msg": attr('string'),
-        "Description": attr('string')
-    }
+    "Last getwork": attr('number')
 });
 
 SummaryModel.reopen({
@@ -92,10 +85,7 @@ SummaryModel.reopen({
     }.property('Pool Stale%'),
     getLastGetwork: function(){
         return this.get('Last getwork');
-    }.property('Last getwork'),
-    getStatus: function(){
-        return this.get('_status');
-    }.property('_status')
+    }.property('Last getwork')
 });
 
 export default SummaryModel;

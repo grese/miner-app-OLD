@@ -88,7 +88,8 @@ module.exports = function(grunt) {
                      'clean:dist',
                      'build:dist',
                      'copy:assemble',
-                     'createDistVersion'
+                     'createDistVersion',
+                     'copyDistToPiMiner'
                      ]);
 
 
@@ -205,6 +206,7 @@ module.exports = function(grunt) {
                      'concat_sourcemap'
                      ]));
 
+
   // Styles
   grunt.registerTask('buildStyles', filterAvailable([
                      'compass:compile',
@@ -229,6 +231,9 @@ module.exports = function(grunt) {
   grunt.registerTask('createResultDirectory', function() {
     grunt.file.mkdir('tmp/result');
   });
+
+  // Copying to PiMiner:
+  grunt.registerTask('copyDistToPiMiner', ['copy:distToPiMiner']);
 
   grunt.initConfig(config);
 };

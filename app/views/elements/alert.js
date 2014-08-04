@@ -2,12 +2,14 @@ export default Em.View.extend({
     templateName: 'elements/alert',
     didInsertElement: function(){
         var self = this;
-        $('#'+self.get('elementId .alert')).on('closed.bs.alert', function(){
+        var elm = $('#'+self.get('elementId .alert'));
+        elm.on('closed.bs.alert', function(){
             self.destroy();
         });
         if(this.get('controller.autoDismiss')){
             setTimeout(function(){
-                $('#'+self.get('elementId .alert')).alert('close');
+                elm.alert('close');
+                self.destroy();
             }, this.get('controller.autoDismissTimeout'));
         }
     }

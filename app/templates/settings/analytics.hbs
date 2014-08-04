@@ -4,21 +4,22 @@
     <form {{action 'save' on='submit'}} id="edit-analytics-form">
         <div {{bind-attr class=':basic-settings :row model.value.dataCollectionEnabled::data-collection-disabled'}} class="basic-settings row">
             <h4>Data Collection:</h4>
-            <div class="col-md-1 data-collection-enabled">
-                <label>Enabled</label>
+            <div class="col-xs-3 col-md-1 no-padding">
+                <label>Enabled</label><br/>
                 {{view 'elements.switch' checked=model.value.dataCollectionEnabled
                 valueBinding='model.value.dataCollectionEnabled' name='enabled'}}
             </div>
-            <div class="col-md-9 data-collection-interval">
-                <div class="col-xs-3">
-                    <div class="data-interval-input-container">
-                        <label>Collect data every:</label>
-                        {{input disabled=isDataCollectionEnabled class='form-control data-interval-input' placeholder='# of seconds' type='number'
-                        min=1 value=model.value.dataInterval size=5 name='dataInterval'}}
-                    </div>
-                    <div class="data-interval-input-postfix">
-                        <span >(seconds)</span>
-                    </div>
+            <div class="col-xs-8 data-collection-interval">
+                <div class="data-interval-input-container">
+                    <label>Collect data every:</label>
+                    {{view Em.Select
+                    content=selectOptions
+                    optionValuePath="content.value"
+                    optionLabelPath="content.label"
+                    class='form-control data-interval-input'
+                    disabled=isDataCollectionEnabled
+                    value=model.value.dataInterval
+                    name='dataInterval'}}
                 </div>
             </div>
         </div>

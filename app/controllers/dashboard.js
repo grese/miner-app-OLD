@@ -97,7 +97,7 @@ export default Em.Controller.extend({
             pt.value = val / 1000;
             pt.id = itm.get('id');
             pt.ID = itm.get('ID');
-            pt.date = itm.get('date');
+            pt.collected = itm.get('collected');
             arr.addObject(Em.Object.create(pt));
         });
         return arr;

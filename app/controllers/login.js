@@ -4,19 +4,18 @@ export default Em.Controller.extend({
             var self = this,
                 model = self.get('model'),
                 username = model.get("username"),
-                password = model.get('password');
+                password = $.md5(model.get('password'));
             var RESTAdapter = self.store.adapterFor('application');
             var user = RESTAdapter.loginUser(username, password);
-            Em.Logger.debug('LOGGING IN....');
-            user.then(function(data){
+            user.then(function(resp){
+                Em.Logger.debug('THE REPONSE: ', resp);
+                var data = JSON.parse(resp);
                 if(data.result === 'SUCCESS'){
                     Em.Logger.debug('LOGIN SUCCESS!!!!!!');
-                    Em.Logger.debug('Login success');
                     RESTAdapter.set('headers.apitoken', data.token);
                     var cookie = JSON.stringify({userid: data.user.id, token: data.token});
                     sessionStorage.setItem('user', cookie);
-                    //self.transitionToRoute('/');
-                    window.location = '/';
+                    self.transitionToRoute('/');
                 }else{
                     Em.Logger.error('Login error', data);
                 }

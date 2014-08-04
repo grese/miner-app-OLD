@@ -1,7 +1,7 @@
 export default Em.Controller.extend({
     type: null,
     dismissable: true,
-    autoDismissTimeout: 12000,
+    autoDismissTimeout: 5000,
     autoDismiss: true,
     alertClass: function(){
         var dismissable = this.get('dismissable') ? ' alert-dismissable' : '';
@@ -27,5 +27,5 @@ export default Em.Controller.extend({
             default:
                 return 'fa fa-exclamation-circle';
         }
-    }
+    }.property('type')
 });
