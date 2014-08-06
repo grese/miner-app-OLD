@@ -74,7 +74,7 @@ module.exports = {
           expand: true,
           cwd: 'dist',
           src: ['**'],
-          dest: '../pi-miner/'
+          dest: '../pi-miner/app'
       }]
   }
 };

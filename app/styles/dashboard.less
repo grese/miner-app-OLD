@@ -1,4 +1,4 @@
-@import "./colors.less";
+@import "./variables.less";
 
 // Summary:
 .mhsAv{
@@ -47,41 +47,54 @@
 }
 #dashboard-summary-container .dashboard-summary-item{
   display: inline-block;
+}
+#dashboard-summary-container .dashboard-summary .dashboard-summary-item{
   border: 5px solid #999;
   padding: 10px 40px 10px 57px;
   margin: 0 -45px 0 0;
   border-radius: 0 45px 45px 0;
   position: relative;
 }
-#dashboard-summary-container .dashboard-summary-item:nth-of-type(1){
+#dashboard-summary-container .dashboard-summary-mobile .dashboard-summary-item{
+  padding: 5px 7px;
+  width: 100%;
+  border: 1px solid #fff;
+}
+#dashboard-summary-container .dashboard-summary-mobile .dashboard-summary-item-mobile{
+  padding: 0;
+}
+#dashboard-summary-container .dashboard-summary-mobile .dashboard-summary-item .summary-item-value{
+  font-size: 14px;
+}
+#dashboard-summary-container .dashboard-summary .dashboard-summary-item:nth-of-type(1){
   z-index: 9;
   padding-left: 30px;
 }
-#dashboard-summary-container .dashboard-summary-item:nth-of-type(2){
+#dashboard-summary-container .dashboard-summary .dashboard-summary-item:nth-of-type(2){
   z-index: 8;
 }
-#dashboard-summary-container .dashboard-summary-item:nth-of-type(3){
+#dashboard-summary-container .dashboard-summary .dashboard-summary-item:nth-of-type(3){
   z-index: 7;
 }
-#dashboard-summary-container .dashboard-summary-item:nth-of-type(4){
+#dashboard-summary-container .dashboard-summary .dashboard-summary-item:nth-of-type(4){
   z-index: 6;
 }
-#dashboard-summary-container .dashboard-summary-item:nth-of-type(5){
+#dashboard-summary-container .dashboard-summary .dashboard-summary-item:nth-of-type(5){
   z-index: 5;
 }
-#dashboard-summary-container .dashboard-summary-item:nth-of-type(6){
+#dashboard-summary-container .dashboard-summary .dashboard-summary-item:nth-of-type(6){
   z-index: 4;
 }
-#dashboard-summary-container .dashboard-summary-item:nth-of-type(7){
+#dashboard-summary-container .dashboard-summary .dashboard-summary-item:nth-of-type(7){
   z-index: 3;
 }
-#dashboard-summary-container .dashboard-summary-item:nth-of-type(8){
+#dashboard-summary-container .dashboard-summary .dashboard-summary-item:nth-of-type(8){
   z-index: 2;
 }
-#dashboard-summary-container .dashboard-summary-item:nth-of-type(9){
+#dashboard-summary-container .dashboard-summary .dashboard-summary-item:nth-of-type(9){
   z-index: 1;
 }
-#dashboard-summary-container .dashboard-summary-item:nth-of-type(10){
+#dashboard-summary-container .dashboard-summary .dashboard-summary-item:nth-of-type(10){
   z-index: 0;
 }
 

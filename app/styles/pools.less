@@ -1,4 +1,4 @@
-
+@import "variables";
 
 .pool-config-container{
   border: none;
@@ -11,8 +11,14 @@
   padding-top: 0;
   border-top: none;
 }
-.pool-config-container .pool-enabled-container .bootstrap-switch.bootstrap-switch-wrapper{
-  margin-top: 27px;
+.pool-config-container .pool-enabled-switch{
+  margin-top: 9px;
+}
+@media (max-width: @screen-xs-max){
+  .pool-config-container .pool-enabled-switch{
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
 }
 .pool-config-container .pool-delete-container button.delete-btn{
   margin-top: 25px;

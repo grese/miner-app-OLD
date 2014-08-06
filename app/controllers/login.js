@@ -12,10 +12,10 @@ export default Em.Controller.extend({
                 var data = JSON.parse(resp);
                 if(data.result === 'SUCCESS'){
                     Em.Logger.debug('LOGIN SUCCESS!!!!!!');
-                    RESTAdapter.set('headers.apitoken', data.token);
+                    //RESTAdapter.set('headers.apitoken', data.token);
                     var cookie = JSON.stringify({userid: data.user.id, token: data.token});
                     sessionStorage.setItem('user', cookie);
-                    self.transitionToRoute('/');
+                    window.location.href = "/";
                 }else{
                     Em.Logger.error('Login error', data);
                 }

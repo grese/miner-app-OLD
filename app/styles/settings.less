@@ -1,4 +1,4 @@
-
+@import "variables.less";
 
 // General Settings Page Styles:
 .save-settings-container-header .save-settings{
@@ -29,7 +29,9 @@
 .analytics-settings-container .data-collection-disabled .data-collection-interval{
   opacity: 0.5;
 }
-
+.analytics-enabled-switch{
+  margin-top: 9px;
+}
 
 
 // Notification Settings Styles
@@ -51,6 +53,21 @@
   margin-bottom: 7px;
   margin-right: 25px;
   margin-top: 20px;
+}
+.settings-smtp-auth-port{
+  max-width: 100px;
+}
+.smtp-auth-label{
+  display: block
+}
+.smtp-auth-switch{
+  margin-top: 9px;
+}
+@media (max-width: @screen-xs-max){
+  .smtp-auth-switch{
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
 }
 
 // User Settings Styles:

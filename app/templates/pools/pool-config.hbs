@@ -1,8 +1,10 @@
 <div class="pool-config-container list-group-item">
     <div class="row">
-        <div class="col-md-1 no-padding">
+        <div class="col-md-1">
             <label>Enabled</label><br/>
-            {{view 'elements.switch' checked=pool.enabled}}
+            <div class="pool-enabled-switch">
+                {{view 'elements.switch' checked=pool.enabled}}
+            </div>
         </div>
         <div class="col-md-2 pool-name-container">
             <label>Name</label>

@@ -1,0 +1,27 @@
+export default Em.Mixin.create({
+    init: function(){
+        this._super();
+        var self = this;
+        self.updateWindowWidth();
+        Em.Logger.debug('INITIALIZING');
+        $(window).resize(function() {
+            self.updateWindowWidth();
+        });
+    },
+    updateWindowWidth: function(){
+        this.set('windowWidth', $(window).width());
+    },
+    windowWidth: null,
+    isDeviceMobile: function(){
+        return /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    },
+    isIPad: function(){
+        return /iPad/i.test(navigator.userAgent);
+    },
+    isMobile: function(){
+        return  this.isDeviceMobile() ||  this.get('windowWidth') < 769;
+    }.property('windowWidth', 'isDeviceMobile'),
+    isTablet: function(){
+        return this.isIPad() || (769 < this.get('windowWidth') < 992);
+    }.property('windowWidth', 'isDeviceMobile')
+});

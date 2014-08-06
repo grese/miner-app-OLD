@@ -1,15 +1,5 @@
 export default DS.RESTAdapter.extend({
     namespace: 'api',
-    init: function(){
-        this._super();
-        var user = sessionStorage.getItem('user');
-        /*if(user){
-            var token = JSON.parse(user).token;
-            //this.set('headers.apitoken', token);
-        }else{
-            Em.Logger.error('No API-token available. User must login.');
-        }*/
-    },
     getJSON: function(path){
         return this.ajax('/'+this.get('namespace')+'/'+path);
     },

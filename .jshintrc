@@ -11,7 +11,8 @@
     "$": true,
     "moment": true,
     "setInterval": true,
-    "clearInterval": true
+    "clearInterval": true,
+    "navigator": true
   },
   "node" : false,
   "browser" : false,

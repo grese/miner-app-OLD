@@ -3,7 +3,7 @@
     {{outlet alert}}
     <h4>Performance Expectations:</h4>
     <div {{bind-attr class=':row :perf-expectations-container perfExpSetting.value.enabled::perf-expectations-disabled'}}>
-        <div class="col-md-1 no-padding">
+        <div class="col-md-1">
             <div class='perf-expectations-enabled-switch'>
                 {{view 'elements.switch' checked=perfExpSetting.value.enabled}}
             </div>

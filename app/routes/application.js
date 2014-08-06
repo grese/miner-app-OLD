@@ -31,11 +31,12 @@ export default Em.Route.extend({
             });
             window.scrollTo(0, 0);
         },
-        loading: function(){
-            Em.Logger.debug('IN LOADING');
+        loading: function() {
+            var view = this.container.lookup('view:loading').append();
+            this.router.one('didTransition', view, 'destroy');
         },
+
         reloadPage: function(){
-            Em.Logger.debug('RELOADING PAGE');
             var currentLoc = window.location.href;
             window.location = currentLoc;
         },

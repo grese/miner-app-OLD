@@ -4,9 +4,9 @@
     <form {{action 'save' on='submit'}} id="edit-analytics-form">
         <div {{bind-attr class=':basic-settings :row model.value.dataCollectionEnabled::data-collection-disabled'}} class="basic-settings row">
             <h4>Data Collection:</h4>
-            <div class="col-xs-3 col-md-1 no-padding">
+            <div class="col-xs-3 col-md-1">
                 <label>Enabled</label><br/>
-                {{view 'elements.switch' checked=model.value.dataCollectionEnabled
+                {{view 'elements.switch' class='analytics-enabled-switch' checked=model.value.dataCollectionEnabled
                 valueBinding='model.value.dataCollectionEnabled' name='enabled'}}
             </div>
             <div class="col-xs-8 data-collection-interval">

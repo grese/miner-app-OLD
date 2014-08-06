@@ -1,6 +1,8 @@
 <h3>Notification Settings</h3>
 <div class="notification-settings well">
+
     {{outlet alert}}
+
     <div class="basic-settings row">
         <h6>SMTP Settings:</h6>
         <div class="col-md-3 secure-smtp-enabled">
@@ -14,9 +16,11 @@
     </div>
     <div class="secure-settings row">
         <h6>Secure SMTP:</h6>
-        <div class="col-md-1 no-padding">
-            <label>SMTP Auth</label>
-            {{view 'elements.switch' checked=model.value.smtpAuth name='smtpAuth'}}
+        <div class="col-md-1">
+            <label class="smtp-auth-label">SMTP</label>
+            <div class="smtp-auth-switch">
+                {{view 'elements.switch' checked=model.value.smtpAuth name='smtpAuth'}}
+            </div>
         </div>
         <div class="col-md-3">
             <label>SMTP Username</label>
@@ -26,9 +30,9 @@
             <label>SMTP Password</label>
             {{input type='password' class='form-control' value=model.value.smtpAuthPassword name='smtpAuthPassword' placeholder='password'}}
         </div>
-        <div class="col-md-1 no-padding">
+        <div class="col-md-2">
             <label>SMTP Port</label>
-            {{input placeholder='587' type='number' class='form-control' value=model.value.smtpAuthPort name='smtpAuthPort'}}
+            {{input placeholder='587' type='number' class='form-control settings-smtp-auth-port' value=model.value.smtpAuthPort name='smtpAuthPort'}}
         </div>
     </div>
 

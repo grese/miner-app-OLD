@@ -37,7 +37,12 @@
         </div>
     </header>
     <section id="dashboard-summary-container">
-        {{render 'dashboard.summary' summary}}
+        {{#if isMobile}}
+            {{render 'dashboard.summary-mobile' summary}}
+        {{else}}
+            {{render 'dashboard.summary' summary}}
+        {{/if}}
+
     </section>
     <section id="dashboard-analytics-container">
         <div class="row">
@@ -93,9 +98,7 @@
 
     <section class="dashboard-restart-miner-container">
         <h3>Restart/Reboot</h3>
-        <div class="well">
-            {{render 'elements.restart-reboot' controller='elements.restart-reboot'}}
-        </div>
+        {{render 'elements.restart-reboot' controller='elements.restart-reboot'}}
     </section>
 
 </article>
