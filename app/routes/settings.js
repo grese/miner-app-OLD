@@ -1,19 +1,19 @@
+import AuthenticatedRoute from 'minerapp/routes/authenticated';
 import User from 'minerapp/models/user';
 import ElementsAlertController from 'minerapp/controllers/elements/alert';
-export default Em.Route.extend({
-    model: function(){
-        var self = this;
 
-        var userid = this.controllerFor('application').get('user.id');
-        userid = userid ? userid : 1;
-        Em.Logger.debug('USER: ', this.controllerFor('application').get('user'));
+export default AuthenticatedRoute.extend({
+    model: function(){
+        var self = this,
+            user = this.controllerFor('application').get('user'),
+            userid = user.user.id;
         return Em.RSVP.hash({
             info: self.store.find('setting', {type: 'DEVICE_INFO'})
                 .then(function(result){ return result.objectAt(0); }),
             pools: self.store.find('pool'),
             perfExp: self.store.find('setting', {type: 'PERFORMANCE_ALERT'})
                 .then(function(result){ return result.objectAt(0); }),
-            //user: self.store.find('user', userid),
+            user: self.store.find('user', userid),
             notification: self.store.find('setting', {type: 'EMAIL_NOTIFICATION'})
                 .then(function(result){ return result.objectAt(0); }),
             analytics: self.store.find('setting', {type: 'ANALYTICS_CONFIG'})
@@ -22,6 +22,7 @@ export default Em.Route.extend({
         });
     },
     afterModel: function(model){
+
         var info = JSON.stringify(model.info.get('value')),
             perfExp = JSON.stringify(model.perfExp.get('value')),
             notification = JSON.stringify(model.notification.get('value')),
@@ -55,9 +56,11 @@ export default Em.Route.extend({
     },
     actions: {
         saveSettings: function(){
+            this.controllerFor('settings').set('saveInProgress', true);
+            this.send('showGlobalLoading');
+
             var self = this;
             var dirtyModels = {};
-
 
             if(this.controllerFor('pools.pools').get('hasDirtyPools')){
                 dirtyModels.pools = this.controllerFor('pools.pools').save();
@@ -85,6 +88,9 @@ export default Em.Route.extend({
             }
 
             Em.RSVP.hash(dirtyModels).then(function(responses){
+                self.controllerFor('settings').set('saveInProgress', false);
+                self.send('hideGlobalLoading');
+
                 var valid = true,
                     errSections = "";
                 for(var e in responses){
@@ -118,6 +124,10 @@ export default Em.Route.extend({
                         });
                     }
                 }
+            }).catch(function(error){
+                self.controllerFor('settings').set('saveInProgress', false);
+                self.send('hideGlobalLoading');
+                Em.Logger.error("<ERROR>: While saving settings to server...", error);
             });
         }
     }

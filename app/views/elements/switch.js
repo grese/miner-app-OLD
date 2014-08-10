@@ -1,4 +1,5 @@
 export default Em.Checkbox.extend({
+    classNames: ['switch-element'],
     size: 'mini',
     onColor: 'success',
     offColor: 'danger',
@@ -10,7 +11,6 @@ export default Em.Checkbox.extend({
             onColor: self.get('onColor'),
             offColor: self.get('offColor')
         }).on('switchChange.bootstrapSwitch', function (event, state) {
-            Em.Logger.debug('STATE: ', state);
             self.set('checked', state);
         });
     }

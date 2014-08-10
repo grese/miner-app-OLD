@@ -167,9 +167,12 @@ export default Em.ArrayController.extend({
             rejCol, errCol, mh5sCol, avgMhsCol, utilityCol, totalMhsCol, lastShareCol];
     }.property('controllers.dashboard.speedMetric'),
     rows: Em.computed(function(){
+        Em.Logger.debug('THE MINERS: ', this.get('model'));
         return this.get('model');
-    }).property('model.@each'),
-
+    }).property('model.[]'),
+    hasMiners: function(){
+        return this.get('model').length > 0;
+    }.property('model.[]'),
     filterTypes: {
         DISABLED: {
             filterEnabled: true,

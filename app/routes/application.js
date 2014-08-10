@@ -1,8 +1,24 @@
 export default Em.Route.extend({
+    beforeModel: function(transition){
+        var user = this.controllerFor('application').get('user');
+        if(user){
+            var token = user.token;
+            if(token){
+                this.store.adapterFor('application').set('headers.apitoken', token);
+            }
+        }
+    },
+    loadingView: null,
+    routeDidChange: function(){
+        if(!this.get('controller.isLoggedIn')){
+            this.transitionTo('login');
+        }
+    }.observes('currentPath'),
+
     actions: {
         logout: function(){
             this.store.adapterFor('application').logoutUser();
-            this.transitionTo('/login');
+            this.transitionTo('login');
         },
         showAlert: function(params){
             var outlet = params.outlet ? params.outlet : 'alert',
@@ -35,7 +51,13 @@ export default Em.Route.extend({
             var view = this.container.lookup('view:loading').append();
             this.router.one('didTransition', view, 'destroy');
         },
-
+        showGlobalLoading: function(){
+            var loadingView = this.container.lookup('view:loading').append();
+            this.set('loadingView', loadingView);
+        },
+        hideGlobalLoading: function(){
+            this.get('loadingView').destroy();
+        },
         reloadPage: function(){
             var currentLoc = window.location.href;
             window.location = currentLoc;
@@ -51,7 +73,6 @@ export default Em.Route.extend({
                 into: 'application',
                 controller: 'elements.please-wait'
             });
-
         }
     }
 });

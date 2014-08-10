@@ -1,4 +1,4 @@
-
+@import "variables";
 // Site-wide & general styles:
 
 html, body{
@@ -19,6 +19,9 @@ html, body{
 .muted-text{
   color: #898989;
   font-size: 0.8em;
+}
+.site-navbar{
+  z-index: @navbar-z-index;
 }
 .site-navbar.navbar ul.nav li a:hover{
   background: #151515;
@@ -83,7 +86,7 @@ ul.dropdown-menu li .menu-button-icon{
   top: 0;
   left: 0;
   position: fixed;
-  z-index: 1000;
+  z-index: @loading-z-index;
   width: 100%;
   height: 100%;
   background-color: rgba(180, 182, 185, 0.7);
@@ -94,7 +97,6 @@ ul.dropdown-menu li .menu-button-icon{
   left: 50%;
   margin-left: -35px;
   color: #333;
-  z-index: 1000;
 }
 
 // Hero div styles:

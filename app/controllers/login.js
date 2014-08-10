@@ -1,25 +1,31 @@
 export default Em.Controller.extend({
+    attemptedTransition: null,
+    inProgress: false,
     actions: {
         login: function(){
+            this.set('inProgress', true);
             var self = this,
                 model = self.get('model'),
                 username = model.get("username"),
                 password = $.md5(model.get('password'));
             var RESTAdapter = self.store.adapterFor('application');
-            var user = RESTAdapter.loginUser(username, password);
-            user.then(function(resp){
-                Em.Logger.debug('THE REPONSE: ', resp);
-                var data = JSON.parse(resp);
+            var login = RESTAdapter.loginUser(username, password);
+            login.then(function(data){
+                self.set('inProgress', false);
                 if(data.result === 'SUCCESS'){
-                    Em.Logger.debug('LOGIN SUCCESS!!!!!!');
-                    //RESTAdapter.set('headers.apitoken', data.token);
-                    var cookie = JSON.stringify({userid: data.user.id, token: data.token});
-                    sessionStorage.setItem('user', cookie);
-                    window.location.href = "/";
+                    var attemptedTranny = self.get('attemptedTransition');
+                    if(attemptedTranny){
+                        attemptedTranny.retry();
+                        self.set('attemptedTransition', null);
+                    }else{
+                        self.transitionToRoute('dashboard');
+                    }
+
                 }else{
-                    Em.Logger.error('Login error', data);
+                    Em.Logger.error('<ERROR>: Login Error received from server: ', data);
                 }
             }).fail(function(err){
+                    self.set('inProgress', false);
                     Em.Logger.error('Login error', err);
                     self.send('showHero', {
                         type: 'danger',

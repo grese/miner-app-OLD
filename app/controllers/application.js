@@ -1,12 +1,13 @@
 export default Em.Controller.extend({
-    routeDidChange: function(){
-        if(!this.isLoggedIn()) this.transitionToRoute('/login');
-    }.observes('currentPath'),
-    isLoggedIn: function(){
-        var user = this.get('user');
-        return user && user.userid && user.token;
-    },
     user: function(){
-        return JSON.parse(sessionStorage.getItem('user'));
-    }.property()
+        var user = sessionStorage.getItem('piminer_user');
+        if(user){
+            return JSON.parse(user);
+        }else{
+            return null;
+        }
+    }.property(),
+    isLoggedIn: function(){
+        return this.get('user') !== null;
+    }.property('user')
 });

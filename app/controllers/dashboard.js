@@ -23,10 +23,10 @@ export default Em.Controller.extend(DeviceMixin, {
     }.property('speedMetric', 'model.summaryTrend.content'),
     summaryTrendAvailable: function(){
         return (this.get('model.summaryTrend.content') && (this.get('model.summaryTrend.content').length > 0));
-    }.property('model.summaryTrend.content'),
+    }.property('model.summaryTrend.[]'),
     minerTrendAvailable: function(){
         return (this.get('model.minerTrend.content') && (this.get('model.minerTrend.content').length > 0));
-    }.property('model.minerTrend.content'),
+    }.property('model.minerTrend.[]'),
     summary: function(){
         switch(this.get('speedMetric')){
             case 'GH':
@@ -55,15 +55,15 @@ export default Em.Controller.extend(DeviceMixin, {
     },
     allMiners: function(){
         return this.get('model.miners.content');
-    }.property('model.miners', 'speedMetric'),
+    }.property('model.miners.[]', 'speedMetric'),
     activeMiners: function(){
         return Em.A(this.get('model.miners').filterBy('Enabled', 'Y'));
-    }.property('speedMetric', 'model.miners'),
+    }.property('speedMetric', 'model.miners.[]'),
     activeMinerIDs: function(){
         return this.get('activeMiners').map(function(item){
             return item.get('ID');
         });
-    }.property('model.miners'),
+    }.property('model.miners.[]'),
     activeMinersTrend: function(){
         var activeIDs = this.get('activeMinerIDs');
         switch(this.get('speedMetric')){
@@ -82,7 +82,7 @@ export default Em.Controller.extend(DeviceMixin, {
                     }
                 });
         }
-    }.property('speedMetric', 'model.miners'),
+    }.property('speedMetric', 'model.miners.[]'),
     minerTrend: function(){
         switch(this.get('speedMetric')){
             case 'GH':
@@ -90,7 +90,7 @@ export default Em.Controller.extend(DeviceMixin, {
             default:
                 return this.get('model.minerTrend.content');
         }
-    }.property('speedMetric', 'model.minerTrend.content'),
+    }.property('speedMetric', 'model.minerTrend.[]'),
     convertTrendToGH: function(model){
         var arr = Em.A([]);
         $.each(model, function(idx, itm){

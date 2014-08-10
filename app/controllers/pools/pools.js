@@ -17,7 +17,7 @@ export default Em.Controller.extend({
             if(pool.get('isDirty')){ has = true; }
         });
         return has;
-    }.property('model.@each'),
+    }.property('model.@each.isDirty'),
     actions: {
         newPool: function(){
             var pool = this.store.createRecord('pool', {});

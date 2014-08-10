@@ -1,6 +1,6 @@
 export default Em.Controller.extend({
+    needs: ['application'],
     isLoggedIn: function(){
-        var user = sessionStorage.getItem('user');
-        return user && user.userid && user.token;
-    }.property()
+        return this.get('controllers.application.user') !== null;
+    }.property('controllers.application.user')
 });

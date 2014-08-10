@@ -1,3 +1,11 @@
+export default Em.Component.extend({
+    parsedColumns: function(){
+        return Em.A(this.get('columns').map(function(col){
+            return DefaultColumnConfig.create(col);
+        }));
+    }.property('columns')
+});
+
 
 var DefaultColumnConfig = Em.Object.extend({
     getCellContent: null,
@@ -21,12 +29,4 @@ Ember.Handlebars.helper('tableComponentCell', function(row, column){
 Ember.Handlebars.helper('tableComponentFooterCell', function(rows, column){
     var getFooterCellContent = column.get('getFooterCellContent') ? column.get('getFooterCellContent') : null;
     return getFooterCellContent ? getFooterCellContent(rows) : '';
-});
-
-export default Em.Component.extend({
-    parsedColumns: function(){
-        return Em.A(this.get('columns').map(function(col){
-            return DefaultColumnConfig.create(col);
-        }));
-    }.property('columns')
 });

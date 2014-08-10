@@ -10,9 +10,8 @@
             {{input type='password' value=model.password name='password' class='form-control'}}
         </div>
         <div class="form-submit">
-            <button type="submit" class="btn btn-primary btn-sm">
-                <i class="fa fa-sign-in"></i>&nbsp;&nbsp;Login
-            </button>
+            {{spinner-button type="submit" size="sm" color="primary"
+            iconClass="fa fa-sign-in" buttonText="Login" isLoading=inProgress}}
         </div>
     </form>
 </div>

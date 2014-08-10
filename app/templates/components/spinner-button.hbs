@@ -1,0 +1,19 @@
+
+
+{{#if _hasAction}}
+    <button {{action actionName}} {{bind-attr id=id
+    class=":btn _sizeClass _colorClass _activeClass"
+    disabled=_disabledAttr
+    type=type}}>
+{{else}}
+    <button {{bind-attr id=id
+    class=":btn _sizeClass _colorClass _activeClass"
+    disabled=_disabledAttr
+    type=type}}>
+{{/if}}
+    {{#if isLoading}}
+        <span {{bind-attr class="spinnerClass"}}></span>
+    {{else}}
+        <span {{bind-attr class="iconClass"}}></span>&nbsp;{{buttonText}}
+    {{/if}}
+</button>
