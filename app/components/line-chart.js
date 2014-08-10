@@ -82,6 +82,7 @@ export default Em.Component.extend(ChartDataFormatMixin, {
         this.set('baseConfig', LineGraphBaseConfig.create());
     },
     modelChanged: function(){
+        Em.Logger.debug('RENDERING CHART');
         this.renderChart();
     }.observes('model'),
     classNames: ['line-graph-component'],
@@ -101,7 +102,7 @@ export default Em.Component.extend(ChartDataFormatMixin, {
         var self = this;
         self.set('baseConfig.chart.renderTo', self.get('chartSelector'));
         self.set('baseConfig.plotOptions.line.marker.lineColor', self.get('chartColor'));
-        //this.renderChart();
+        this.renderChart();
     },
     renderChart: function(){
         var self = this;
@@ -127,9 +128,9 @@ export default Em.Component.extend(ChartDataFormatMixin, {
             var miners = this.prepareChartData();
             chartParams.series = [];
             for(var m in miners){
-                var id = m.replace('miner-', '');
+                var name = m.replace('miner-', '');
                 chartParams.series.push({
-                    name: 'Miner '+id,
+                    name: name,
                     data: miners[m]
                 });
             }
@@ -138,9 +139,7 @@ export default Em.Component.extend(ChartDataFormatMixin, {
                 color: this.get('chartColor'),
                 data: this.prepareChartData()
             }];
-        }
-
-        if(this.get('yAxisInterval') != null){ chartParams.set('yAxis.tickInterval', this.get('yAxisTickInterval')); }
+        }        if(this.get('yAxisInterval') != null){ chartParams.set('yAxis.tickInterval', this.get('yAxisTickInterval')); }
         var chart = $(this.get('chartSelector')).highcharts(chartParams);
         this.set('chart', chart);
     },

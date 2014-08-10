@@ -67,11 +67,7 @@
                     <span class="dashboard-chart-daterange">{{dateRange}}</span>
                 </p>
                 {{#if minerTrendAvailable}}
-                    {{#if showInactiveMiners}}
-                        {{line-chart model=minerTrend key='MINER' metric=speedMetric tickInterval=minerChartInterval}}
-                    {{else}}
-                        {{line-chart model=activeMinersTrend key='MINER' metric=speedMetric tickInterval=minerChartInterval}}
-                    {{/if}}
+                    {{line-chart model=minerTrend key='MINER' metric=speedMetric tickInterval=minerChartInterval}}
                 {{else}}
                     <div class="dashboard-no-chart-data-msg">
                         <div class="alert alert-info">

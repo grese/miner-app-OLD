@@ -14,12 +14,7 @@ export default Em.Controller.extend(DeviceMixin, {
         return moment(this.get('startDate')).format('MM/DD/YYYY hh:mm a') + ' - ' + moment(this.get('endDate')).format('MM/DD/YYYY hh:mm a');
     }.property('startDate', 'endDate'),
     summaryTrend: function(){
-        switch(this.get('speedMetric')){
-            case 'GH':
-                return this.convertTrendToGH(this.get('model.summaryTrend.content'));
-            default:
-                return this.get('model.summaryTrend.content');
-        }
+        return this.convertSummaryTrend(this.get('model.summaryTrend.content'), this.get('speedMetric'));
     }.property('speedMetric', 'model.summaryTrend.content'),
     summaryTrendAvailable: function(){
         return (this.get('model.summaryTrend.content') && (this.get('model.summaryTrend.content').length > 0));
@@ -56,51 +51,39 @@ export default Em.Controller.extend(DeviceMixin, {
     allMiners: function(){
         return this.get('model.miners.content');
     }.property('model.miners.[]', 'speedMetric'),
-    activeMiners: function(){
-        return Em.A(this.get('model.miners').filterBy('Enabled', 'Y'));
-    }.property('speedMetric', 'model.miners.[]'),
-    activeMinerIDs: function(){
-        return this.get('activeMiners').map(function(item){
-            return item.get('ID');
-        });
-    }.property('model.miners.[]'),
-    activeMinersTrend: function(){
-        var activeIDs = this.get('activeMinerIDs');
-        switch(this.get('speedMetric')){
-            case 'GH':
-                return this.convertTrendToGH(
-                    this.get('model.minerTrend').filter(function(item, idx){
-                        if($.inArray(item.get('ID'), activeIDs) > -1){
-                            return item;
-                        }
-                    })
-                );
-            default:
-                return this.get('model.minerTrend').filter(function(item, idx){
-                    if($.inArray(item.get('ID'), activeIDs) > -1){
-                        return item;
-                    }
-                });
-        }
-    }.property('speedMetric', 'model.miners.[]'),
+
     minerTrend: function(){
-        switch(this.get('speedMetric')){
-            case 'GH':
-                return this.convertTrendToGH(this.get('model.minerTrend.content'));
-            default:
-                return this.get('model.minerTrend.content');
-        }
+        return this.convertMinerTrend(this.get('model.minerTrend.content'), this.get('speedMetric'));
     }.property('speedMetric', 'model.minerTrend.[]'),
-    convertTrendToGH: function(model){
+    convertSummaryTrend: function(model, metric){
         var arr = Em.A([]);
         $.each(model, function(idx, itm){
-            var pt = {},
-                val = itm.get('value');
-            pt.value = val / 1000;
-            pt.id = itm.get('id');
-            pt.ID = itm.get('ID');
-            pt.collected = itm.get('collected');
-            arr.addObject(Em.Object.create(pt));
+            var val = itm.get('value')['MHS 1m'];
+
+            if(metric === 'GH'){
+                val = val / 1000;
+            }
+            arr.addObject({
+                collected: itm.get('collected'),
+                value: val
+            });
+        });
+        return arr;
+    },
+    convertMinerTrend: function(model, metric){
+        var arr = Em.A([]);
+        $.each(model, function(idx, itm){
+            var val = itm.get('value')['MHS 1m'];
+
+            if(metric === 'GH'){
+                val = val / 1000;
+            }
+            arr.addObject({
+                id: itm.get('id'),
+                collected: itm.get('collected'),
+                deviceName: itm.get('deviceName'),
+                value: val
+            });
         });
         return arr;
     },

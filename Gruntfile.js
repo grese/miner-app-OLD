@@ -89,7 +89,8 @@ module.exports = function(grunt) {
                      'build:dist',
                      'copy:assemble',
                      'createDistVersion',
-                     'copyDistToPiMiner'
+                     'copyDistToPiMiner',
+                     'cleanupPiMinerDist'
                      ]);
 
 
@@ -234,6 +235,13 @@ module.exports = function(grunt) {
 
   // Copying to PiMiner:
   grunt.registerTask('copyDistToPiMiner', ['copy:distToPiMiner']);
+
+  grunt.registerTask('cleanupPiMinerDist', function(){
+      var piMinerApp = "../pi-miner/app/";
+      grunt.file.copy(piMinerApp+'index.html', piMinerApp+'app.html');
+      grunt.file.delete(piMinerApp+'index.html');
+  });
+
 
   grunt.initConfig(config);
 };

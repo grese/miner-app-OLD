@@ -7,10 +7,9 @@ export default AuthenticatedRoute.extend({
             startDate = params.startDate.format();
             endDate = params.endDate.format();
         }else{
-            startDate = moment().subtract('hours', 1).format();
-            endDate = moment().format();
-        }
-        return Em.RSVP.hash({
+            startDate = moment().subtract('hours', 1).unix();
+            endDate = moment().unix();
+        }return Em.RSVP.hash({
             startDate: startDate,
             endDate: endDate,
             summary: self.store.find('summary').then(function(result){
@@ -22,6 +21,8 @@ export default AuthenticatedRoute.extend({
         });
     },
     setupController: function(controller, model){
+        Em.Logger.debug('MINER TREND: ', model.minerTrend);
+        Em.Logger.debug('SUMMARY TREND: ', model.summaryTrend);
         var self = this;
         controller.set('model', model);
         this.store.find('setting', {type: 'PERFORMANCE_ALERT'}).then(function(result){
