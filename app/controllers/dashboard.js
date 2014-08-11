@@ -1,7 +1,13 @@
 import DeviceMixin from 'minerapp/mixins/device-mixin';
 
 export default Em.Controller.extend(DeviceMixin, {
-    speedMetric: 'MH',
+    speedMetric: function(){
+        var sm = localStorage.getItem('dashboard_speedMetric'),
+            metric = (sm === null) ? 'MH' : sm;
+        this.set('chosenSpeedMetric', metric);
+        return metric;
+    }.property('chosenSpeedMetric'),
+    chosenSpeedMetric: 'MH',
     showInactiveMiners: true,
     speedIsGh: function(){
         return this.get('speedMetric') === 'GH';
@@ -111,7 +117,8 @@ export default Em.Controller.extend(DeviceMixin, {
     minerChartInterval: 0.1,
     actions: {
         changeSpeedMetric: function(metric){
-            this.set('speedMetric', metric);
+            localStorage.setItem('dashboard_speedMetric', metric);
+            this.set('chosenSpeedMetric', metric);
         },
         refreshDashboard: function(){
             this.send('updateModel', {startDate: this.get('startDate'), endDate: this.get('endDate')});
