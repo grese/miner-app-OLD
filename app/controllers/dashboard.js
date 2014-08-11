@@ -7,9 +7,8 @@ export default Em.Controller.extend(DeviceMixin, {
         return this.get('speedMetric') === 'GH';
     }.property('speedMetric'),
     dateRangeChanged: function(){
-        Em.Logger.debug('RANGE CHANGE!');
         this.send('updateModel', {startDate: this.get('startDate'), endDate: this.get('endDate')});
-    }.observes('endDate'),
+    }.observes('dateRange'),
     dateRange: function(){
         return moment(this.get('startDate')).format('MM/DD/YYYY hh:mm a') + ' - ' + moment(this.get('endDate')).format('MM/DD/YYYY hh:mm a');
     }.property('startDate', 'endDate'),
@@ -58,7 +57,7 @@ export default Em.Controller.extend(DeviceMixin, {
     convertSummaryTrend: function(model, metric){
         var arr = Em.A([]);
         $.each(model, function(idx, itm){
-            var val = itm.get('value')['MHS 1m'];
+            var val = itm.get('value')['MHS 5s'];
 
             if(metric === 'GH'){
                 val = val / 1000;
@@ -73,7 +72,7 @@ export default Em.Controller.extend(DeviceMixin, {
     convertMinerTrend: function(model, metric){
         var arr = Em.A([]);
         $.each(model, function(idx, itm){
-            var val = itm.get('value')['MHS 1m'];
+            var val = itm.get('value')['MHS 5s'];
 
             if(metric === 'GH'){
                 val = val / 1000;

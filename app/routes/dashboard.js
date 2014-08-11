@@ -21,8 +21,6 @@ export default AuthenticatedRoute.extend({
         });
     },
     setupController: function(controller, model){
-        Em.Logger.debug('MINER TREND: ', model.minerTrend);
-        Em.Logger.debug('SUMMARY TREND: ', model.summaryTrend);
         var self = this;
         controller.set('model', model);
         this.store.find('setting', {type: 'PERFORMANCE_ALERT'}).then(function(result){
