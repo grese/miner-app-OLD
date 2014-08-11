@@ -4,8 +4,8 @@ export default AuthenticatedRoute.extend({
         var self = this,
             startDate, endDate;
         if(params && params.startDate && params.endDate){
-            startDate = params.startDate.format();
-            endDate = params.endDate.format();
+            startDate = params.startDate.unix();
+            endDate = params.endDate.unix();
         }else{
             startDate = moment().subtract('hours', 1).unix();
             endDate = moment().unix();
