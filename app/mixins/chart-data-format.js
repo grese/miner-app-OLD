@@ -38,7 +38,7 @@ export default Em.Mixin.create({
                 miners['miner-'+item.deviceName] = Em.A([]);
             }
 
-            var date = moment.unix(item.collected),
+            var date = moment.unix(parseInt(item.collected)),
                 y = parseInt(date.format('YYYY'), 10),
                 m = parseInt(date.format('M'), 10) -1,
                 d = parseInt(date.format('D'), 10),
@@ -48,10 +48,9 @@ export default Em.Mixin.create({
                 ss = parseInt(date.format('SSS'), 10);
             m = m >= 0 ? m : 11;
 
-            Em.Logger.debug('FORMATTING: ', item);
-
-            miners['miner-'+item.deviceName].addObject([Date.UTC(y,m,d,h,mm,s,ss), parseFloat(item.value)]);
+            miners['miner-'+item.deviceName].addObject([Date.UTC(y,m,d,h,mm,s,ss), Number(item.value)]);
         });
+        Em.Logger.debug('MINERS: ', miners);
         return miners;
     }
 });

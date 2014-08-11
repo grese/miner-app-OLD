@@ -1,6 +1,6 @@
 
 var TrendModel = DS.Model.extend({
-    value: DS.attr('number'),
+    value: DS.attr(),
     type: DS.attr('string'),
     collected: DS.attr('number'),
     deviceID: DS.attr('number'),

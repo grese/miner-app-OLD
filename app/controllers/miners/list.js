@@ -20,6 +20,10 @@ export default Em.ArrayController.extend({
                 return row.get('Name')+' '+row.get('ID');
             }
         });
+        var driverCol = Em.Object.create({
+            headerCellText: 'Driver',
+            contentPath: 'Driver'
+        });
         var enabledCol = Em.Object.create({
             headerCellText: 'Enabled',
             getCellContent: function(row){
@@ -163,7 +167,7 @@ export default Em.ArrayController.extend({
                 return moment.unix(row.get('Last Share Time')).format('MM-DD-YYYY hh:mm:ss');
             }
         });
-        return [idCol, nameCol, enabledCol, statusCol, tempCol, deviceElapsed, accCol,
+        return [idCol, nameCol, driverCol, enabledCol, statusCol, tempCol, deviceElapsed, accCol,
             rejCol, errCol, mh5sCol, avgMhsCol, utilityCol, totalMhsCol, lastShareCol];
     }.property('controllers.dashboard.speedMetric'),
     rows: Em.computed(function(){
