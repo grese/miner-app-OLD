@@ -2,7 +2,7 @@ import ChartDataFormatMixin from 'minerapp/mixins/chart-data-format';
 
 var LineGraphBaseConfig = Em.Object.extend({
     title: { text: null },
-    colors: ['#D97F89', '#04668E', '#059AC4', '#F2642C', '#A44025'],
+    colors: ['#D97F89', '#5B4D79', '#04668E', '#059AC4', '#F2642C', '#A44025'],
     chart: {
         marginTop: 20,
         marginLeft: 90,
@@ -64,8 +64,8 @@ var LineGraphBaseConfig = Em.Object.extend({
     },
     tooltip: {
         useHTML: true,
-        backgroundColor: 'rgba(128,128,128, 0.85)',
-        borderColor: '#888',
+        backgroundColor: 'rgba(160,160,160, 0.85)',
+        borderColor: '#aaa',
         borderRadius: 1,
         crosshairs: true,
         positioner: function(w, h, p){

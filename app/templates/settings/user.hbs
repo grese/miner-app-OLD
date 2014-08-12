@@ -1,5 +1,6 @@
 <h3>User Settings</h3>
 <div class="user-settings-container well">
+
     {{outlet alert}}
     <form {{action 'save' on='submit'}} id="edit-user-form">
         <div class="row">
@@ -8,7 +9,7 @@
                 {{input class='form-control' placeholder='username' value=model.username name='username'}}
             </div>
             <div class="password-field col-md-3">
-                <label>Password:</label><label class="error"></label>
+                <label>Password:</label>
                 {{input type='password' placeholder='new password' class='form-control' value=model.password name='password'}}
                 <label>Confirm Password:</label>
                 {{input type='password' placeholder='confirm new password' class='form-control password-conf' name='passwordConf'}}

@@ -7,6 +7,7 @@ export default AuthenticatedRoute.extend({
         var self = this,
             user = this.controllerFor('application').get('user'),
             userid = user.user.id;
+
         return Em.RSVP.hash({
             info: self.store.find('setting', {type: 'DEVICE_INFO'})
                 .then(function(result){ return result.objectAt(0); }),
@@ -22,7 +23,6 @@ export default AuthenticatedRoute.extend({
         });
     },
     afterModel: function(model){
-
         var info = JSON.stringify(model.info.get('value')),
             perfExp = JSON.stringify(model.perfExp.get('value')),
             notification = JSON.stringify(model.notification.get('value')),
@@ -65,7 +65,8 @@ export default AuthenticatedRoute.extend({
             if(this.controllerFor('pools.pools').get('hasDirtyPools')){
                 dirtyModels.pools = this.controllerFor('pools.pools').save();
             }
-            if(this.controllerFor('settings.user').get('model.isDirty')){
+            if(this.controllerFor('settings.user').get('model.isDirty') &&
+                this.controllerFor('settings.user').get('model.password') !== null){
                 dirtyModels.user = this.controllerFor('settings.user').save();
             }
 

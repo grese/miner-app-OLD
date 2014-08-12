@@ -14,13 +14,6 @@ UserModel.reopen({
                 message: 'Username must be a minimum of 4 characters.'
             }
         }
-        /*password: {
-            presence: {
-                if: function(object, validator) {
-                    return (object.get('password') === null || object.get('password').length > 8);
-                }
-            }
-        }*/
     }
 });
 

@@ -1,4 +1,5 @@
 export default Em.Controller.extend({
+    needs: ['application'],
     attemptedTransition: null,
     inProgress: false,
     actions: {
@@ -13,14 +14,15 @@ export default Em.Controller.extend({
             login.then(function(data){
                 self.set('inProgress', false);
                 if(data.result === 'SUCCESS'){
-                    var attemptedTranny = self.get('attemptedTransition');
+                    self.set('controllers.application.user', data.user);
+                    self.send('updateAPIToken');
+                    var attemptedTranny = self.get('attemptedTransition'),
+                        targ = null;
                     if(attemptedTranny){
-                        attemptedTranny.retry();
+                        targ = attemptedTranny.targetName;
                         self.set('attemptedTransition', null);
-                    }else{
-                        self.transitionToRoute('dashboard');
                     }
-
+                    window.location = targ ? '/'+targ : '/';
                 }else{
                     Em.Logger.error('<ERROR>: Login Error received from server: ', data);
                 }

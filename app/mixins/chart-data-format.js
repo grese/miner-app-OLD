@@ -24,7 +24,7 @@ export default Em.Mixin.create({
             ctr++;
 
             if(!dateExists){
-                return [Date.UTC(y,m,d,h,mm,s,ss), parseFloat(item.value)];
+                return [Date.UTC(y,m,d,h,mm,s,ss), Math.round(item.value*100)/100];
             }
         });
     },
@@ -48,7 +48,7 @@ export default Em.Mixin.create({
                 ss = parseInt(date.format('SSS'), 10);
             m = m >= 0 ? m : 11;
 
-            miners['miner-'+item.deviceName].addObject([Date.UTC(y,m,d,h,mm,s,ss), Number(item.value)]);
+            miners['miner-'+item.deviceName].addObject([Date.UTC(y,m,d,h,mm,s,ss), Math.round(item.value*100)/100]);
         });
         Em.Logger.debug('MINERS: ', miners);
         return miners;

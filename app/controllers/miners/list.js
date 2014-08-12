@@ -43,6 +43,7 @@ export default Em.ArrayController.extend({
         var deviceElapsed = Em.Object.create({
             headerCellText: 'Elapsed',
             getCellContent: function(row){
+                Em.Logger.debug('ELAPSED:'+row.get('Device Elapsed'));
                 return moment.duration(row.get('Device Elapsed'), 'seconds').humanize();
             }
         });
@@ -95,6 +96,19 @@ export default Em.ArrayController.extend({
         var mhsHeader = speedMetric === 'GH' ? 'Gh/s (5sec)' : 'Mh/s (5sec)',
         mh5sCol = Em.Object.create({
             headerCellText: mhsHeader,
+            getFooterCellContent: function(rows){
+                var total = 0,
+                    rowCt = 0;
+                $.each(rows, function(idx, row){
+                    rowCt++;
+                    total += row.get('MHS 5s');
+                });
+
+                if(speedMetric === 'GH'){
+                    total = total / 1000;
+                }
+                return parseFloat(total).toFixed(2);
+            },
             getCellContent: function(row){
                 var avg = row.get('MHS 5s');
                 if(speedMetric === 'GH'){
@@ -121,8 +135,9 @@ export default Em.ArrayController.extend({
                     rowCt++;
                     total += row.get('MHS av');
                 });
+
                 if(speedMetric === 'GH'){
-                    total = total / rowCt / 1000;
+                    total = total / 1000;
                 }
                 return parseFloat(total).toFixed(2);
             }
@@ -136,7 +151,7 @@ export default Em.ArrayController.extend({
                 $.each(rows, function(idx, row){
                     total += row.get('Utility');
                 });
-                return total;
+                return parseFloat(total).toFixed(2);
             }
         });
 

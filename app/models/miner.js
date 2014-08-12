@@ -35,7 +35,7 @@ var Miner = DS.Model.extend({
     "Last Valid Work": DS.attr('string'),
     "Device Hardware%": DS.attr('string'),
     "Device Rejected%": DS.attr('string'),
-    "Device Elapsed": DS.attr('string')
+    "Device Elapsed": DS.attr('number')
 });
 
 Miner.reopen({

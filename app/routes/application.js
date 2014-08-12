@@ -1,5 +1,14 @@
 export default Em.Route.extend({
-    beforeModel: function(transition){
+    beforeModel: function(){
+        this.doUpdateAPIToken();
+    },
+    loadingView: null,
+    routeDidChange: function(){
+        if(!this.get('controller.isLoggedIn')){
+            this.transitionTo('login');
+        }
+    }.observes('currentPath'),
+    doUpdateAPIToken: function(){
         var user = this.controllerFor('application').get('user');
         if(user){
             var token = user.token;
@@ -8,14 +17,10 @@ export default Em.Route.extend({
             }
         }
     },
-    loadingView: null,
-    routeDidChange: function(){
-        if(!this.get('controller.isLoggedIn')){
-            this.transitionTo('login');
-        }
-    }.observes('currentPath'),
-
     actions: {
+        updateAPIToken: function(){
+            this.doUpdateAPIToken();
+        },
         logout: function(){
             this.store.adapterFor('application').logoutUser();
             this.transitionTo('login');
