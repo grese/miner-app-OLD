@@ -23,16 +23,16 @@ export default Em.Component.extend({
             endDate: moment(dates[1], this.get('format'))
         });
     }.observes('dateRange'),
-    datepickerInput: function(){
-        return $('#'+this.get('elementId')+' input.drp-input');
-    }.property(),
+    datepickerInput: null,
+    calendarButton: null,
     didInsertElement: function(){
         var self = this;
         self.setProperties({
             startDate: this.get('defaultStartDate'),
             endDate: this.get('defaultEndDate')
         });
-        var picker =  $('#'+this.get('elementId')+' input.dtrp-input').datetimerangepicker(
+        var $input = $('#'+this.get('elementId')+' input.dtrp-input'),
+            picker =  $input.datetimerangepicker(
             {
                 format: self.get('format'),
                 renderTo: '#'+self.get('elementId'),
@@ -45,6 +45,11 @@ export default Em.Component.extend({
             }
         );
         self.set('picker', picker);
+        self.set('datepickerInput', $input);
+        self.set('calendarButton', $('#'+this.get('elementId')+' .calendar-button'));
+        self.get('calendarButton').on('click', function(e){
+            self.get('picker').data('DateTimeRangePicker').hide();
+        });
         self.updateInputValue();
     },
     updateInputValue: function(){

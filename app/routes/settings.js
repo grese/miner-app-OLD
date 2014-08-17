@@ -73,6 +73,9 @@ export default AuthenticatedRoute.extend({
             if(this.objectsAreEqual(this.controllerFor('settings.info').get('model.value'),
                 this.get('initialSettings.info'))){
                 dirtyModels.info = this.controllerFor('settings.info').save();
+                this.controllerFor('application').updateDeviceName(
+                    this.controllerFor('settings.info').get('model.value.name')
+                );
             }
 
             if(this.objectsAreEqual(this.controllerFor('settings.notification').get('model.value'),

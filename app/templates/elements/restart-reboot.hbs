@@ -4,14 +4,24 @@
                 <p class="restart-reboot-info"><i class="fa fa-info-circle fa-md"></i>&nbsp;Restart CGMiner</p>
                 <button class="restart-btn restart-reboot-btn btn btn-primary btn-sm" {{action 'restartClicked'}}>
                     <i class="fa fa-repeat fa-lg"></i>
-                    &nbsp;Restart Miner
+                    {{#if isMobile}}
+                        &nbsp;Restart<br/>
+                        &nbsp;Miner
+                    {{else}}
+                        &nbsp;Restart Miner
+                    {{/if}}
                 </button>
             </div>
             <div class="col-xs-6 col-md-2">
                 <p class="restart-reboot-info"><i class="fa fa-info-circle fa-md"></i>&nbsp;Reboot Raspberry Pi</p>
                 <button class="reboot-btn restart-reboot-btn btn btn-primary btn-sm" {{action 'rebootClicked'}}>
                     <i class="fa fa-power-off fa-lg"></i>
-                    &nbsp;Reboot Machine
+                    {{#if isMobile}}
+                        &nbsp;Reboot<br/>
+                        &nbsp;Machine
+                    {{else}}
+                        &nbsp;Reboot Machine
+                    {{/if}}
                 </button>
             </div>
     </div>

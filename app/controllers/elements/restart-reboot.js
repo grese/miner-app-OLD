@@ -1,4 +1,5 @@
-export default Em.Controller.extend({
+import DeviceMixin from 'minerapp/mixins/device-mixin';
+export default Em.Controller.extend(DeviceMixin, {
     restartModalVisible: false,
     rebootModalVisible: false,
     actions: {

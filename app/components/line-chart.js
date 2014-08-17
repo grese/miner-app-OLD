@@ -9,10 +9,10 @@ var LineGraphBaseConfig = Em.Object.extend({
         marginBottom: 30,
         marginRight: 10,
         spacingTop: 0,
-        spacingLeft: 0,
         spacingBottom: 30,
+        spacingLeft: 0,
         spacingRight: 10,
-        height: 220
+        height: 230
     },
     legend: {enabled: false},
     credits: { enabled: false },
@@ -38,6 +38,7 @@ var LineGraphBaseConfig = Em.Object.extend({
                 fontWeight: 100,
                 color: '#777'
             },
+            x: 7,
             useHTML: true
         },
         labels: {
@@ -57,7 +58,7 @@ var LineGraphBaseConfig = Em.Object.extend({
     plotOptions: {
         line: {
             marker: {
-                radius: 4,
+                radius: 3,
                 symbol: 'circle'
             }
         }
