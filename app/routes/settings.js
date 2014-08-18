@@ -27,6 +27,7 @@ export default AuthenticatedRoute.extend({
             perfExp = JSON.stringify(model.perfExp.get('value')),
             notification = JSON.stringify(model.notification.get('value')),
             analytics = JSON.stringify(model.analytics.get('value'));
+
         this.set('initialSettings', {
             info: info,
             perfExp: perfExp,
@@ -60,15 +61,30 @@ export default AuthenticatedRoute.extend({
             this.send('showGlobalLoading');
 
             var self = this;
-            var dirtyModels = {};
+            var dirtyModels = {},
+                errors = [];
 
             if(this.controllerFor('pools.pools').get('hasDirtyPools')){
-                dirtyModels.pools = this.controllerFor('pools.pools').save();
+                if(this.controllerFor('pools.pools').get('poolsAreValid')){
+                    dirtyModels.pools = this.controllerFor('pools.pools').save();
+                }else{
+                    errors = errors.concat(this.controllerFor('pools.pools').getPoolErrors());
+                }
             }
-            if(this.controllerFor('settings.user').get('model.isDirty') &&
-                this.controllerFor('settings.user').get('model.password') !== null){
-                dirtyModels.user = this.controllerFor('settings.user').save();
+            if(this.controllerFor('settings.user').get('model.isDirty')){
+                var usr = this.controllerFor('settings.user').get('model');
+                if(usr.get("isValid")){
+                    dirtyModels.user = this.controllerFor('settings.user').save();
+                }else{
+                    usr.validate().catch(function(err){
+                        errors = errors.concat(err.username);
+                        errors = errors.concat(err.password);
+                        errors = errors.concat(err.passwordConfirmation);
+                    });
+                }
+
             }
+
 
             if(this.objectsAreEqual(this.controllerFor('settings.info').get('model.value'),
                 this.get('initialSettings.info'))){
@@ -91,48 +107,57 @@ export default AuthenticatedRoute.extend({
                 dirtyModels.perfExp = this.controllerFor('alerts.alerts').save();
             }
 
-            Em.RSVP.hash(dirtyModels).then(function(responses){
-                self.controllerFor('settings').set('saveInProgress', false);
-                self.send('hideGlobalLoading');
+            if(errors.length <= 0){
+                Em.RSVP.hash(dirtyModels).then(function(responses){
+                    self.controllerFor('settings').set('saveInProgress', false);
+                    self.send('hideGlobalLoading');
 
-                var valid = true,
-                    errSections = "";
-                for(var e in responses){
-                    if(e in dirtyModels && dirtyModels[e]){
-                        if(!responses[e]){
-                            valid = false;
-                            var str = '<li>'+e.charAt(0).toUpperCase() + e.substring(1)+'</li>';
-                            errSections += str;
+                    var valid = true,
+                        errSections = "";
+                    for(var e in responses){
+                        if(e in dirtyModels && dirtyModels[e]){
+                            if(!responses[e]){
+                                valid = false;
+                                var str = '<li>'+e.charAt(0).toUpperCase() + e.substring(1)+'</li>';
+                                errSections += str;
+                            }
                         }
                     }
-                }
-                if(!valid){
-                    self.send('showHero', {
-                        type: 'danger',
-                        message: 'An error occurred while saving your settings... Please check the following sections ' +
-                            'and try again<br/><ul>'+errSections+'</ul>',
-                        title: 'Error while saving settings!'
-                    });
-                }else{
-                    if(Object.keys(dirtyModels).length > 0){
+                    if(!valid){
                         self.send('showHero', {
-                            type: 'success',
-                            message: 'Your settings have been saved successfully.',
-                            title: 'Settings Saved!'
+                            type: 'danger',
+                            message: 'An error occurred while saving your settings... Please check the following sections ' +
+                                'and try again<br/><ul>'+errSections+'</ul>',
+                            title: 'Error while saving settings!'
                         });
                     }else{
-                        self.send('showAlert', {
-                            type: 'info',
-                            message: 'It looks like none of your settings have changed since you last saved...',
-                            title: 'No Changes? '
-                        });
+                        if(Object.keys(dirtyModels).length > 0){
+                            self.send('showHero', {
+                                type: 'success',
+                                message: 'Your settings have been saved successfully.',
+                                title: 'Settings Saved!'
+                            });
+                        }else{
+                            self.send('showAlert', {
+                                type: 'info',
+                                message: 'It looks like none of your settings have changed since you last saved...',
+                                title: 'No Changes? '
+                            });
+                        }
                     }
-                }
-            }).catch(function(error){
-                self.controllerFor('settings').set('saveInProgress', false);
-                self.send('hideGlobalLoading');
-                Em.Logger.error("<ERROR>: While saving settings to server...", error);
-            });
+                }).catch(function(error){
+                    self.controllerFor('settings').set('saveInProgress', false);
+                    self.send('hideGlobalLoading');
+                    Em.Logger.error("<ERROR>: While saving settings to server...", error);
+                });
+            }else{
+                var errList = '<ul><li>'+errors.join('</li><li>')+'</li></ul>';
+                self.send('showHero', {
+                    type: 'danger',
+                    message: 'Some validation errors occurred.  Please review the errors and try again.<br/>'+errList,
+                    title: 'Error while saving settings!'
+                });
+            }
         }
     }
 });

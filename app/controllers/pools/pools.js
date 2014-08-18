@@ -11,6 +11,26 @@ export default Em.Controller.extend({
             return null;
         }
     },
+    getPoolErrors: function(){
+        var errors = [];
+        return this.get('model').map(function(pool){
+            pool.validate.catch(function(err){
+                errors = errors.concat(err.name);
+                errors = errors.concat(err.url);
+                errors = errors.concat(err.username);
+                errors = errors.concat(err.password);
+                errors = errors.concat(err.enabled);
+            });
+            return errors;
+        });
+    },
+    poolsAreValid: function(){
+        var valid = true;
+        this.get('model').map(function(pool){
+            if(!pool.get('isValid')){ valid = false; }
+        });
+        return valid;
+    }.property('model.@each.isValid'),
     hasDirtyPools: function(){
         var has = false;
         this.get('model').map(function(pool){

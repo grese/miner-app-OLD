@@ -2,7 +2,7 @@
     "name": "miner-app",
     "namespace": "minerapp",
     "APIMethod": "proxy",
-    "proxyURL": "http://10.0.1.230",
+    "proxyURL": "http://10.0.1.231",
     "proxyPath": "/api",
     "version": "0.0.1",
     "private": true,

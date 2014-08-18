@@ -8,7 +8,7 @@ export default Em.Controller.extend({
             var self = this,
                 model = self.get('model'),
                 username = model.get("username"),
-                password = $.md5(model.get('password'));
+                password = model.get('password');
             var RESTAdapter = self.store.adapterFor('application');
             var login = RESTAdapter.loginUser(username, password);
             login.then(function(data){

@@ -6,13 +6,43 @@ var UserModel = DS.Model.extend(Em.Validations.Mixin, {
 });
 
 UserModel.reopen({
+    passwordIsBlank: function(object, validator){
+        return !(
+            (object.get('password') === null) ||
+            (typeof object.get('password') === 'undefined')
+            );
+    },
     validations: {
         username: {
             presence: { message: 'Username is required.' },
+            format: {
+                with: /^[a-zA-Z0-9_-]{3,16}$/, allowBlank: false, message: 'Username must contain only letters, numbers, underscores and hyphens.'
+            },
             length: {
-                minimum: 4,
-                message: 'Username must be a minimum of 4 characters.'
+                minimum: 3,
+                maximum: 16,
+                message: 'Username must be between 3 and 16 characters.'
             }
+        },
+        password: {
+            confirmation: {
+                if: function (object, validator) {
+                    return object.passwordIsBlank(object, validator);
+                },
+                message: 'Password and Confirm Password do not match.'
+            },
+            format: {
+                with: /^[a-zA-Z0-9_-]{6,18}$/, allowBlank: true, message: 'Password must contain only letters, numbers, underscores and hyphens.'
+            },
+            length: {
+                allowBlank: true,
+                minimum: 6,
+                maximum: 18,
+                message: 'Password must be between 6 and 18 characters.'
+            }
+        },
+        passwordConfirmation: {
+
         }
     }
 });
