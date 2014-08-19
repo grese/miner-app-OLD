@@ -1,22 +1,38 @@
 import DeviceMixin from 'minerapp/mixins/device-mixin';
 
 export default Em.Controller.extend(DeviceMixin, {
+    init: function(){
+        this._super();
+        this.addBeforeObserver('dateRange', this, this.dateRangeWillChange);
+    },
+    dateRangeWillChange: function(object, property){
+        this.set('previousDateRange', this.get('dateRange'));
+    },
     speedMetric: function(){
         var sm = localStorage.getItem('dashboard_speedMetric'),
             metric = (sm === null) ? 'MH' : sm;
         this.set('chosenSpeedMetric', metric);
         return metric;
     }.property('chosenSpeedMetric'),
+    previousDateRange: null,
+    startDate: null,
+    endDate: null,
     chosenSpeedMetric: 'MH',
     showInactiveMiners: true,
     speedIsGh: function(){
         return this.get('speedMetric') === 'GH';
     }.property('speedMetric'),
     dateRangeChanged: function(){
-        this.send('updateModel', {startDate: this.get('startDate'), endDate: this.get('endDate')});
+        if(this.get('previousDateRange') !== null){
+            this.send('updateModel', {startDate: this.get('startDate'), endDate: this.get('endDate')});
+        }
     }.observes('dateRange'),
     dateRange: function(){
-        return moment(this.get('startDate')).format('MM/DD/YYYY hh:mm a') + ' - ' + moment(this.get('endDate')).format('MM/DD/YYYY hh:mm a');
+        if(this.get('startDate') === null || this.get('endDate') === null){
+            return null;
+        }else{
+            return moment(this.get('startDate')).format('MM/DD/YYYY hh:mm a') + ' - ' + moment(this.get('endDate')).format('MM/DD/YYYY hh:mm a');
+        }
     }.property('startDate', 'endDate'),
     summaryTrend: function(){
         return this.convertSummaryTrend(this.get('model.summaryTrend.content'), this.get('speedMetric'));
