@@ -66,7 +66,6 @@ var LineGraphBaseConfig = Em.Object.extend({
     tooltip: {
         useHTML: true,
         backgroundColor: 'rgba(160,160,160, 0.85)',
-        zIndex: 1000,
         borderColor: '#aaa',
         borderRadius: 1,
         crosshairs: true,
