@@ -73,7 +73,9 @@ export default AuthenticatedRoute.extend({
             }
             if(this.controllerFor('settings.user').get('model.isDirty')){
                 var usr = this.controllerFor('settings.user').get('model');
+                Em.Logger.debug('USER ', usr);
                 if(usr.get("isValid")){
+                    usr.set('passwordConfirmation', null);
                     dirtyModels.user = this.controllerFor('settings.user').save();
                 }else{
                     usr.validate().catch(function(err){
@@ -81,6 +83,7 @@ export default AuthenticatedRoute.extend({
                         errors = errors.concat(err.password);
                         errors = errors.concat(err.passwordConfirmation);
                     });
+                    usr.set('passwordConfirmation', null);
                 }
 
             }
