@@ -15,15 +15,17 @@ var DefaultColumnConfig = Em.Object.extend({
 });
 
 Ember.Handlebars.helper('tableComponentCell', function(row, column){
-    var getCellContent = column.get('getCellContent') ? column.get('getCellContent') : null;
+    var getCellContent = column.get('getCellContent') ? column.get('getCellContent') : null,
+        cellContent = '';
     if(!getCellContent && !column.get('contentPath')){
-        Em.Logger.debug("<ERROR>: All column definitions require either the \'contentPath\' property or \'getCellContent\' function to be defined.");
+        Em.Logger.warn("<WARNING>: All column definitions require either the \'contentPath\' property or \'getCellContent\' function to be defined.");
     }
     if(getCellContent){
-        return getCellContent(row);
+        cellContent = getCellContent(row);
     }else{
-        return new Em.Handlebars.SafeString(row.get(column.get('contentPath')));
+        cellContent = row.get(column.get('contentPath'));
     }
+    return new Em.Handlebars.SafeString(cellContent);
 });
 
 Ember.Handlebars.helper('tableComponentFooterCell', function(rows, column){

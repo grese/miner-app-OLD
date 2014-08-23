@@ -15,6 +15,7 @@ export default AuthenticatedRoute.extend({
             summary: self.store.find('summary').then(function(result){
                 return result.objectAt(0);
             }),
+            poolstats: self.store.find('poolstat'),
             miners: this.store.find('miner'),
             summaryTrend: self.store.find('trend', {type: 'SUMMARY', startDate: startDate, endDate: endDate}),
             minerTrend: self.store.find('trend', {type: 'MINER', startDate: startDate, endDate: endDate})
@@ -25,30 +26,31 @@ export default AuthenticatedRoute.extend({
         controller.set('model', model);
         this.store.find('setting', {type: 'PERFORMANCE_ALERT'}).then(function(result){
             if(result){
-                var perfExp = result.objectAt(0);
-                if(perfExp && perfExp.get('value.enabled')){
-                    var actualNumDevices = model.miners.length,
-                        expectedDevices = perfExp.get('value.numDevices'),
-                        actualAvgSpeed = model.summary.get('MHS av'),
-                        expectedSpeed = perfExp.get('value.numMhs');
-
-                    var messages = [];
-                    if(expectedSpeed > actualAvgSpeed){
-                        messages.push('The average speed of your miners is currently less than your expected speed setting.');
-                    }
-                    if(expectedDevices > actualNumDevices){
-                        messages.push('The number of devices currently running on your machine is less than your expected number of devices.');
-                    }
-
-                    self.send('showHero', {
-                        type: 'warning',
-                        title: 'Performance Warning',
-                        message: messages.join('<br/>')
-                    });
-                }
-
+                self.evaluatePerformance(model, result.objectAt(0));
             }
         });
+    },
+    evaluatePerformance: function(model, perfExp){
+        if(perfExp && perfExp.get('value.enabled')){
+            var actualNumDevices = model.miners.length,
+                expectedDevices = perfExp.get('value.numDevices'),
+                actualAvgSpeed = model.summary.get('MHS av'),
+                expectedSpeed = perfExp.get('value.numMhs');
+
+            var messages = [];
+            if(expectedSpeed > actualAvgSpeed){
+                messages.push('The average speed of your miners is currently less than your expected speed setting.');
+            }
+            if(expectedDevices > actualNumDevices){
+                messages.push('The number of devices currently running on your machine is less than your expected number of devices.');
+            }
+
+            this.send('showHero', {
+                type: 'warning',
+                title: 'Performance Warning',
+                message: messages.join('<br/>')
+            });
+        }
     },
     actions: {
         updateModel: function(params){

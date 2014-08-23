@@ -27,12 +27,30 @@ export default Em.ArrayController.extend({
         var enabledCol = Em.Object.create({
             headerCellText: 'Enabled',
             getCellContent: function(row){
-                return (row.get('Enabled') === 'Y') ? 'Yes' : 'No';
+                var badgeClass = 'badge',
+                    text = '';
+                if(row.get('Enabled') === 'Y'){
+                    text = 'Yes';
+                    badgeClass += ' alert-success';
+                }else{
+                    text = 'No';
+                    badgeClass += ' alert-danger';
+                }
+                return "<span class='"+badgeClass+"'>"+text+"</span>";
             }
         });
         var statusCol = Em.Object.create({
             headerCellText: 'Status',
-            contentPath: 'Status'
+            contentPath: 'Status',
+            getCellContent: function(row){
+                var badgeClass = 'badge';
+                if(row.get('Status') === 'Alive'){
+                    badgeClass += ' alert-success';
+                }else{
+                    badgeClass += ' alert-danger';
+                }
+                return "<span class='"+badgeClass+"'>"+row.get('Status')+"</span>";
+            }
         });
         var tempCol = Em.Object.create({
             headerCellText: 'Temp.',
@@ -182,7 +200,7 @@ export default Em.ArrayController.extend({
                 return moment.unix(row.get('Last Share Time')).format('MM-DD-YYYY hh:mm:ss');
             }
         });
-        return [idCol, nameCol, driverCol, enabledCol, statusCol, tempCol, deviceElapsed, accCol,
+        return [idCol, statusCol, enabledCol, nameCol, driverCol, tempCol, deviceElapsed, accCol,
             rejCol, errCol, mh5sCol, avgMhsCol, utilityCol, totalMhsCol, lastShareCol];
     }.property('controllers.dashboard.speedMetric'),
     rows: Em.computed(function(){

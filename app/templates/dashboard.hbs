@@ -83,6 +83,10 @@
 
     <hr/>
 
+    <section class="dashboard-pools-table-container">
+        {{render 'poolstats.list' model.poolstats controller='poolstats.list'}}
+    </section>
+
     <section class="dashboard-miners-table-container">
         {{#if showInactiveMiners}}
             {{render 'miners.list' allMiners speedMetric=speedMetric}}
