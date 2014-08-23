@@ -15,9 +15,12 @@ export default Em.Mixin.create({
     isDeviceMobile: function(){
         return /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     },
+    isIPhone: function(){
+        return /iPhone/i.test(navigator.userAgent);
+    }.property('isDeviceMobile'),
     isIPad: function(){
         return /iPad/i.test(navigator.userAgent);
-    },
+    }.property('isDeviceMobile'),
     isMobile: function(){
         return  this.isDeviceMobile() ||  this.get('windowWidth') < 769;
     }.property('windowWidth', 'isDeviceMobile'),
