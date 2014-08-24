@@ -45,9 +45,13 @@ export default Em.ArrayController.extend({
         var lastShareCol = Em.Object.create({
             headerCellText: 'Last Share',
             getCellContent: function(row){
-                return "<div style='min-width: 140px !important;'>"+
-                    moment.unix(row.get('Last Share Time')).format('MM-DD-YYYY hh:mm:ss') +
-                    "</div>";
+                var lastShare = parseInt(row.get('Last Share Time'));
+                if(lastShare){
+                    lastShare = moment.unix(lastShare).format('MM-DD-YYYY hh:mm:ss');
+                    return "<div style='min-width: 140px !important;'>"+lastShare+"</div>";
+                }else{
+                    return 'N/A';
+                }
             }
         });
         var bestShareCol = Em.Object.create({
@@ -86,14 +90,14 @@ export default Em.ArrayController.extend({
             headerCellText: 'Stale',
             getCellContent: function(row){
                 return row.get('Rejected')+' ('+
-                    parseFloat(row.get('Pool Rejected%')).toFixed(2) +')';
+                    parseFloat(row.get('Pool Rejected%')).toFixed(2) +'%)';
             }
         });
         var rejCol = Em.Object.create({
             headerCellText: 'Rejected',
             getCellContent: function(row){
                 return row.get('Stale')+' ('+
-                    parseFloat(row.get('Pool Stale%')).toFixed(2) +')';
+                    parseFloat(row.get('Pool Stale%')).toFixed(2) +'%)';
             }
         });
         var worksCol = Em.Object.create({

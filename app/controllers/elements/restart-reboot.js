@@ -11,23 +11,23 @@ export default Em.Controller.extend(DeviceMixin, {
         },
         doRestart: function(){
             Em.Logger.debug('Restarting miner...');
+            this.store.adapterFor('application').restartCGMiner().then(function(result){
+                Em.Logger.debug('got result: ', result);
+            });
             this.send('showWaitScreen', Em.Object.create({
                 method: 'RESTART',
                 duration: 30
             }));
-            Em.$.get('/api/restart').then(function(result){
-                Em.Logger.debug('got result: ', result);
-            });
         },
         doReboot: function(){
             Em.Logger.debug('Rebooting machine...');
-            this.send('showWaitScreen', Em.Object.create({
-                method: 'REBOOT',
-                duration: 30
-            }));
-            Em.$.get('/api/reboot').then(function(result){
+            this.store.adapterFor('application').rebootMachine().then(function(result){
                 Em.Logger.debug('got result: ', result);
             });
+            this.send('showWaitScreen', Em.Object.create({
+                method: 'REBOOT',
+                duration: 60
+            }));
         },
         cancelRestart: function(){
             Em.Logger.debug('Cancelling restart...');

@@ -24,6 +24,12 @@ ApplicationAdapter.reopen({
         sessionStorage.removeItem('piminer_user');
         this.set('headers.apitoken', null);
         return this.ajax('/api/logout');
+    },
+    restartCGMiner: function(){
+        return this.ajax('/api/cgminer/restart');
+    },
+    rebootMachine: function(){
+        return this.ajax('/api/reboot');
     }
 });
 

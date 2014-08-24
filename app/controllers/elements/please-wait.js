@@ -1,4 +1,5 @@
-export default Em.Controller.extend({
+import DeviceMixin from 'minerapp/mixins/device-mixin';
+export default Em.Controller.extend(DeviceMixin, {
     message: function(){
         switch(this.get('method')){
             case 'REBOOT':
@@ -11,7 +12,6 @@ export default Em.Controller.extend({
     }.property('method'),
     actions: {
         timerComplete: function(){
-            Em.Logger.debug('TIMER IS COMPLETE!');
             this.send('reloadPage');
         }
     }

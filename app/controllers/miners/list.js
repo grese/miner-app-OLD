@@ -197,7 +197,12 @@ export default Em.ArrayController.extend({
         var lastShareCol = Em.Object.create({
             headerCellText: 'Last Share',
             getCellContent: function(row){
-                return moment.unix(row.get('Last Share Time')).format('MM-DD-YYYY hh:mm:ss');
+                var lastShare = parseInt(row.get('Last Share Time'));
+                if(lastShare){
+                    return moment.unix(lastShare).format('MM-DD-YYYY hh:mm:ss');
+                }else{
+                    return 'N/A';
+                }
             }
         });
         return [idCol, statusCol, enabledCol, nameCol, driverCol, tempCol, deviceElapsed, accCol,
