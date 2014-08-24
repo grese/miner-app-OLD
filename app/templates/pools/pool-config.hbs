@@ -10,7 +10,7 @@
             <label>Name</label>
             {{input type='text' class='form-control' value=pool.name placeholder='Pool name'}}
         </div>
-        <div class="col-md-3 pool-url-container">
+        <div class="col-md-2 pool-url-container">
             <label>URL</label>
             {{input type='text' class='form-control' value=pool.url placeholder='Url'}}
         </div>
@@ -22,10 +22,26 @@
             <label>Password</label>
             {{input type='password' class='form-control' value=pool.password placeholder='password'}}
         </div>
+        <div class="col-md-1 pool-quota-container">
+            <label>Quota</label>
+            {{input type='number' min=1 max=100 step=1 class='form-control' value=pool.quota}}
+        </div>
+        {{!--<div class="col-md-1 pool-priority-container">
+            <label>Priority</label>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-xs">
+                    <span class="fa fa-caret-up fa-lg"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-xs">
+                    <span class="fa fa-caret-down fa-lg"></span>
+                </button>
+            </div>
+        </div>--}}
         <div class="col-md-1 pool-delete-container">
             <button class="delete-btn btn btn-xs btn-danger" {{action 'deletePool' pool}}>
                 <i class="fa fa-trash-o fa-lg"></i>&nbsp;Delete
             </button>
         </div>
+
     </div>
 </div>

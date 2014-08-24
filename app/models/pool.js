@@ -4,7 +4,9 @@ var PoolModel = DS.Model.extend(Em.Validations.Mixin, {
     url: DS.attr('string'),
     username: DS.attr('string'),
     password: DS.attr('string'),
-    enabled: DS.attr('boolean')
+    enabled: DS.attr('boolean'),
+    quota: DS.attr('number'),
+    priority: DS.attr('number')
 });
 
 PoolModel.reopen({
