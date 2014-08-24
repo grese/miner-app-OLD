@@ -16,6 +16,7 @@ export default Em.Component.extend({
     cancelIconClass: 'fa fa-thumbs-o-down',
     okIconClass: 'fa fa-thumbs-o-up',
     closeIconClass: 'fa fa-times-circle-o',
+    hasCancel: true,
     cancelButtonText: 'Cancel',
     okButtonText: 'Ok',
     titleUseHTML: false,

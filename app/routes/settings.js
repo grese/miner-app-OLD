@@ -11,6 +11,8 @@ export default AuthenticatedRoute.extend({
         return Em.RSVP.hash({
             info: self.store.find('setting', {type: 'DEVICE_INFO'})
                 .then(function(result){ return result.objectAt(0); }),
+            strategy: self.store.find('setting', {type: 'POOL_STRATEGY'})
+                .then(function(result){ return result.objectAt(0); }),
             pools: self.store.find('pool'),
             perfExp: self.store.find('setting', {type: 'PERFORMANCE_ALERT'})
                 .then(function(result){ return result.objectAt(0); }),
@@ -26,13 +28,15 @@ export default AuthenticatedRoute.extend({
         var info = JSON.stringify(model.info.get('value')),
             perfExp = JSON.stringify(model.perfExp.get('value')),
             notification = JSON.stringify(model.notification.get('value')),
-            analytics = JSON.stringify(model.analytics.get('value'));
+            analytics = JSON.stringify(model.analytics.get('value')),
+            strategy = JSON.stringify(model.strategy.get('value'));
 
         this.set('initialSettings', {
             info: info,
             perfExp: perfExp,
             notification: notification,
-            analytics: analytics
+            analytics: analytics,
+            strategy: strategy
         });
     },
     convertObjectToStr: function(obj){
@@ -49,11 +53,13 @@ export default AuthenticatedRoute.extend({
     },
     setupController: function(controller, model){
         this.controllerFor('settings.info').set('model', model.info);
+        this.controllerFor('pools.strategy').set('model', model.strategy);
         this.controllerFor('pools.pools').set('model', model.pools);
         this.controllerFor('alerts.alerts').set('perfExpSetting', model.perfExp);
         this.controllerFor('settings.notification').set('model', model.notification);
         this.controllerFor('settings.user').set('model', model.user);
         this.controllerFor('settings.analytics').set('model', model.analytics);
+        this.controllerFor('pools.strategy').set('model', model.strategy);
     },
     actions: {
         saveSettings: function(){
@@ -75,7 +81,6 @@ export default AuthenticatedRoute.extend({
             }
             if(this.controllerFor('settings.user').get('model.isDirty')){
                 var usr = this.controllerFor('settings.user').get('model');
-                Em.Logger.debug('USER ', usr);
                 if(usr.get("isValid")){
                     usr.set('passwordConfirmation', null);
                     dirtyModels.user = this.controllerFor('settings.user').save();
@@ -110,6 +115,10 @@ export default AuthenticatedRoute.extend({
             if(this.objectsAreEqual(this.controllerFor('alerts.alerts').get('perfExpSetting.value'),
                 this.get('initialSettings.perfExp'))){
                 dirtyModels.perfExp = this.controllerFor('alerts.alerts').save();
+            }
+            if(this.objectsAreEqual(this.controllerFor('pools.strategy').get('model.value'),
+                this.get('initialSettings.strategy'))){
+                dirtyModels.strategy = this.controllerFor('pools.strategy').get('model').save();
             }
 
             if(errors.length <= 0){

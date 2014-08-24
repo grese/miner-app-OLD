@@ -1,4 +1,4 @@
-export default Em.Controller.extend({
+export default Em.ArrayController.extend(Em.Evented,{
     save: function(){
         var promises = this.get('model').map(function(pool){
             if(pool.get('isDirty')){
@@ -11,6 +11,10 @@ export default Em.Controller.extend({
             return null;
         }
     },
+    poolsByPriority: function(){
+        this.trigger('poolPriorityChanged');
+        return this.get('model').sortBy('priority');
+    }.property('model.@each.priority'),
     validatePools: function(){
         this.get('model').map(function(pool){
             pool.validate();
@@ -35,7 +39,6 @@ export default Em.Controller.extend({
         return valid;
     }.property('model.@each.isValid'),
     hasDirtyPools: function(){
-        Em.Logger.debug('POOLS: ', this.get('model'));
         var has = false;
         this.get('model').map(function(pool){
             if(pool.get('isDirty')){ has = true; }
@@ -49,6 +52,46 @@ export default Em.Controller.extend({
         deletePool: function(pool){
             pool.deleteRecord();
             pool.save();
+        },
+        increasePriority: function(pool){
+            var self = this,
+                id = pool.get('id');
+
+            this.get('poolsByPriority').forEach(function(item, idx){
+               if(item.get('id') === id){
+                   if(idx > 0){
+                       var prev = self.get('poolsByPriority')[idx - 1],
+                           p = item.get('priority');
+                       if(prev){
+                           var pp = prev.get('priority');
+                           item.set('priority', pp);
+                           prev.set('priority', p);
+                       }
+                       return false;
+                   }
+                }
+            });
+        },
+        decreasePriority: function(pool){
+            var self = this,
+                id = pool.get('id'),
+                len = this.get('model.content').length;
+
+            this.get('poolsByPriority').forEach(function(item, idx){
+
+                if(item.get('id') === id){
+                    if(idx < len){
+                        var next = self.get('poolsByPriority')[idx + 1];
+                        if(next){
+                            var np = next.get('priority'),
+                                p = item.get('priority');
+                            item.set('priority', np);
+                            next.set('priority', p);
+                        }
+                    }
+                    return false;
+                }
+            });
         }
     }
 });

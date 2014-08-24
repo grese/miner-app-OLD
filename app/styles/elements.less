@@ -43,3 +43,50 @@
 .please-wait-mobile .please-wait-message{
   font-size: 18px;
 }
+
+// Spinner Input:
+.spinner-element .spinner {
+  width: 60px;
+}
+.spinner-element .spinner input {
+  text-align: right;
+}
+.spinner-element  .input-group-btn-vertical {
+  position: relative;
+  white-space: nowrap;
+  width: 1%;
+  vertical-align: middle;
+  display: table-cell;
+}
+.spinner-element .btn:focus,
+.spinner-element .btn:active{
+  outline: none;
+}
+
+.spinner-element .input-group-btn-vertical > .btn {
+  display: block;
+  float: none;
+  width: 100%;
+  max-width: 100%;
+  padding: 8px;
+  margin-left: -1px;
+  position: relative;
+  border-radius: 0;
+}
+.spinner-element .input-group-btn-vertical > .btn:first-child {
+  border-top-right-radius: 2px;
+}
+.spinner-element .input-group-btn-vertical > .btn:first-child:hover,
+.spinner-element .input-group-btn-vertical > .btn:first-child:active{
+  border-bottom: 1px solid #888;
+  margin-bottom: -1px;
+}
+.spinner-element .input-group-btn-vertical > .btn:last-child {
+  margin-top: -1px;
+  border-bottom-right-radius: 2px;
+}
+.spinner-element .input-group-btn-vertical i{
+  position: absolute;
+  top: 0;
+  left: 4px;
+}

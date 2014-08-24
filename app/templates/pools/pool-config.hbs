@@ -24,22 +24,22 @@
         </div>
         <div class="col-md-1 pool-quota-container">
             <label>Quota</label>
-            {{input type='number' min=1 max=100 step=1 class='form-control' value=pool.quota}}
+            {{view 'elements.spinner' value=pool.quota width=50}}
         </div>
-        {{!--<div class="col-md-1 pool-priority-container">
+        <div class="col-md-1 pool-priority-container">
             <label>Priority</label>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default btn-xs">
+            <div class="btn-group-vertical">
+                <button {{action 'increasePriority' pool}} type="button" class="priority-up btn btn-default btn-xs">
                     <span class="fa fa-caret-up fa-lg"></span>
                 </button>
-                <button type="button" class="btn btn-default btn-xs">
+                <button {{action 'decreasePriority' pool}} type="button" class="priority-down btn btn-default btn-xs">
                     <span class="fa fa-caret-down fa-lg"></span>
                 </button>
             </div>
-        </div>--}}
+        </div>
         <div class="col-md-1 pool-delete-container">
             <button class="delete-btn btn btn-xs btn-danger" {{action 'deletePool' pool}}>
-                <i class="fa fa-trash-o fa-lg"></i>&nbsp;Delete
+                <i class="fa fa-trash-o fa-lg"></i>
             </button>
         </div>
 

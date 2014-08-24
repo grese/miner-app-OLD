@@ -21,10 +21,12 @@
                 {{/if}}
             </div>
             <div class="modal-footer">
-                <button {{bind-attr id='cancelButtonId'}} type="button" class="btn btn-sm btn-default" data-dismiss="modal">
-                    <i {{bind-attr class='cancelIconClass'}}></i>&nbsp;
-                    {{cancelButtonText}}
-                </button>
+                {{#if hasCancel}}
+                    <button {{bind-attr id='cancelButtonId'}} type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                        <i {{bind-attr class='cancelIconClass'}}></i>&nbsp;
+                        {{cancelButtonText}}
+                    </button>
+                {{/if}}
                 <button {{bind-attr id='okButtonId'}} type="button" class="btn btn-sm btn-primary">
                     <i {{bind-attr class='okIconClass'}}></i>&nbsp;
                     {{okButtonText}}
