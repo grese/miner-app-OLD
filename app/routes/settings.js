@@ -64,11 +64,13 @@ export default AuthenticatedRoute.extend({
             var dirtyModels = {},
                 errors = [];
 
+            this.controllerFor('pools.pools').validatePools();
             if(this.controllerFor('pools.pools').get('hasDirtyPools')){
+
                 if(this.controllerFor('pools.pools').get('poolsAreValid')){
                     dirtyModels.pools = this.controllerFor('pools.pools').save();
                 }else{
-                    errors = errors.concat(this.controllerFor('pools.pools').getPoolErrors());
+                    errors = errors.concat(this.controllerFor('pools.pools').get('validationErrors'));
                 }
             }
             if(this.controllerFor('settings.user').get('model.isDirty')){
@@ -154,6 +156,7 @@ export default AuthenticatedRoute.extend({
                     Em.Logger.error("<ERROR>: While saving settings to server...", error);
                 });
             }else{
+                self.send('hideGlobalLoading');
                 var errList = '<ul><li>'+errors.join('</li><li>')+'</li></ul>';
                 self.send('showHero', {
                     type: 'danger',

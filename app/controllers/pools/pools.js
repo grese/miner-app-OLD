@@ -11,19 +11,22 @@ export default Em.Controller.extend({
             return null;
         }
     },
-    getPoolErrors: function(){
-        var errors = [];
-        return this.get('model').map(function(pool){
-            pool.validate.catch(function(err){
-                errors = errors.concat(err.name);
-                errors = errors.concat(err.url);
-                errors = errors.concat(err.username);
-                errors = errors.concat(err.password);
-                errors = errors.concat(err.enabled);
-            });
-            return errors;
+    validatePools: function(){
+        this.get('model').map(function(pool){
+            pool.validate();
         });
     },
+    validationErrors: function(){
+        var errors = [];
+        this.get('model').map(function(pool){
+            var errs = pool.get('errors');
+            if(errs.name.length > 0)
+                errors = errors.concat(errs.name);
+            if(errs.url.length > 0)
+                errors = errors.concat(errs.url);
+        });
+        return errors;
+    }.property('poolsAreValid'),
     poolsAreValid: function(){
         var valid = true;
         this.get('model').map(function(pool){
@@ -32,6 +35,7 @@ export default Em.Controller.extend({
         return valid;
     }.property('model.@each.isValid'),
     hasDirtyPools: function(){
+        Em.Logger.debug('POOLS: ', this.get('model'));
         var has = false;
         this.get('model').map(function(pool){
             if(pool.get('isDirty')){ has = true; }
