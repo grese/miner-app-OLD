@@ -2,9 +2,10 @@
 <div class="well">
     {{outlet alert}}
     <div class="row pools-list-controls-container">
-        <div class="col-md-9">
+        <div {{bind-attr class=":col-md-9 :col-xs-12 :pools-strategy-container isMobile:mobile"}}>
             {{render 'pools.strategy' controller='pools.strategy'}}
         </div>
+        <hr/>
         <div class="col-md-3">
             <button class="pools-new btn btn-success btn-xs pull-right" {{action 'newPool'}}>
                 <i class="fa fa-plus-square fa-lg"></i>&nbsp;&nbsp;Add Pool
@@ -14,7 +15,11 @@
     <hr/>
     <div class="list-group">
         {{#each pool in poolsByPriority}}
-            {{render 'pools.pool-config' pool}}
+            {{#if isMobile}}
+                {{render 'pools.pool-config-mobile' pool}}
+            {{else}}
+                {{render 'pools.pool-config' pool}}
+            {{/if}}
         {{/each}}
     </div>
 </div>

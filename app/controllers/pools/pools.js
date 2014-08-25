@@ -1,4 +1,5 @@
-export default Em.ArrayController.extend(Em.Evented,{
+import DeviceMixin from 'minerapp/mixins/device-mixin';
+export default Em.ArrayController.extend(Em.Evented, DeviceMixin,{
     save: function(){
         var promises = this.get('model').map(function(pool){
             if(pool.get('isDirty')){
