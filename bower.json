@@ -21,7 +21,8 @@
     "jquery-number": "*",
     "highcharts.com": "*",
     "momentjs": "~2.5.1",
-    "flipcountdown": "~3.0.5"
+    "flipcountdown": "~3.0.5",
+    "bootstrap-select": "~1.6.2"
   },
   "resolutions": {
     "jquery": "~1.9.1"

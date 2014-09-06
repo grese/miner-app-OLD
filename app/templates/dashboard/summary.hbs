@@ -8,13 +8,13 @@
     </div>
     <div class="mhsAv dashboard-summary-item">
             <div class="summary-item-value">
-                {{format-decimal model.avg 2}}
+                {{format-decimal model.avg 2 model.speedMetric}}
             </div>
             <label class="summary-item-title">Avg. {{format-capitalize model.speedMetric}}/s</label>
     </div>
     <div class="totalMhs dashboard-summary-item">
         <div class="summary-item-value">
-            {{format-decimal model.total 2}}
+            {{format-decimal model.total 2 model.speedMetric}}
         </div>
         <label class="summary-item-title">Total {{format-capitalize model.speedMetric}}</label>
     </div>

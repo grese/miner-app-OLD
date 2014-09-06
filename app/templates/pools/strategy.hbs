@@ -5,8 +5,7 @@
             <span class="fa fa-info-circle fa-lg info"></span>
         </button>
     </label>
-    {{view Em.Select class='form-control' content=options optionValuePath="content.value"
-    optionLabelPath="content.label" value=model.value.strategy}}
+    {{view 'elements.select-input' content=options value=model.value.strategy}}
 </div>
 <div class="col-xs-2 col-md-2">
     {{#if isStrategyRotate}}
